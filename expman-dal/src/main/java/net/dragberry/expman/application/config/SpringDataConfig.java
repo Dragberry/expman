@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
@@ -15,6 +16,8 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.googlecode.flyway.core.Flyway;
 
 import net.dragberry.expman.repository.Repositories;
 
@@ -47,7 +50,7 @@ public class SpringDataConfig {
 		return dataSource;
 	}
 
-	@Bean
+	@Bean @DependsOn("flyway")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(dataSource());
@@ -70,5 +73,14 @@ public class SpringDataConfig {
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		transactionManager.setDataSource(dataSource());
 		return transactionManager;
+	}
+	
+	@Bean(initMethod = "migrate")
+	public Flyway flyway() {
+		Flyway flyway = new Flyway();
+		flyway.setDataSource(dataSource());
+		flyway.setLocations("classpath:db_migration/");
+		flyway.setInitOnMigrate(true);
+		return flyway;
 	}
 }
