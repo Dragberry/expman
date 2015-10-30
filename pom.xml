@@ -11,7 +11,12 @@
 
 	<modules>
 		<module>expman-dal</module>
-		<!-- <module>expman-core</module> <module>expman-business</module> <module>expense-web</module> -->
+		<module>expman-web</module> 
+		<!-- 
+		<module>expman-core</module> 
+		<module>expman-business</module> 
+		
+		-->
 	</modules>
 	<dependencies>
 		<!-- Apache common utils -->

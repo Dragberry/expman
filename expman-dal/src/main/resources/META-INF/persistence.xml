@@ -7,6 +7,9 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>net.dragberry.expman.domain.Customer</class>
 		<class>net.dragberry.expman.domain.Role</class>
+		<class>net.dragberry.expman.domain.Interchange</class>
+		<class>net.dragberry.expman.domain.InterchangeType</class>
+		<class>net.dragberry.expman.domain.CounterParty</class>
 		<properties>
 			<property name="hibernate.dialect" value="${db.dialect}" />
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
