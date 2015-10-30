@@ -3,6 +3,7 @@ package net.dragberry.expman.application.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -13,8 +14,9 @@ import net.dragberry.expman.web.controller.Controllers;
 
 @Configuration
 @EnableWebMvc
+@Import(value = { SecurityConfig.class })
 @ComponentScan(basePackageClasses = { Controllers.class })
-public class SpringServletConfiguration extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public UrlBasedViewResolver viewResolver() {

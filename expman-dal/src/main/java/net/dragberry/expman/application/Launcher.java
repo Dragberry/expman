@@ -3,7 +3,7 @@ package net.dragberry.expman.application;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import net.dragberry.expman.application.config.SpringDataConfig;
+import net.dragberry.expman.application.config.DataConfig;
 import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Role;
 import net.dragberry.expman.repository.CustomerRepo;
@@ -11,7 +11,7 @@ import net.dragberry.expman.repository.CustomerRepo;
 public class Launcher {
 	
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(SpringDataConfig.class);
+		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(DataConfig.class);
 		CustomerRepo customerRepo = context.getBean(CustomerRepo.class);
 		Customer customer = new Customer();
 		customer.setCustomerName("Maksim");

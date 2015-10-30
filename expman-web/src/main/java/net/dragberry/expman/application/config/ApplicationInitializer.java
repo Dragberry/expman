@@ -1,11 +1,11 @@
 package net.dragberry.expman.application.config;
 
-import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import net.dragberry.expman.application.config.SpringDataConfig;
+import net.dragberry.expman.application.config.DataConfig;
 
-public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements WebApplicationInitializer {
+public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	
 	@Override
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
@@ -13,12 +13,12 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { SpringDataConfig.class };
+		return new Class<?>[] { DataConfig.class };
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { SpringServletConfiguration.class };
+		return new Class<?>[] { null };
 	}
 	
 	
