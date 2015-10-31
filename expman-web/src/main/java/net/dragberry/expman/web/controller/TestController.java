@@ -1,8 +1,9 @@
 package net.dragberry.expman.web.controller;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,14 +13,27 @@ import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.business.CustomerService;
 
 @Controller
-public class IndexController {
+public class TestController {
 	
 	@Autowired
 	private CustomerService customerService;
 
 	@RequestMapping("/")
-	public String index() {
+	public String index(HttpServletRequest request) {
+		boolean b = request.isUserInRole("ROLE_ADMIN");
+		b = !b;
 		return "index";
+	}
+	
+	@RequestMapping("/admin")
+	public String admin() {
+		
+		return "admin";
+	}
+	
+	@RequestMapping("/customer")
+	public String customer() {
+		return "customer";
 	}
 	
 	@RequestMapping("/create")

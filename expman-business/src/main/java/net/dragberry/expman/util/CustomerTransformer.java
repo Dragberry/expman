@@ -39,6 +39,7 @@ public class CustomerTransformer implements EntityTransformer<Customer, Customer
 		for (Role role : object.getRoles()) {
 			roles.add(role.getRoleName());
 		}
+		customerTO.setRoles(roles);
 		return customerTO;
 	}
 
