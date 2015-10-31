@@ -11,10 +11,12 @@
 
 	<modules>
 		<module>expman-dal</module>
+		<module>expman-business</module> 
 		<module>expman-web</module> 
+		
 		<!-- 
 		<module>expman-core</module> 
-		<module>expman-business</module> 
+		
 		
 		-->
 	</modules>
@@ -58,6 +60,7 @@
 
 	<properties>
 		<spring-framework.version>4.2.2.RELEASE</spring-framework.version>
+		<spring-security.version>4.0.2.RELEASE</spring-security.version>
 		<spring-data-jpa.version>1.9.0.RELEASE</spring-data-jpa.version>
 	</properties>
 

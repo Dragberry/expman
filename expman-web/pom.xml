@@ -13,10 +13,6 @@
 	<name>Expense Manager Web Application</name>
 	<packaging>war</packaging>
 
-	<properties>
-		<spring-security.version>4.0.2.RELEASE</spring-security.version>
-	</properties>
-
 	<dependencies>
 		<!-- Spring MVC -->
 		<dependency>
@@ -73,18 +69,18 @@
 			<version>1.1.2</version>
 		</dependency>
 		<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
-			<artifactId>expman-dal</artifactId>
+			<artifactId>expman-business</artifactId>
 			<groupId>net.dragberry.expman</groupId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>

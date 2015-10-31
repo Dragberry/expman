@@ -14,7 +14,7 @@ import net.dragberry.expman.web.controller.Controllers;
 
 @Configuration
 @EnableWebMvc
-@Import(value = { DataConfig.class, SecurityConfig.class })
+@Import(value = { BusinessConfig.class, SecurityConfig.class })
 @ComponentScan(basePackageClasses = { Controllers.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
 

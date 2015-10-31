@@ -6,18 +6,19 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
+
+import net.dragberry.expman.business.CustomerService;
+import net.dragberry.expman.web.security.CustomerSecurityService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	private static final String SHA_256_ALGORITHM = "SHA-256";
 	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
-    }
-
+	private CustomerService customerService;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -26,5 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.formLogin()
 		.and()
 		.httpBasic();
+	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(new CustomerSecurityService(customerService)).passwordEncoder(new StandardPasswordEncoder(SHA_256_ALGORITHM));
 	}
 }

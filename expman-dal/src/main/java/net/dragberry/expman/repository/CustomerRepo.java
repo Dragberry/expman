@@ -8,5 +8,5 @@ import net.dragberry.expman.domain.Customer;
 @Repository
 public interface CustomerRepo extends JpaRepository<Customer, Long> {
 
-	
+	Customer findByCustomerName(String customerName);
 }
