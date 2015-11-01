@@ -22,6 +22,10 @@ public class CustomerTransformer implements EntityTransformer<Customer, Customer
 		customer.setCustomerName(bean.getCustomerName());
 		customer.setPassword(encoder.encode(bean.getPassword()));
 		customer.setEnabled(bean.isEnabled());
+		customer.setBirthDate(bean.getBirtdate());
+		customer.setFirstName(bean.getFirstName());
+		customer.setLastName(bean.getLastName());
+		customer.setEmail(bean.getEmail());
 		return customer;
 	}
 
@@ -40,6 +44,10 @@ public class CustomerTransformer implements EntityTransformer<Customer, Customer
 			roles.add(role.getRoleName());
 		}
 		customerTO.setRoles(roles);
+		customerTO.setBirtdate(object.getBirthDate());
+		customerTO.setFirstName(object.getFirstName());
+		customerTO.setLastName(object.getLastName());
+		customerTO.setEmail(object.getEmail());
 		return customerTO;
 	}
 

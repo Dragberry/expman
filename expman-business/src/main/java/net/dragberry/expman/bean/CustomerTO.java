@@ -1,5 +1,6 @@
 package net.dragberry.expman.bean;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,16 @@ public class CustomerTO implements TransferObject {
 	private String customerName;
 	
 	private String password;
+	
+	private String passwordRepeated;
+	
+	private String firstName;
+	
+	private String lastName;
+	
+	private String email;
+	
+	private Date birtdate;
 	
 	private boolean enabled;
 	
@@ -55,6 +66,46 @@ public class CustomerTO implements TransferObject {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getPasswordRepeated() {
+		return passwordRepeated;
+	}
+
+	public void setPasswordRepeated(String passwordRepeated) {
+		this.passwordRepeated = passwordRepeated;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getBirtdate() {
+		return birtdate;
+	}
+
+	public void setBirtdate(Date birtdate) {
+		this.birtdate = birtdate;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }

@@ -5,15 +5,21 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.business.CustomerService;
 
 @Controller
 public class TestController {
+	
+	private static final Logger LOG = LogManager.getLogger(TestController.class.getName());
 	
 	@Autowired
 	private CustomerService customerService;
@@ -23,6 +29,20 @@ public class TestController {
 		boolean b = request.isUserInRole("ROLE_ADMIN");
 		b = !b;
 		return "index";
+	}
+	
+	@RequestMapping("/registration")
+	public ModelAndView registration() {
+		ModelAndView modelAndView = new ModelAndView("registration");
+		modelAndView.addObject("customerTO", new CustomerTO());
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public ModelAndView registrationSubmit(CustomerTO customerTO) {
+		LOG.info("Registration POST request. FirstName=" + customerTO.getFirstName());
+		ModelAndView modelAndView = new ModelAndView("index");
+		return modelAndView;
 	}
 	
 	@RequestMapping("/admin")

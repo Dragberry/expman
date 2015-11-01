@@ -3,28 +3,45 @@ package net.dragberry.expman.application.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 import net.dragberry.expman.web.controller.Controllers;
 
 @Configuration
 @EnableWebMvc
-@Import(value = { BusinessConfig.class, SecurityConfig.class })
 @ComponentScan(basePackageClasses = { Controllers.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
-	public InternalResourceViewResolver viewResolver() {
-		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-		bean.setPrefix("/WEB-INF/views/");
-		bean.setSuffix(".jsp");
-		bean.setViewClass(JstlView.class);
-		return bean;
+	public ViewResolver viewResolver(SpringTemplateEngine springTemplateEngine) {
+		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+		thymeleafViewResolver.setTemplateEngine(springTemplateEngine);
+		thymeleafViewResolver.setCharacterEncoding("UTF-8");
+		return thymeleafViewResolver;
+	}
+	
+	@Bean
+	public SpringTemplateEngine templateEngine(TemplateResolver templateResolver) {
+		SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
+		springTemplateEngine.setTemplateResolver(templateResolver);
+		return springTemplateEngine;
+	}
+	
+	@Bean
+	public TemplateResolver templateResolver() {
+		TemplateResolver templateResolver = new ServletContextTemplateResolver();
+		templateResolver.setPrefix("/WEB-INF/views/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setCharacterEncoding("UTF-8");
+		return templateResolver;
 	}
 
 	@Override
