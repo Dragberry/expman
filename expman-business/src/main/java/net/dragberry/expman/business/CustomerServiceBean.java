@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.dragberry.expman.bean.CustomerTO;
+import net.dragberry.expman.bean.ResultTO;
 import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Role;
 import net.dragberry.expman.repository.CustomerRepo;
 import net.dragberry.expman.repository.RoleRepo;
+import net.dragberry.expman.util.ResultFactory;
 import net.dragberry.expman.util.Transformers;
 
 @Service
@@ -23,13 +25,14 @@ public class CustomerServiceBean implements CustomerService {
 	private RoleRepo roleRepo;
 
 	@Override
-	public CustomerTO findByCustomerName(String customerName) {
+	public ResultTO<CustomerTO> findByCustomerName(String customerName) {
 		Customer customer = customerRepo.findByCustomerName(customerName);
-		return Transformers.getCustomerTransformer().transform(customer);
+		CustomerTO customerTO =  Transformers.getCustomerTransformer().transform(customer);
+		ResultFactory.
 	}
 
 	@Override
-	public CustomerTO createCustomer(CustomerTO customerTO) {
+	public ResultTO<CustomerTO> createCustomer(CustomerTO customerTO) {
 		Customer customer = Transformers.getCustomerTransformer().transform(customerTO);
 		Set<Role> roles = roleRepo.findByRoleNameIn(customerTO.getRoles());
 		customer.setRoles(roles);
