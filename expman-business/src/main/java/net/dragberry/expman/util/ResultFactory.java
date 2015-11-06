@@ -12,11 +12,11 @@ public final class ResultFactory {
 	private ResultFactory() {
 	}
 	
-	public <T extends TransferObject> ResultTO<T> createResult(T resultObject) {
+	public static <T extends TransferObject> ResultTO<T> createResult(T resultObject) {
 		return createResult(resultObject, null);
 	}
 	
-	public <T extends TransferObject> ResultTO<T> createResult(T resultObject, Collection<IssueTO> issueLog) {
+	public static <T extends TransferObject> ResultTO<T> createResult(T resultObject, Collection<IssueTO> issueLog) {
 		ResultTO<T> result = new ResultTO<>(resultObject);
 		if (CollectionUtils.isNotEmpty(issueLog)) {
 			for (IssueTO issue : issueLog) {

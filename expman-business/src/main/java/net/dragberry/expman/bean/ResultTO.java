@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 public class ResultTO<T extends TransferObject> implements TransferObject {
 
 	private static final long serialVersionUID = -5024523531166601727L;
@@ -26,5 +28,9 @@ public class ResultTO<T extends TransferObject> implements TransferObject {
 	
 	public void addIssue(IssueTO issue) {
 		issueLog.add(issue);
+	}
+	
+	public boolean hasIssues() {
+		return CollectionUtils.isNotEmpty(issueLog);
 	}
 }

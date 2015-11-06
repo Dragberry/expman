@@ -41,6 +41,13 @@ public class TestController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public ModelAndView registrationSubmit(CustomerTO customerTO) {
 		LOG.info("Registration POST request. FirstName=" + customerTO.getFirstName());
+		customerTO.setEnabled(true);
+		Set<String> roles = new HashSet<>();
+		roles.add("USER");
+		customerTO.setRoles(roles);
+		
+		customerService.createCustomer(customerTO);
+		
 		ModelAndView modelAndView = new ModelAndView("index");
 		return modelAndView;
 	}

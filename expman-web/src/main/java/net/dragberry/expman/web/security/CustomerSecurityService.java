@@ -28,7 +28,7 @@ public class CustomerSecurityService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String customerName) throws UsernameNotFoundException {
-		CustomerTO customerTO = customerSevice.findByCustomerName(customerName);
+		CustomerTO customerTO = customerSevice.findByCustomerName(customerName).getObject();
 		if (customerTO != null) {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 			for (String role : customerTO.getRoles()) {
