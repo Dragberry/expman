@@ -17,4 +17,5 @@ public interface CustomerRepo extends JpaRepository<Customer, Long> {
 	
 	@Query(value = "SELECT COUNT(c) > 0 FROM Customer c WHERE c.email = :email")
 	boolean ifCustomerEmailExist(@Param("email")String email);
+	
 }

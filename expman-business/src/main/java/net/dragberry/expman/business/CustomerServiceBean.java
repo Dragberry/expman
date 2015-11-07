@@ -60,6 +60,10 @@ public class CustomerServiceBean implements CustomerService {
 			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_NAME_IS_EXIST, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer name has already present");
 		}
+		if (!StringUtils.equals(customerTO.getPassword(), customerTO.getPasswordRepeated())) {
+			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_PASSWORD_DO_NOT_MATCH, BusinessMessageCodes.DOMAIN));
+			LOG.warn("Password is not matching");
+		}
 		if (issueLog.isEmpty()) {
 			Customer customer = Transformers.getCustomerTransformer().transform(customerTO);
 			Set<Role> roles = roleRepo.findByRoleNameIn(customerTO.getRoles());

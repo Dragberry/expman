@@ -25,6 +25,12 @@
 		</label>: 
 		<input type="password" th:field="*{password}"
 			th:class="${#fields.hasErrors('password')}? 'error'" /><br />
+		<label th:class="${#fields.hasErrors('passwordRepeated')}? 'error'">
+			Repeat password
+		</label>: 
+		<input type="password" th:field="*{passwordRepeated}"
+			th:class="${#fields.hasErrors('passwordRepeated')}? 'error'" /><br />
+		
 		<label th:class="${#fields.hasErrors('firstName')}? 'error'">
 			First Name
 		</label>: 

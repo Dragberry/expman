@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.dragberry.expman.bean.CustomerTO;
+import net.dragberry.expman.bean.ResultTO;
 import net.dragberry.expman.business.CustomerService;
 
 @Controller
@@ -39,17 +40,19 @@ public class TestController {
 	}
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public ModelAndView registrationSubmit(CustomerTO customerTO) {
+	public ModelAndView registrationSubmit(CustomerTO customerTO, HttpServletRequest request) {
 		LOG.info("Registration POST request. FirstName=" + customerTO.getFirstName());
 		customerTO.setEnabled(true);
 		Set<String> roles = new HashSet<>();
 		roles.add("USER");
 		customerTO.setRoles(roles);
 		
-		customerService.createCustomer(customerTO);
-		
-		ModelAndView modelAndView = new ModelAndView("index");
-		return modelAndView;
+		ResultTO<CustomerTO> createdCustomerTO = customerService.createCustomer(customerTO);
+		if (createdCustomerTO.hasIssues()) {
+			return new ModelAndView("registration");
+		} else {
+			return new ModelAndView("index");
+		}
 	}
 	
 	@RequestMapping("/admin")
