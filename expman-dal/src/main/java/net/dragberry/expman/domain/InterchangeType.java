@@ -1,5 +1,7 @@
 package net.dragberry.expman.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +13,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "INTERCHANGE_TYPE")
-public class InterchangeType {
+public class InterchangeType implements Serializable {
 	
+	private static final long serialVersionUID = 7036757795385197011L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "INTERCHANGE_TYPE_KEY")
@@ -64,4 +68,11 @@ public class InterchangeType {
 		this.parentType = parentType;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 }

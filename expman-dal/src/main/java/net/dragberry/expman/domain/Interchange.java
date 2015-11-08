@@ -38,6 +38,9 @@ public class Interchange implements Serializable {
 	@Column(name = "CURRENCY")
 	private String currency;
 	
+	@Column(name = "DESCRIPTION")
+	private String description;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "INTERCHANGE_TYPE_KEY", referencedColumnName = "INTERCHANGE_TYPE_KEY")
 	private InterchangeType interchangeType;
@@ -102,4 +105,11 @@ public class Interchange implements Serializable {
 		this.counterParty = counterParty;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }
