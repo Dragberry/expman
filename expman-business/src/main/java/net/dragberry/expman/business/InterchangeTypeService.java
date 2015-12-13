@@ -9,4 +9,6 @@ public interface InterchangeTypeService {
 	ResultTO<InterchangeTypeTO> findInterchangeTypeByKey(Long interchangeKey);
 
 	ResultListTO<InterchangeTypeTO> findInterchangeTypeListForCustomer(Long customerKey);
+
+	ResultTO<InterchangeTypeTO> createInterchangeType(InterchangeTypeTO interchangeTypeTO);
 }

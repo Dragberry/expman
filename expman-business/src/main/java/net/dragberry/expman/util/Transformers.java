@@ -1,8 +1,10 @@
 package net.dragberry.expman.util;
 
+import net.dragberry.expman.bean.CounterPartyTO;
 import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.bean.InterchangeTO;
 import net.dragberry.expman.bean.InterchangeTypeTO;
+import net.dragberry.expman.domain.CounterParty;
 import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Interchange;
 import net.dragberry.expman.domain.InterchangeType;
@@ -12,6 +14,7 @@ public final class Transformers {
 	private static final EntityTransformer<Interchange, InterchangeTO> interchangeTransformer = new InterchangeTransformer();
 	private static final EntityTransformer<Customer, CustomerTO> customerTransformer = new CustomerTransformer();
 	private static final EntityTransformer<InterchangeType, InterchangeTypeTO> interchangeTypeTransformer = new InterchangeTypeTransformer();
+	private static final EntityTransformer<CounterParty, CounterPartyTO> counterPartyTransformer = new CounterPartyTransformer();
 	
 	private Transformers() {
 	}
@@ -27,5 +30,8 @@ public final class Transformers {
 	public static EntityTransformer<Interchange, InterchangeTO> getInterchangeTransformer() {
 		return interchangeTransformer;
 	}
-
+	
+	public static EntityTransformer<CounterParty, CounterPartyTO> getCounterPartyTransformer() {
+		return counterPartyTransformer;
+	}
 }

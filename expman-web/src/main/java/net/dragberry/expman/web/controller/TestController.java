@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.dragberry.expman.bean.CounterPartyTO;
 import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.bean.InterchangeTO;
 import net.dragberry.expman.bean.InterchangeTypeTO;
 import net.dragberry.expman.bean.ResultTO;
+import net.dragberry.expman.business.CounterPartyService;
 import net.dragberry.expman.business.CustomerService;
 import net.dragberry.expman.business.InterchangeService;
 import net.dragberry.expman.business.InterchangeTypeService;
+import net.dragberry.expman.web.model.InterchangeCreateModel;
+import net.dragberry.expman.web.model.InterchangeTypeCreateModel;
 
 @Controller
 public class TestController {
@@ -33,6 +37,8 @@ public class TestController {
 	private InterchangeService interchangeService;
 	@Autowired
 	private InterchangeTypeService interchangeTypeService;
+	@Autowired
+	private CounterPartyService counterPartyService;
 
 	@RequestMapping("/")
 	public String index(HttpServletRequest request) {
@@ -41,27 +47,70 @@ public class TestController {
 		return "index";
 	}
 	
+	@RequestMapping("/create-interchange-type")
+	public ModelAndView createInterchangeType(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("create-interchange-type");
+		modelAndView.addObject("interchangeTypeModel", new InterchangeTypeCreateModel());
+		modelAndView.addObject("typeList", InterchangeTypeCreateModel.Type.values());
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/create-interchange-type", method = RequestMethod.POST)
+	public ModelAndView createInterchangeType(InterchangeTypeCreateModel interchangeTypeCreateModel, HttpServletRequest request) {
+		InterchangeTypeTO interchangeTypeTO = new InterchangeTypeTO();
+		interchangeTypeTO.setName(interchangeTypeCreateModel.getName());
+		interchangeTypeTO.setType(interchangeTypeCreateModel.getType());
+		
+		String principalName = request.getUserPrincipal().getName();
+		CustomerTO loggedCustomer = customerService.findByCustomerName(principalName).getObject();
+		interchangeTypeTO.setCustomer(loggedCustomer);
+		
+		interchangeTypeService.createInterchangeType(interchangeTypeTO);
+		
+		ModelAndView modelAndView = new ModelAndView("create-interchange-type");
+		modelAndView.addObject("interchangeTypeModel", new InterchangeTypeCreateModel());
+		modelAndView.addObject("typeList", InterchangeTypeCreateModel.Type.values());
+		return modelAndView;
+	}
+	
 	@RequestMapping("/create-interchange")
 	public ModelAndView createInterchange(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("create-interchange");
-		modelAndView.addObject("interchangeTO", new InterchangeTO());
+		modelAndView.addObject("interchange", new InterchangeCreateModel());
 		String principalName = request.getUserPrincipal().getName();
 		CustomerTO loggedCustomer = customerService.findByCustomerName(principalName).getObject();
 		
 		List<InterchangeTypeTO> interchangeTypeList = interchangeTypeService.findInterchangeTypeListForCustomer(loggedCustomer.getCustomerKey()).getList();
 		modelAndView.addObject("interchangeTypeList", interchangeTypeList);
+		
+		List<CounterPartyTO> counterPartyList = counterPartyService.fetchCounterPartyList(loggedCustomer.getCustomerKey()).getList();
+		modelAndView.addObject("counterPartyList", counterPartyList);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/create-interchange", method = RequestMethod.POST)
-	public ModelAndView createInterchange(InterchangeTO interchangeTO, HttpServletRequest request) {
+	public ModelAndView createInterchange(InterchangeCreateModel interchange, HttpServletRequest request) {
+		InterchangeTO interchangeTO = new InterchangeTO();
+		interchangeTO.setAmount(interchange.getAmount());
+		interchangeTO.setCurrency(interchange.getCurrency());
+		interchangeTO.setDescription(interchange.getDescription());
+		interchangeTO.setProcessingDate(interchange.getProcessingDate());
+		
 		String principalName = request.getUserPrincipal().getName();
 		CustomerTO loggedCustomer = customerService.findByCustomerName(principalName).getObject();
-		InterchangeTypeTO interchangeTypeTO = interchangeTypeService.findInterchangeTypeByKey(1L).getObject();
-		interchangeTO.setInterchangeType(interchangeTypeTO);
 		interchangeTO.setCustomer(loggedCustomer);
+		
+		InterchangeTypeTO interchangeTypeTO = interchangeTypeService.findInterchangeTypeByKey(interchange.getInterchangeTypeKey()).getObject();
+		interchangeTO.setInterchangeType(interchangeTypeTO);
+		
+		CounterPartyTO cpTO = counterPartyService.findCounterParty(interchange.getCounterPartyKey()).getObject();
+		interchangeTO.setCounterParty(cpTO);
+		
 		interchangeService.createInterchange(interchangeTO);
-		return new ModelAndView("create-interchange");
+		ModelAndView modelAndView = new ModelAndView("create-interchange");
+		modelAndView.addObject("interchange", new InterchangeCreateModel());
+		return modelAndView;
 	}
 	
 	@RequestMapping("/registration")

@@ -32,6 +32,7 @@ public final class ResultFactory {
 	
 	public static <T extends TransferObject> ResultListTO<T> createResultList(List<T> resultList, Collection<IssueTO> issueLog) {
 		ResultListTO<T> result = new ResultListTO<>();
+		result.addList(resultList);
 		addIssues(result, issueLog);
 		return result;
 	}

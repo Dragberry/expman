@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h3>Create interchange</h3>
-	<form method="POST" th:object="${interchangeTO}">
+	<form method="POST" th:object="${interchange}">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
@@ -26,11 +26,24 @@
 		<input type="text" th:field="*{currency}"
 			th:class="${#fields.hasErrors('currency')}? 'error'" /><br />
 			
-		<label th:class="${#fields.hasErrors('interchangeType')}? 'error'">
+		<label th:class="${#fields.hasErrors('interchangeTypeKey')}? 'error'">
 			Interchange Type
-		</label>: 
-		<select th:field="*{interchangeType}" th:object="${interchangeTypeList}">
-			<option th:each="*{type}" th:text="${type.name}"></option>
+		</label>:
+		
+		<select th:field="*{interchangeTypeKey}">
+		  <option th:each="type : ${interchangeTypeList}" 
+		          th:value="${type.interchangeTypeKey}" 
+		          th:text="${type.name}"/>
+		</select>
+		<br />
+		
+		<label th:class="${#fields.hasErrors('counterPartyKey')}? 'error'">
+			Counter Party
+		</label>:
+		<select th:field="*{counterPartyKey}">
+		  <option th:each="cp : ${counterPartyList}" 
+		          th:value="${cp.counterPartyKey}" 
+		          th:text="${cp.name}"/>
 		</select>
 		<br />
 		

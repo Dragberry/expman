@@ -45,4 +45,12 @@ public class InterchangeTypeServiceBean implements InterchangeTypeService {
 		return ResultFactory.createResultList(toList);
 	}
 
+	@Override
+	public ResultTO<InterchangeTypeTO> createInterchangeType(InterchangeTypeTO interchangeTypeTO) {
+		InterchangeType interchangeType = Transformers.getInterchangeTypeTransformer().transform(interchangeTypeTO);
+		interchangeType = interchangeTypeRepo.save(interchangeType);
+		InterchangeTypeTO newInterchangeTypeTO = Transformers.getInterchangeTypeTransformer().transform(interchangeType);
+		return ResultFactory.createResult(newInterchangeTypeTO);
+	}
+
 }

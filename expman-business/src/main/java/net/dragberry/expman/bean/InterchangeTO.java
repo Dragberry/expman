@@ -3,8 +3,6 @@ package net.dragberry.expman.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import net.dragberry.expman.domain.CounterParty;
-
 public class InterchangeTO implements TransferObject {
 
 	private static final long serialVersionUID = -7659610163078899945L;
@@ -21,7 +19,7 @@ public class InterchangeTO implements TransferObject {
 	
 	private InterchangeTypeTO interchangeType;
 	
-	private CounterParty counterParty;
+	private CounterPartyTO counterParty;
 	
 	private CustomerTO customer;
 
@@ -65,11 +63,11 @@ public class InterchangeTO implements TransferObject {
 		this.interchangeType = interchangeType;
 	}
 
-	public CounterParty getCounterParty() {
+	public CounterPartyTO getCounterParty() {
 		return counterParty;
 	}
 
-	public void setCounterParty(CounterParty counterParty) {
+	public void setCounterParty(CounterPartyTO counterParty) {
 		this.counterParty = counterParty;
 	}
 

@@ -13,11 +13,15 @@ public class ResultListTO<T extends TransferObject> extends AbstractResultTO<T> 
 	private List<T> list = new ArrayList<>();
 	
 	public List<T> getList() {
-		if (CollectionUtils.isEmpty(list)) {
+		if (CollectionUtils.isNotEmpty(list)) {
 			return list;
 		} else {
 			return Collections.emptyList();
 		}
+	}
+	
+	public void addList(List<T> list) {
+		this.list.addAll(list);
 	}
 	
 }

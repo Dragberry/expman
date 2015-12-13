@@ -1,8 +1,10 @@
 package net.dragberry.expman.util;
 
+import net.dragberry.expman.bean.CounterPartyTO;
 import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.bean.InterchangeTO;
 import net.dragberry.expman.bean.InterchangeTypeTO;
+import net.dragberry.expman.domain.CounterParty;
 import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Interchange;
 import net.dragberry.expman.domain.InterchangeType;
@@ -21,6 +23,8 @@ public class InterchangeTransformer implements EntityTransformer<Interchange, In
 		interchange.setCustomer(customer);
 		InterchangeType interchangeType = Transformers.getInterchangeTypeTransformer().transform(bean.getInterchangeType());
 		interchange.setInterchangeType(interchangeType);
+		CounterParty cp = Transformers.getCounterPartyTransformer().transform(bean.getCounterParty());
+		interchange.setCounterParty(cp);
 		return interchange;
 	}
 
@@ -36,6 +40,8 @@ public class InterchangeTransformer implements EntityTransformer<Interchange, In
 		interchangeTO.setCustomer(customerTO);
 		InterchangeTypeTO interchangeTypeTO = Transformers.getInterchangeTypeTransformer().transform(object.getInterchangeType());
 		interchangeTO.setInterchangeType(interchangeTypeTO);
+		CounterPartyTO cp = Transformers.getCounterPartyTransformer().transform(object.getCounterParty());
+		interchangeTO.setCounterParty(cp);
 		return interchangeTO;
 	}
 
