@@ -6,8 +6,8 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
-	<h3>Create interchange type</h3>
-	<form method="POST" th:object="${interchangeTypeModel}">
+	<h3>Create counter party</h3>
+	<form method="POST" th:object="${counterPartyModel}">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
@@ -21,16 +21,8 @@
 		<input type="text" th:field="*{name}"
 			th:class="${#fields.hasErrors('name')}? 'error'" /><br />
 		
-		<select th:field="*{type}">
-		  <option th:each="typeObj : ${typeList}" 
-		          th:value="${typeObj}" 
-		          th:text="${typeObj.title}"/>
-		</select>
-		
-		<br />
-			
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-		<input type="submit" value="Save interchange type" />
+		<input type="submit" value="Save counter party" />
 	</form>
 </body>
 </html>

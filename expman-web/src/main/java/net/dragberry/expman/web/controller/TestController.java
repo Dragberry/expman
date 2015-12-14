@@ -23,6 +23,7 @@ import net.dragberry.expman.business.CounterPartyService;
 import net.dragberry.expman.business.CustomerService;
 import net.dragberry.expman.business.InterchangeService;
 import net.dragberry.expman.business.InterchangeTypeService;
+import net.dragberry.expman.web.model.CounterPartyCreateModel;
 import net.dragberry.expman.web.model.InterchangeCreateModel;
 import net.dragberry.expman.web.model.InterchangeTypeCreateModel;
 
@@ -42,9 +43,31 @@ public class TestController {
 
 	@RequestMapping("/")
 	public String index(HttpServletRequest request) {
-		boolean b = request.isUserInRole("ROLE_ADMIN");
-		b = !b;
 		return "index";
+	}
+	
+	@RequestMapping("/create-counter-party")
+	public ModelAndView createCounterParty(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("create-counter-party");
+		modelAndView.addObject("counterPartyModel", new CounterPartyCreateModel());
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/create-counter-party", method = RequestMethod.POST)
+	public ModelAndView createCounterParty(CounterPartyCreateModel counterPartyCreateModel, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("create-counter-party");
+		modelAndView.addObject("counterPartyModel", new CounterPartyCreateModel());
+		
+		CounterPartyTO cpTO = new CounterPartyTO();
+		cpTO.setName(counterPartyCreateModel.getName());
+		
+		String principalName = request.getUserPrincipal().getName();
+		CustomerTO loggedCustomer = customerService.findByCustomerName(principalName).getObject();
+		cpTO.setCustomer(loggedCustomer);
+		
+		counterPartyService.createCounterParty(cpTO);
+		return new ModelAndView("index");
 	}
 	
 	@RequestMapping("/create-interchange-type")
@@ -147,17 +170,4 @@ public class TestController {
 		return "customer";
 	}
 	
-	@RequestMapping("/create")
-	public String create() {
-		CustomerTO customerTO = new CustomerTO();
-		customerTO.setCustomerName("Makseemka4");
-		customerTO.setPassword("password");
-		customerTO.setEnabled(true);
-		Set<String> roles = new HashSet<>();
-		roles.add("ADMIN");
-		roles.add("USER");
-		customerTO.setRoles(roles);
-		customerService.createCustomer(customerTO);
-		return "index";
-	}
 }
