@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,7 +33,7 @@ public class CustomerSecurityService implements UserDetailsService {
 			for (String role : customerTO.getRoles()) {
 				authorities.add(new SimpleGrantedAuthority(createSpringRole(role)));
 			}
-			return new User(customerTO.getCustomerName(), customerTO.getPassword(), authorities);
+			return new CustomerDetails(customerTO.getCustomerKey(), customerTO.getCustomerName(), customerTO.getPassword(), authorities);
 		}
 		throw new UsernameNotFoundException(MessageFormat.format("The customer '%s' is not found", customerName));
 	}

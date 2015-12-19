@@ -4,14 +4,14 @@
 <title>Expense Manager</title>
 </head>
 <body>
-	<h1>Welcome to Expense Manager</h1>
+	<h1>Welcome to Expense Manager, <span th:text="${customerName}"></span></h1>
 	<ul>
 		<li><a th:href="@{/customer}">Customer Page</a></li>
 		<li><a th:href="@{/admin}">Administration Page</a></li>
 		<li><a th:href="@{/registration}">Registration</a></li>
-		<li><a th:href="@{/create-interchange}">Create interchange</a></li>
-		<li><a th:href="@{/create-interchange-type}">Create interchange type</a></li>
-		<li><a th:href="@{/create-counter-party}">Create counter party</a></li>
+		<li><a th:href="@{/interchange/create}">Create interchange</a></li>
+		<li><a th:href="@{/interchange-type/create}">Create interchange type</a></li>
+		<li><a th:href="@{/counter-party/create}">Create counter party</a></li>
 	</ul>
 </body>
 </html>
