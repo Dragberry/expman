@@ -1,18 +1,22 @@
-package net.dragberry.expman.bean;
+package net.dragberry.expman.query;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CustomerTO implements TransferObject {
+import net.dragberry.expman.bean.TransferObject;
 
-	private static final long serialVersionUID = -8863695384110015264L;
+public class CustomerCreateQuery implements TransferObject {
 	
+	private static final long serialVersionUID = 3019584916612756293L;
+
 	private Long customerKey;
 	
 	private String customerName;
 	
 	private String password;
+	
+	private String passwordRepeated;
 	
 	private String firstName;
 	
@@ -20,7 +24,7 @@ public class CustomerTO implements TransferObject {
 	
 	private String email;
 	
-	private Date birtdate;
+	private Date birthdate;
 	
 	private boolean enabled;
 	
@@ -50,20 +54,12 @@ public class CustomerTO implements TransferObject {
 		this.password = password;
 	}
 
-	public Set<String> getRoles() {
-		return roles;
+	public String getPasswordRepeated() {
+		return passwordRepeated;
 	}
 
-	public void setRoles(Set<String> roles) {
-		this.roles = roles;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setPasswordRepeated(String passwordRepeated) {
+		this.passwordRepeated = passwordRepeated;
 	}
 
 	public String getFirstName() {
@@ -74,6 +70,14 @@ public class CustomerTO implements TransferObject {
 		this.firstName = firstName;
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -82,20 +86,28 @@ public class CustomerTO implements TransferObject {
 		this.email = email;
 	}
 
-	public Date getBirtdate() {
-		return birtdate;
+	public Date getBirthdate() {
+		return birthdate;
 	}
 
-	public void setBirtdate(Date birtdate) {
-		this.birtdate = birtdate;
+	public void setBirthdate(Date birtdate) {
+		this.birthdate = birtdate;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
 	}
 	
 }

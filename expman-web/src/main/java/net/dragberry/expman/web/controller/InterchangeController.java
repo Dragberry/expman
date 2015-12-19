@@ -32,10 +32,18 @@ import net.dragberry.expman.web.security.ExpmanSecurityContext;
 @Controller
 public class InterchangeController implements Serializable {
 
+	private static final String INTERCHANGE = "interchange";
+
+	private static final String COUNTER_PARTY_LIST = "counterPartyList";
+
+	private static final String INTERCHANGE_TYPE_LIST = "interchangeTypeList";
+
 	private static final long serialVersionUID = 4920765963061089750L;
 
 	private static final Logger LOG = LogManager.getLogger(InterchangeController.class.getName());
 	
+	private static final String INTERCHANGE_LIST = "interchangeList";
+
 	@Autowired
 	private CustomerService customerService;
 	@Autowired
@@ -45,18 +53,26 @@ public class InterchangeController implements Serializable {
 	@Autowired
 	private CounterPartyService counterPartyService;
 	
-	@RequestMapping(Constants.Path.INTERCHANGE_CREATE)
+	@RequestMapping(value = Constants.Path.INTERCHANGE_LIST)
+	public ModelAndView listInterchange() {
+		List<InterchangeTO> interchangeList = interchangeService.fetchInterchanges().getList();
+		ModelAndView modelAndView = new ModelAndView(Constants.View.INTERCHANGE_LIST);
+		modelAndView.addObject(INTERCHANGE_LIST, interchangeList);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = Constants.Path.INTERCHANGE_CREATE)
 	public ModelAndView createInterchange() {
 		ModelAndView modelAndView = new ModelAndView(Constants.View.INTERCHANGE_CREATE);
-		modelAndView.addObject("interchange", new InterchangeCreateModel());
+		modelAndView.addObject(INTERCHANGE, new InterchangeCreateModel());
 		
 		Long loggedCutomerKey = ExpmanSecurityContext.getCustomerKey();
 		
 		List<InterchangeTypeTO> interchangeTypeList = interchangeTypeService.findInterchangeTypeListForCustomer(loggedCutomerKey).getList();
-		modelAndView.addObject("interchangeTypeList", interchangeTypeList);
+		modelAndView.addObject(INTERCHANGE_TYPE_LIST, interchangeTypeList);
 		
 		List<CounterPartyTO> counterPartyList = counterPartyService.fetchCounterPartyList(loggedCutomerKey).getList();
-		modelAndView.addObject("counterPartyList", counterPartyList);
+		modelAndView.addObject(COUNTER_PARTY_LIST, counterPartyList);
 		return modelAndView;
 	}
 	
@@ -81,7 +97,7 @@ public class InterchangeController implements Serializable {
 		ResultTO<InterchangeTO> result = interchangeService.createInterchange(interchangeTO);
 		if (result.hasIssues()) {
 			ModelAndView modelAndView = new ModelAndView(Constants.View.INTERCHANGE_CREATE);
-			modelAndView.addObject("interchange", new InterchangeCreateModel());
+			modelAndView.addObject(INTERCHANGE, new InterchangeCreateModel());
 			return modelAndView;
 		} else {
 			return new ModelAndView(Constants.View.HOME);

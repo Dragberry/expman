@@ -17,6 +17,7 @@ import net.dragberry.expman.bean.ResultTO;
 import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Role;
 import net.dragberry.expman.messages.BusinessMessageCodes;
+import net.dragberry.expman.query.CustomerCreateQuery;
 import net.dragberry.expman.repository.CustomerRepo;
 import net.dragberry.expman.repository.RoleRepo;
 import net.dragberry.expman.util.IssueFactory;
@@ -42,38 +43,45 @@ public class CustomerServiceBean implements CustomerService {
 	}
 
 	@Override
-	public ResultTO<CustomerTO> createCustomer(CustomerTO customerTO) {
+	public ResultTO<CustomerTO> createCustomer(CustomerCreateQuery customerQuery) {
 		List<IssueTO> issueLog = new ArrayList<>();
-		if (StringUtils.isBlank(customerTO.getEmail())) {
+		if (StringUtils.isBlank(customerQuery.getEmail())) {
 			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_EMAIL_IS_ABSENT, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer's e-mail is absent");
 		}
-		if (customerRepo.ifCustomerEmailExist(customerTO.getEmail())) {
+		if (customerRepo.ifCustomerEmailExist(customerQuery.getEmail())) {
 			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_EMAIL_IS_EXIST, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer's e-mail has already present");
 		}
-		if (StringUtils.isBlank(customerTO.getCustomerName())) {
+		if (StringUtils.isBlank(customerQuery.getCustomerName())) {
 			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_NAME_IS_ABSENT, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer name is absent");
 		}
-		if (customerRepo.ifCustomerNameExist(customerTO.getCustomerName())) {
+		if (customerRepo.ifCustomerNameExist(customerQuery.getCustomerName())) {
 			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_NAME_IS_EXIST, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer name has already present");
 		}
-		if (!StringUtils.equals(customerTO.getPassword(), customerTO.getPasswordRepeated())) {
+		if (!StringUtils.equals(customerQuery.getPassword(), customerQuery.getPasswordRepeated())) {
 			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_PASSWORD_DO_NOT_MATCH, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Password is not matching");
 		}
+		Customer customer = new Customer();
+		customer.setCustomerKey(customerQuery.getCustomerKey());
+		customer.setCustomerName(customerQuery.getCustomerName());
+		customer.setBirthDate(customerQuery.getBirthdate());
+		customer.setEmail(customerQuery.getEmail());
+		customer.setEnabled(customerQuery.isEnabled());
+		customer.setFirstName(customerQuery.getFirstName());
+		customer.setLastName(customerQuery.getLastName());
+		customer.setPassword(customerQuery.getPassword());
+		Set<Role> roles = roleRepo.findByRoleNameIn(customerQuery.getRoles());
+		customer.setRoles(roles);
+		
 		if (issueLog.isEmpty()) {
-			Customer customer = Transformers.getCustomerTransformer().transform(customerTO);
-			Set<Role> roles = roleRepo.findByRoleNameIn(customerTO.getRoles());
-			customer.setRoles(roles);
 			customer = customerRepo.save(customer);
-			CustomerTO createdCustomerTO =  Transformers.getCustomerTransformer().transform(customer);
-			return ResultFactory.createResult(createdCustomerTO);
-		} else {
-			return ResultFactory.createResult(customerTO, issueLog);
 		}
+		CustomerTO customerTO =  Transformers.getCustomerTransformer().transform(customer);
+		return ResultFactory.createResult(customerTO, issueLog);
 		
 	}
 	

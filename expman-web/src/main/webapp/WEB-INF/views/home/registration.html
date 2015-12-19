@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h3>Registration page</h3>
-	<form method="POST" th:object="${customerTO}">
+	<form method="POST" th:object="${customerQuery}">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">

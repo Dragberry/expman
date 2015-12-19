@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.bean.ResultTO;
 import net.dragberry.expman.business.CustomerService;
+import net.dragberry.expman.query.CustomerCreateQuery;
 import net.dragberry.expman.util.RoleProvider;
 import net.dragberry.expman.web.common.Constants;
 
@@ -23,7 +24,7 @@ public class RegisterController implements Serializable {
 
 	private static final long serialVersionUID = 7763768000577347838L;
 
-	private static final String CUSTOMER_MODEL = "customerTO";
+	private static final String CUSTOMER_QUERY = "customerQuery";
 	
 	@Autowired
 	private CustomerService customerService;
@@ -31,21 +32,22 @@ public class RegisterController implements Serializable {
 	@RequestMapping(value = Constants.Path.REGISTRATION)
 	public ModelAndView registration() {
 		ModelAndView modelAndView = new ModelAndView(Constants.View.REGISTRATION);
-		modelAndView.addObject(CUSTOMER_MODEL, new CustomerTO());
+		modelAndView.addObject(CUSTOMER_QUERY, new CustomerCreateQuery());
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = Constants.Path.REGISTRATION, method = RequestMethod.POST)
-	public ModelAndView registration(CustomerTO customerTO, HttpServletRequest request) {
-		customerTO.setEnabled(true);
+	public ModelAndView registration(CustomerCreateQuery customerQuery, HttpServletRequest request) {
+		
+		customerQuery.setEnabled(true);
 		Set<String> roles = new HashSet<>();
 		roles.add(RoleProvider.CUSTOMER);
-		customerTO.setRoles(roles);
+		customerQuery.setRoles(roles); 
 		
-		ResultTO<CustomerTO> createdCustomerTO = customerService.createCustomer(customerTO);
+		ResultTO<CustomerTO> createdCustomerTO = customerService.createCustomer(customerQuery);
 		if (createdCustomerTO.hasIssues()) {
 			ModelAndView modelAndView = new ModelAndView(Constants.View.REGISTRATION);
-			modelAndView.addObject(CUSTOMER_MODEL, new CustomerTO());
+			modelAndView.addObject(CUSTOMER_QUERY, new CustomerCreateQuery());
 			return modelAndView;
 		} else {
 			return new ModelAndView(Constants.View.HOME_REDIRECT);

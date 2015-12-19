@@ -9,6 +9,7 @@ public interface Constants {
 		String REGISTRATION = "/registration";
 		// interchange
 		String INTERCHANGE_CREATE = "/interchange/create";
+		String INTERCHANGE_LIST = "/interchange/list";
 		// interchange-type
 		String INTERCHANGE_TYPE_CREATE = "/interchange-type/create";
 		// counter-party
@@ -22,6 +23,7 @@ public interface Constants {
 		String REGISTRATION = "home/registration";
 		// interchange
 		String INTERCHANGE_CREATE = "interchange/create-interchange";
+		String INTERCHANGE_LIST = "interchange/list-interchange";
 		// interchange-type
 		String INTERCHANGE_TYPE_CREATE = "interchange-type/create-interchange-type";
 		// counter-party
