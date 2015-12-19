@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Expense Manager</title>
+<meta charset="UTF-8"/>
+</head>
+<body>
+	<h3>List interchange</h3>
+	<form method="POST" th:object="${interchange}">
+		<div class="errors" th:if="${#fields.hasErrors('*')}">
+			<ul>
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
+					Input is incorrect
+				</li>
+			</ul>
+		</div>
+		<label th:class="${#fields.hasErrors('amount')}? 'error'">
+			Amount
+		</label>: 
+		<input type="text" th:field="*{amount}"
+			th:class="${#fields.hasErrors('amount')}? 'error'" /><br />
+		<label th:class="${#fields.hasErrors('currency')}? 'error'">
+			Currency
+		</label>: 
+		<input type="text" th:field="*{currency}"
+			th:class="${#fields.hasErrors('currency')}? 'error'" /><br />
+			
+		<label th:class="${#fields.hasErrors('interchangeTypeKey')}? 'error'">
+			Interchange Type
+		</label>:
+		
+		<select th:field="*{interchangeTypeKey}">
+		  <option th:each="type : ${interchangeTypeList}" 
+		          th:value="${type.interchangeTypeKey}" 
+		          th:text="${type.name}"/>
+		</select>
+		<br />
+		
+		<label th:class="${#fields.hasErrors('counterPartyKey')}? 'error'">
+			Counter Party
+		</label>:
+		<select th:field="*{counterPartyKey}">
+		  <option th:each="cp : ${counterPartyList}" 
+		          th:value="${cp.counterPartyKey}" 
+		          th:text="${cp.name}"/>
+		</select>
+		<br />
+		
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		<input type="submit" value="Create interchange" />
+	</form>
+</body>
+</html>

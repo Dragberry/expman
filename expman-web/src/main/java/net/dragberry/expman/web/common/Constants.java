@@ -5,6 +5,7 @@ public interface Constants {
 	static public interface Path {
 		// home
 		String HOME = "/";
+		String LOGOUT = "/logout";
 		String REGISTRATION = "/registration";
 		// interchange
 		String INTERCHANGE_CREATE = "/interchange/create";
@@ -15,7 +16,6 @@ public interface Constants {
 	}
 	
 	static public interface View {
-		
 		// home
 		String HOME = "home/index";
 		String HOME_REDIRECT = "redirect:" + Path.HOME;
