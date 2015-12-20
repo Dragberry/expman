@@ -18,6 +18,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 import net.dragberry.expman.web.controller.Controllers;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @EnableWebMvc
@@ -38,6 +39,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		springTemplateEngine.setTemplateResolver(templateResolver);
 		Set<IDialect> dialects = new HashSet<>();
 		dialects.add(new SpringSecurityDialect());
+		dialects.add(new LayoutDialect());
 		springTemplateEngine.setAdditionalDialects(dialects);
 		return springTemplateEngine;
 	}

@@ -15,6 +15,7 @@
 
 	<properties>
 		<thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
+		<thymeleaf-layout-dialect.version>1.2.1</thymeleaf-layout-dialect.version>
 		<thymeleaf-extra-springsecutiry4.version>2.1.2.RELEASE</thymeleaf-extra-springsecutiry4.version>
 	</properties>
 
@@ -42,7 +43,11 @@
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 			<version>${thymeleaf-extra-springsecutiry4.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>1.2.1</version>
+		</dependency>
 
 
 		<!-- Security Security -->

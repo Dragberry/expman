@@ -20,7 +20,7 @@ public class InterchangeType implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "INTERCHANGE_TYPE_KEY")
-	private Long interchangeKey;
+	private Long interchangeTypeKey;
 	
 	@Column(name = "NAME")
 	private String name;
@@ -36,12 +36,12 @@ public class InterchangeType implements Serializable {
 	@JoinColumn(name = "PARENT_KEY", referencedColumnName = "INTERCHANGE_TYPE_KEY")
 	private InterchangeType parentType;
 
-	public Long getInterchangeKey() {
-		return interchangeKey;
+	public Long getInterchangeTypeKey() {
+		return interchangeTypeKey;
 	}
 
-	public void setInterchangeKey(Long interchangeKey) {
-		this.interchangeKey = interchangeKey;
+	public void setInterchangeTypeKey(Long interchangeTypeKey) {
+		this.interchangeTypeKey = interchangeTypeKey;
 	}
 
 	public String getName() {

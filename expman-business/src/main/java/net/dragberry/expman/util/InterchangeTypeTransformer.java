@@ -10,7 +10,7 @@ public class InterchangeTypeTransformer implements EntityTransformer<Interchange
 	@Override
 	public InterchangeType transform(InterchangeTypeTO bean) {
 		InterchangeType interchangeType = new InterchangeType();
-		interchangeType.setInterchangeKey(bean.getInterchangeTypeKey());
+		interchangeType.setInterchangeTypeKey(bean.getInterchangeTypeKey());
 		interchangeType.setName(bean.getName());
 		interchangeType.setType(bean.getType());
 		Customer customer = Transformers.getCustomerTransformer().transform(bean.getCustomer());
@@ -21,7 +21,7 @@ public class InterchangeTypeTransformer implements EntityTransformer<Interchange
 	@Override
 	public InterchangeTypeTO transform(InterchangeType object) {
 		InterchangeTypeTO interchangeTypeTO = new InterchangeTypeTO();
-		interchangeTypeTO.setInterchangeTypeKey(object.getInterchangeKey());;
+		interchangeTypeTO.setInterchangeTypeKey(object.getInterchangeTypeKey());;
 		interchangeTypeTO.setName(object.getName());
 		interchangeTypeTO.setType(object.getType());
 		CustomerTO customerTO = Transformers.getCustomerTransformer().transform(object.getCustomer());

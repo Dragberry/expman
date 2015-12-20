@@ -1,29 +1,30 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Expense Manager</title>
-<meta charset="UTF-8"/>
-</head>
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="template/template">
 <body>
-	<h3>List interchange</h3>
-	<table>
-      <tr>
-        <th>Id</th>
-        <th>Type</th>
-        <th>Type Name</th>
-        <th>Amount</th>
-        <th>Currency</th>
-        <th>Description</th>
-      </tr>
-      <tr th:each="interchange : ${interchangeList}">
-        <td th:text="${interchange.interchangeKey}">id</td>
-        <td th:text="${interchange.interchangeType.type}">type</td>
-        <td th:text="${interchange.interchangeType.name}">type name</td>
-        <td th:text="${interchange.amount}">amount</td>
-        <td th:text="${interchange.currency}">currency</td>
-        <td th:text="${interchange.description}">description</td>
-      </tr>
-    </table>
+	<div layout:fragment="content">
+		<h3>List interchange</h3>
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Type</th>
+				<th>Type Name</th>
+				<th>Amount</th>
+				<th>Currency</th>
+				<th>Description</th>
+			</tr>
+			<tr th:each="interchange : ${interchangeList}">
+				<td th:text="${interchange.interchangeKey}">id</td>
+				<td th:text="${interchange.interchangeType.type}">type</td>
+				<td th:text="${interchange.interchangeType.name}">type name</td>
+				<td th:text="${interchange.amount}">amount</td>
+				<td th:text="${interchange.currency}">currency</td>
+				<td th:text="${interchange.description}">description</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

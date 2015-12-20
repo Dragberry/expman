@@ -11,6 +11,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import net.dragberry.expman.business.CustomerService;
+import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.security.CustomerSecurityService;
 
 @Configuration
@@ -36,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().permitAll()
 		.and()
 			.formLogin()
+		.and()
+			.exceptionHandling().accessDeniedPage(Constants.Path.ACCESS_DENIED)
 		.and()
 			.httpBasic();
 	}

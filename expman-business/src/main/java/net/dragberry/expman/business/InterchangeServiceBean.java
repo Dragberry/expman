@@ -33,6 +33,7 @@ public class InterchangeServiceBean implements InterchangeService {
 	@Override
 	public ResultListTO<InterchangeTO> fetchInterchanges() {
 		List<Interchange> list = interchangeRepo.findAll();
+		List<Object> list2 = interchangeRepo.fetchInterchangeList();
 		List<InterchangeTO> listTO = new ArrayList<>();
 		for (Interchange interchange : list) {
 			InterchangeTO interchangeTO = Transformers.getInterchangeTransformer().transform(interchange);

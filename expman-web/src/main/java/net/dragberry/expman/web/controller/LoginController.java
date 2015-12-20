@@ -29,4 +29,10 @@ public class LoginController implements Serializable {
 		return Constants.View.HOME_REDIRECT;
 	}
 	
+	@RequestMapping(value = Constants.Path.LOGIN)
+	public String login(HttpServletRequest requert) {
+		
+		return Constants.View.HOME_REDIRECT;
+	}
+	
 }

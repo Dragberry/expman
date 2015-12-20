@@ -5,7 +5,9 @@ public interface Constants {
 	static public interface Path {
 		// home
 		String HOME = "/";
+		String LOGIN = "/login";
 		String LOGOUT = "/logout";
+		String ACCESS_DENIED = "/access-denied";
 		String REGISTRATION = "/registration";
 		// interchange
 		String INTERCHANGE_CREATE = "/interchange/create";
@@ -21,6 +23,9 @@ public interface Constants {
 		String HOME = "home/index";
 		String HOME_REDIRECT = "redirect:" + Path.HOME;
 		String REGISTRATION = "home/registration";
+		// errors
+		String ACCESS_DENIED = "error/access-denied";
+		String PAGE_NOT_FOUND = "error/page-not-found";
 		// interchange
 		String INTERCHANGE_CREATE = "interchange/create-interchange";
 		String INTERCHANGE_LIST = "interchange/list-interchange";

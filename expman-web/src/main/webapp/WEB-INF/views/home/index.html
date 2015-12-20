@@ -1,23 +1,12 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head>
-<title>Expense Manager</title>
-</head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="template/template">
 <body>
-	<div sec:authorize="isAuthenticated()">
-		<a th:href="@{/logout}">Logout</a>
+	<div layout:fragment="content">
+	 Hello !
 	</div>
-	<h1>Welcome to Expense Manager, <span th:text="${customerName}"></span></h1>
-	<ul>
-		<li><a th:href="@{/customer}">Customer Page</a></li>
-		<li><a th:href="@{/admin}">Administration Page</a></li>
-		<li><a th:href="@{/registration}">Registration</a></li>
-		<li><a th:href="@{/interchange/create}">Create interchange</a></li>
-		<li><a th:href="@{/interchange/list}">List interchange</a></li>
-		<li><a th:href="@{/interchange-type/create}">Create interchange type</a></li>
-		<li><a th:href="@{/counter-party/create}">Create counter party</a></li>
-	</ul>
 </body>
 </html>
