@@ -21,6 +21,7 @@ public interface Constants {
 	static public interface View {
 		// home
 		String HOME = "home/index";
+		String LOGIN = "home/login";
 		String HOME_REDIRECT = "redirect:" + Path.HOME;
 		String REGISTRATION = "home/registration";
 		// errors
