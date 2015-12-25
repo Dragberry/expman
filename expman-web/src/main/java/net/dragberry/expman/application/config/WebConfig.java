@@ -3,9 +3,11 @@ package net.dragberry.expman.application.config;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -37,6 +39,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public SpringTemplateEngine templateEngine(TemplateResolver templateResolver) {
 		SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
 		springTemplateEngine.setTemplateResolver(templateResolver);
+		springTemplateEngine.setMessageSource(messageSource());
 		Set<IDialect> dialects = new HashSet<>();
 		dialects.add(new SpringSecurityDialect());
 		dialects.add(new LayoutDialect());
@@ -52,6 +55,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		templateResolver.setTemplateMode("HTML5");
 		templateResolver.setCharacterEncoding("UTF-8");
 		return templateResolver;
+	}
+	
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+	    messageSource.setBasenames("classpath:messages");
+	    messageSource.setUseCodeAsDefaultMessage(false);
+	    messageSource.setDefaultEncoding("UTF-8");
+	    messageSource.setCacheSeconds(0);
+	    return messageSource;
 	}
 
 	@Override

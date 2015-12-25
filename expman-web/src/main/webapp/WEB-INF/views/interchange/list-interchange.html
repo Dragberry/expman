@@ -4,9 +4,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorator="template/template">
+<head>
+	<title>#{messages.interchangeList}</title>
+</head>
 <body>
 	<div layout:fragment="content">
-		<h3>List interchange</h3>
+		<h3 th:text="#{messages.interchangeList}">Interchange list</h3>
 		<table>
 			<tr>
 				<th>Id</th>

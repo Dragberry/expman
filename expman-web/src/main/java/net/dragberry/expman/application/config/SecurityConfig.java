@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -39,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(Constants.Path.REGISTRATION).not().authenticated()
 			.anyRequest().permitAll()
 		.and()
-			.formLogin().loginPage(Constants.Path.LOGIN).successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
+			.formLogin().loginPage(Constants.Path.LOGIN)
 		.and()
 			.exceptionHandling().accessDeniedPage(Constants.Path.ACCESS_DENIED)
 		.and()
