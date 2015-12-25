@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="template/template">
+<head>
+	<title>#{messages.transactionList}</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3 th:text="#{messages.transactionList}">Transaction list</h3>
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Type</th>
+				<th>Type Name</th>
+				<th>Amount</th>
+				<th>Currency</th>
+				<th>Description</th>
+			</tr>
+			<tr th:each="transaction : ${transactionList}">
+				<td th:text="${transaction.transactionKey}">id</td>
+				<td th:text="${transaction.transactionType.type}">type</td>
+				<td th:text="${transaction.transactionType.name}">type name</td>
+				<td th:text="${transaction.amount}">amount</td>
+				<td th:text="${transaction.currency}">currency</td>
+				<td th:text="${transaction.description}">description</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

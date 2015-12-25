@@ -3,11 +3,11 @@ package net.dragberry.expman.web.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class InterchangeCreateModel implements Model {
+public class TransactionCreateModel implements Model {
 
 	private static final long serialVersionUID = -2580105980906008241L;
 	
-	private Long interchangeKey;
+	private Long transactionKey;
 	
 	private BigDecimal amount;
 	
@@ -17,18 +17,18 @@ public class InterchangeCreateModel implements Model {
 	
 	private String description;
 	
-	private Long interchangeTypeKey;
+	private Long transactionTypeKey;
 	
 	private Long counterPartyKey;
 	
 	private Long customerKey;
 
-	public Long getInterchangeKey() {
-		return interchangeKey;
+	public Long getTransactionKey() {
+		return transactionKey;
 	}
 
-	public void setInterchangeKey(Long interchangeKey) {
-		this.interchangeKey = interchangeKey;
+	public void setTransactionKey(Long transactionKey) {
+		this.transactionKey = transactionKey;
 	}
 
 	public BigDecimal getAmount() {
@@ -63,12 +63,12 @@ public class InterchangeCreateModel implements Model {
 		this.description = description;
 	}
 
-	public Long getInterchangeTypeKey() {
-		return interchangeTypeKey;
+	public Long getTransactionTypeKey() {
+		return transactionTypeKey;
 	}
 
-	public void setInterchangeTypeKey(Long interchangeTypeKey) {
-		this.interchangeTypeKey = interchangeTypeKey;
+	public void setTransactionTypeKey(Long transactionTypeKey) {
+		this.transactionTypeKey = transactionTypeKey;
 	}
 
 	public Long getCounterPartyKey() {

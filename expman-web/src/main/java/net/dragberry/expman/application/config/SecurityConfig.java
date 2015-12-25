@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 			.antMatchers("/admin").hasRole(RoleProvider.ROLE_ADMIN)
 			.antMatchers("/customer").hasRole(RoleProvider.CUSTOMER)
-			.antMatchers(Constants.Path.INTERCHANGE_CREATE).hasRole(RoleProvider.CUSTOMER)
+			.antMatchers(Constants.Path.TRANSACTION_CREATE).hasRole(RoleProvider.CUSTOMER)
 			.antMatchers(Constants.Path.REGISTRATION).not().authenticated()
 			.anyRequest().permitAll()
 		.and()

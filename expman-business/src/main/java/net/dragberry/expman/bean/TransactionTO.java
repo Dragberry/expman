@@ -3,11 +3,11 @@ package net.dragberry.expman.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class InterchangeTO implements TransferObject {
+public class TransactionTO implements TransferObject {
 
 	private static final long serialVersionUID = -7659610163078899945L;
 
-	private Long interchangeKey;
+	private Long transactionKey;
 	
 	private BigDecimal amount;
 	
@@ -17,18 +17,18 @@ public class InterchangeTO implements TransferObject {
 	
 	private String description;
 	
-	private InterchangeTypeTO interchangeType;
+	private TransactionTypeTO transactionType;
 	
 	private CounterPartyTO counterParty;
 	
 	private CustomerTO customer;
 
-	public Long getInterchangeKey() {
-		return interchangeKey;
+	public Long getTransactionKey() {
+		return transactionKey;
 	}
 
-	public void setInterchangeKey(Long interchangeKey) {
-		this.interchangeKey = interchangeKey;
+	public void setTransactionKey(Long transactionKey) {
+		this.transactionKey = transactionKey;
 	}
 
 	public BigDecimal getAmount() {
@@ -55,12 +55,12 @@ public class InterchangeTO implements TransferObject {
 		this.currency = currency;
 	}
 
-	public InterchangeTypeTO getInterchangeType() {
-		return interchangeType;
+	public TransactionTypeTO getTransactionType() {
+		return transactionType;
 	}
 
-	public void setInterchangeType(InterchangeTypeTO interchangeType) {
-		this.interchangeType = interchangeType;
+	public void setTransactionType(TransactionTypeTO transactionType) {
+		this.transactionType = transactionType;
 	}
 
 	public CounterPartyTO getCounterParty() {

@@ -9,11 +9,11 @@ public interface Constants {
 		String LOGOUT = "/logout";
 		String ACCESS_DENIED = "/access-denied";
 		String REGISTRATION = "/registration";
-		// interchange
-		String INTERCHANGE_CREATE = "/interchange/create";
-		String INTERCHANGE_LIST = "/interchange/list";
-		// interchange-type
-		String INTERCHANGE_TYPE_CREATE = "/interchange-type/create";
+		// transaction
+		String TRANSACTION_CREATE = "/transaction/create";
+		String TRANSACTION_LIST = "/transaction/list";
+		// transaction-type
+		String TRANSACTION_TYPE_CREATE = "/transaction-type/create";
 		// counter-party
 		String COUNTER_PARTY_CREATE = "/counter-party/create";
 	}
@@ -27,11 +27,11 @@ public interface Constants {
 		// errors
 		String ACCESS_DENIED = "error/access-denied";
 		String PAGE_NOT_FOUND = "error/page-not-found";
-		// interchange
-		String INTERCHANGE_CREATE = "interchange/create-interchange";
-		String INTERCHANGE_LIST = "interchange/list-interchange";
-		// interchange-type
-		String INTERCHANGE_TYPE_CREATE = "interchange-type/create-interchange-type";
+		// transaction
+		String TRANSACTION_CREATE = "transaction/create-transaction";
+		String TRANSACTION_LIST = "transaction/list-transaction";
+		// transaction-type
+		String TRANSACTION_TYPE_CREATE = "transaction-type/create-transaction-type";
 		// counter-party
 		String COUNTER_PARTY_CREATE = "counter-party/create-counter-party";
 		

@@ -6,8 +6,8 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
-	<h3>Create interchange</h3>
-	<form method="POST" th:object="${interchange}">
+	<h3>Create transaction</h3>
+	<form method="POST" th:object="${transaction}">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
@@ -26,13 +26,13 @@
 		<input type="text" th:field="*{currency}"
 			th:class="${#fields.hasErrors('currency')}? 'error'" /><br />
 			
-		<label th:class="${#fields.hasErrors('interchangeTypeKey')}? 'error'">
-			Interchange Type
+		<label th:class="${#fields.hasErrors('transactionTypeKey')}? 'error'">
+			Transaction Type
 		</label>:
 		
-		<select th:field="*{interchangeTypeKey}">
-		  <option th:each="type : ${interchangeTypeList}" 
-		          th:value="${type.interchangeTypeKey}" 
+		<select th:field="*{transactionTypeKey}">
+		  <option th:each="type : ${transactionTypeList}" 
+		          th:value="${type.transactionTypeKey}" 
 		          th:text="${type.name}"/>
 		</select>
 		<br />
@@ -48,7 +48,7 @@
 		<br />
 		
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-		<input type="submit" value="Create interchange" />
+		<input type="submit" value="Create transaction" />
 	</form>
 </body>
 </html>

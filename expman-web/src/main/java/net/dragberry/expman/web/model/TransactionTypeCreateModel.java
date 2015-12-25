@@ -1,6 +1,6 @@
 package net.dragberry.expman.web.model;
 
-public class InterchangeTypeCreateModel implements Model {
+public class TransactionTypeCreateModel implements Model {
 	
 	public static enum Type {
 		
@@ -19,7 +19,7 @@ public class InterchangeTypeCreateModel implements Model {
 
 	private static final long serialVersionUID = 1210788975972018729L;
 
-	private Long interchangeTypeKey;
+	private Long transactionTypeKey;
 	
 	private String name;
 	
@@ -27,12 +27,12 @@ public class InterchangeTypeCreateModel implements Model {
 	
 	private Long customerKey;
 
-	public Long getInterchangeTypeKey() {
-		return interchangeTypeKey;
+	public Long getTransactionTypeKey() {
+		return transactionTypeKey;
 	}
 
-	public void setInterchangeTypeKey(Long interchangeTypeKey) {
-		this.interchangeTypeKey = interchangeTypeKey;
+	public void setTransactionTypeKey(Long transactionTypeKey) {
+		this.transactionTypeKey = transactionTypeKey;
 	}
 
 	public String getName() {

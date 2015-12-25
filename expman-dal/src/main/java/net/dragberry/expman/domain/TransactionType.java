@@ -12,15 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "INTERCHANGE_TYPE")
-public class InterchangeType implements Serializable {
+@Table(name = "TRANSACTION_TYPE")
+public class TransactionType implements Serializable {
 	
 	private static final long serialVersionUID = 7036757795385197011L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "INTERCHANGE_TYPE_KEY")
-	private Long interchangeTypeKey;
+	@Column(name = "TRANSACTION_TYPE_KEY")
+	private Long transactionTypeKey;
 	
 	@Column(name = "NAME")
 	private String name;
@@ -33,15 +33,15 @@ public class InterchangeType implements Serializable {
 	private Customer customer;
 	
 	@ManyToOne
-	@JoinColumn(name = "PARENT_KEY", referencedColumnName = "INTERCHANGE_TYPE_KEY")
-	private InterchangeType parentType;
+	@JoinColumn(name = "PARENT_KEY", referencedColumnName = "TRANSACTION_TYPE_KEY")
+	private TransactionType parentType;
 
-	public Long getInterchangeTypeKey() {
-		return interchangeTypeKey;
+	public Long getTransactionTypeKey() {
+		return transactionTypeKey;
 	}
 
-	public void setInterchangeTypeKey(Long interchangeTypeKey) {
-		this.interchangeTypeKey = interchangeTypeKey;
+	public void setTransactionTypeKey(Long transactionTypeKey) {
+		this.transactionTypeKey = transactionTypeKey;
 	}
 
 	public String getName() {
@@ -60,11 +60,11 @@ public class InterchangeType implements Serializable {
 		this.type = type;
 	}
 
-	public InterchangeType getParentType() {
+	public TransactionType getParentType() {
 		return parentType;
 	}
 
-	public void setParentType(InterchangeType parentType) {
+	public void setParentType(TransactionType parentType) {
 		this.parentType = parentType;
 	}
 

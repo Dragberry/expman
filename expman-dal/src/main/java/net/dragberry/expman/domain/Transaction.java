@@ -15,15 +15,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "INTERCHANGE")
-public class Interchange implements Serializable {
+@Table(name = "TRANSACTION")
+public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = -5641038821205965857L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "INTERCHANGE_KEY")
-	private Long interchangeKey;
+	@Column(name = "TRANSACTION_KEY")
+	private Long transactionKey;
 	
 	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_KEY", referencedColumnName = "CUSTOMER_KEY")
@@ -42,19 +42,19 @@ public class Interchange implements Serializable {
 	private String description;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "INTERCHANGE_TYPE_KEY", referencedColumnName = "INTERCHANGE_TYPE_KEY")
-	private InterchangeType interchangeType;
+	@JoinColumn(name = "TRANSACTION_TYPE_KEY", referencedColumnName = "TRANSACTION_TYPE_KEY")
+	private TransactionType transactionType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COUNTER_PARTY_KEY", referencedColumnName = "COUNTER_PARTY_KEY")
 	private CounterParty counterParty;
 
-	public Long getInterchangeKey() {
-		return interchangeKey;
+	public Long getTransactionKey() {
+		return transactionKey;
 	}
 
-	public void setInterchangeKey(Long interchangeKey) {
-		this.interchangeKey = interchangeKey;
+	public void setTransactionKey(Long transactionKey) {
+		this.transactionKey = transactionKey;
 	}
 
 	public Customer getCustomer() {
@@ -89,12 +89,12 @@ public class Interchange implements Serializable {
 		this.currency = currency;
 	}
 
-	public InterchangeType getInterchangeType() {
-		return interchangeType;
+	public TransactionType getTransactionType() {
+		return transactionType;
 	}
 
-	public void setInterchangeType(InterchangeType interchangeType) {
-		this.interchangeType = interchangeType;
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
 	}
 
 	public CounterParty getCounterParty() {

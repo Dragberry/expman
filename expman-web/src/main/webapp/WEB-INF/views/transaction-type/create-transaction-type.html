@@ -6,8 +6,8 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
-	<h3>Create interchange type</h3>
-	<form method="POST" th:object="${interchangeTypeModel}">
+	<h3>Create transaction type</h3>
+	<form method="POST" th:object="${transactionTypeModel}">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
@@ -30,7 +30,7 @@
 		<br />
 			
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-		<input type="submit" value="Save interchange type" />
+		<input type="submit" value="Save transaction type" />
 	</form>
 </body>
 </html>
