@@ -12,6 +12,7 @@ public interface Constants {
 		// transaction
 		String TRANSACTION_CREATE = "/transaction/create";
 		String TRANSACTION_LIST = "/transaction/list";
+		String TRANSACTION_DELETE = "/transaction/delete/{transactionId}";
 		// transaction-type
 		String TRANSACTION_TYPE_CREATE = "/transaction-type/create";
 		// counter-party
@@ -27,6 +28,7 @@ public interface Constants {
 		// errors
 		String ACCESS_DENIED = "error/access-denied";
 		String PAGE_NOT_FOUND = "error/page-not-found";
+		String SERVER_ERROR = "error/server-error";
 		// transaction
 		String TRANSACTION_CREATE = "transaction/create-transaction";
 		String TRANSACTION_LIST = "transaction/list-transaction";

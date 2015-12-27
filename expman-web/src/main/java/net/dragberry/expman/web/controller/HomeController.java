@@ -13,7 +13,7 @@ import net.dragberry.expman.web.security.ExpmanSecurityContext;
 
 @Controller
 public class HomeController implements Serializable {
-
+	
 	private static final long serialVersionUID = -1844510470973975486L;
 	
 	@RequestMapping(value = Constants.Path.HOME)

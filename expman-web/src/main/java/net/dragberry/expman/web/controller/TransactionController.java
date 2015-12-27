@@ -2,6 +2,7 @@ package net.dragberry.expman.web.controller;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +29,7 @@ import net.dragberry.expman.business.CounterPartyService;
 import net.dragberry.expman.business.CustomerService;
 import net.dragberry.expman.business.TransactionService;
 import net.dragberry.expman.business.TransactionTypeService;
+import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.model.TransactionCreateModel;
 import net.dragberry.expman.web.security.CustomerDetails;
@@ -53,6 +59,15 @@ public class TransactionController implements Serializable {
 	@Autowired
 	private CounterPartyService counterPartyService;
 	
+	@RequestMapping(value = Constants.Path.TRANSACTION_DELETE)
+	public ModelAndView deleteTransaction(@PathVariable("transactionId") Long transactionId) {
+		DeleteTransactionQuery query = new DeleteTransactionQuery();
+		query.setTransactionKey(transactionId);
+		query.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
+		ResultTO<TransactionTO> trTO = transactionService.deleteTransaction(query);
+		return new ModelAndView("redirect:/transaction/list");
+	}
+	
 	@RequestMapping(value = Constants.Path.TRANSACTION_LIST)
 	public ModelAndView listTransaction() {
 		List<TransactionTO> transactionList = transactionService.fetchTransactions().getList();
@@ -77,7 +92,8 @@ public class TransactionController implements Serializable {
 	}
 	
 	@RequestMapping(value = Constants.Path.TRANSACTION_CREATE, method = RequestMethod.POST)
-	public ModelAndView createTransaction(TransactionCreateModel transaction, HttpServletRequest request) {
+	public ModelAndView createTransaction(TransactionCreateModel transaction, HttpServletRequest request, BindingResult bindingResult) {
+		bindingResult.rejectValue("currency", "messages.error");
 		TransactionTO transactionTO = new TransactionTO();
 		transactionTO.setAmount(transaction.getAmount());
 		transactionTO.setCurrency(transaction.getCurrency());
@@ -95,9 +111,15 @@ public class TransactionController implements Serializable {
 		transactionTO.setCounterParty(cpTO);
 		
 		ResultTO<TransactionTO> result = transactionService.createTransaction(transactionTO);
-		if (result.hasIssues()) {
+		if (!result.hasIssues()) {
 			ModelAndView modelAndView = new ModelAndView(Constants.View.TRANSACTION_CREATE);
 			modelAndView.addObject(TRANSACTION, new TransactionCreateModel());
+			modelAndView.addAllObjects(bindingResult.getModel());
+			if (bindingResult.hasErrors()) {
+				loggedCustomer.equals(null);
+			}
+			Map<String, Object> map = bindingResult.getModel();
+			List<FieldError> errors = bindingResult.getFieldErrors();
 			return modelAndView;
 		} else {
 			return new ModelAndView(Constants.View.HOME);

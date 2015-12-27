@@ -11,6 +11,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
@@ -20,12 +21,24 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 import net.dragberry.expman.web.controller.Controllers;
+import net.dragberry.expman.web.controller.error.ExceptionHandlers;
+import net.dragberry.expman.web.security.SecurityInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { Controllers.class })
+@ComponentScan(basePackageClasses = { Controllers.class, ExceptionHandlers.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(securityInterceptor());
+	}
+	
+	@Bean
+	public SecurityInterceptor securityInterceptor() {
+		return new SecurityInterceptor();
+	}
 
 	@Bean
 	public ViewResolver viewResolver(SpringTemplateEngine springTemplateEngine) {
@@ -69,7 +82,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
+//		configurer.enable();
 	}
 
 }

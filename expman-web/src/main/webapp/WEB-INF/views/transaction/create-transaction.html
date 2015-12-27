@@ -1,54 +1,58 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="template/template">
 <head>
-<title>Expense Manager</title>
-<meta charset="UTF-8"/>
+	<title th:text="#{messages.createTransaction}">Create transaction</title>
 </head>
 <body>
-	<h3>Create transaction</h3>
-	<form method="POST" th:object="${transaction}">
-		<div class="errors" th:if="${#fields.hasErrors('*')}">
-			<ul>
-				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
-					Input is incorrect
-				</li>
-			</ul>
-		</div>
-		<label th:class="${#fields.hasErrors('amount')}? 'error'">
-			Amount
-		</label>: 
-		<input type="text" th:field="*{amount}"
-			th:class="${#fields.hasErrors('amount')}? 'error'" /><br />
-		<label th:class="${#fields.hasErrors('currency')}? 'error'">
-			Currency
-		</label>: 
-		<input type="text" th:field="*{currency}"
-			th:class="${#fields.hasErrors('currency')}? 'error'" /><br />
+	<div layout:fragment="content">
+		<h3 th:text="#{messages.createTransaction}">Create transaction</h3>
+		<form method="POST" th:object="${transaction}">
+			<div class="errors" th:if="${#fields.hasErrors('*')}">
+				<ul>
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
+						Input is incorrect
+					</li>
+				</ul>
+			</div>
+			<label th:class="${#fields.hasErrors('amount')}? 'error'">
+				Amount
+			</label>: 
+			<input type="text" th:field="*{amount}"
+				th:class="${#fields.hasErrors('amount')}? 'error'" /><br />
+			<label th:class="${#fields.hasErrors('currency')}? 'error'">
+				Currency
+			</label>: 
+			<input type="text" th:field="*{currency}"
+				th:class="${#fields.hasErrors('currency')}? 'error'" /><br />
+				
+			<label th:class="${#fields.hasErrors('transactionTypeKey')}? 'error'">
+				Transaction Type
+			</label>:
 			
-		<label th:class="${#fields.hasErrors('transactionTypeKey')}? 'error'">
-			Transaction Type
-		</label>:
-		
-		<select th:field="*{transactionTypeKey}">
-		  <option th:each="type : ${transactionTypeList}" 
-		          th:value="${type.transactionTypeKey}" 
-		          th:text="${type.name}"/>
-		</select>
-		<br />
-		
-		<label th:class="${#fields.hasErrors('counterPartyKey')}? 'error'">
-			Counter Party
-		</label>:
-		<select th:field="*{counterPartyKey}">
-		  <option th:each="cp : ${counterPartyList}" 
-		          th:value="${cp.counterPartyKey}" 
-		          th:text="${cp.name}"/>
-		</select>
-		<br />
-		
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-		<input type="submit" value="Create transaction" />
-	</form>
+			<select th:field="*{transactionTypeKey}">
+			  <option th:each="type : ${transactionTypeList}" 
+			          th:value="${type.transactionTypeKey}" 
+			          th:text="${type.name}"/>
+			</select>
+			<br />
+			
+			<label th:class="${#fields.hasErrors('counterPartyKey')}? 'error'">
+				Counter Party
+			</label>:
+			<select th:field="*{counterPartyKey}">
+			  <option th:each="cp : ${counterPartyList}" 
+			          th:value="${cp.counterPartyKey}" 
+			          th:text="${cp.name}"/>
+			</select>
+			<br />
+			
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			<input type="submit" value="Create transaction" />
+		</form>
+	</div>
 </body>
 </html>

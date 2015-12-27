@@ -7,18 +7,18 @@
 </head>
 <body>
 	<div th:fragment="header">
-		<h1>Welcome to Expense Manager, <span th:text="${customerName}"></span></h1>
+		<h1 th:text="#{messages.welcome(${loggedCustomer})}">Welcome to Expense Manager, user</h1>
 		<div>
 			<div sec:authorize="isAuthenticated()">
-				<a th:href="@{/logout}">Logout</a>
+				<a th:href="@{/logout}" th:text="#{messages.logout}">Logout</a>
 			</div>
 			<div sec:authorize="!isAuthenticated()">
 				<form th:action="@{/login}" method="post">
-			      <label for="username">Customer name</label>:
+			      <label for="username" th:text="#{messages.customerName}">Customer name</label>:
 			      <input type="text" id="username" name="username" /> <br />
-			      <label for="password">Password</label>:
+			      <label for="password" th:text="#{messages.password}">Password</label>:
 			      <input type="password" id="password" name="password" /> <br />
-			      <input type="submit" value="Log in" />
+			      <input type="submit" th:value="#{messages.login}" />
 			    </form>
 			</div>
 		</div>

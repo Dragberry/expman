@@ -2,6 +2,7 @@ package net.dragberry.expman.application.initializer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration.Dynamic;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -13,6 +14,8 @@ import net.dragberry.expman.application.config.AppConfig;
 import net.dragberry.expman.application.config.WebConfig;
 
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	
+	private static final String THROW_EXCEPTION_IF_NO_HANDLER_FOUND = "throwExceptionIfNoHandlerFound";
 	
 	private static final Logger LOG = LogManager.getLogger(ApplicationInitializer.class.getName());
 	
@@ -29,6 +32,11 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class<?>[] { WebConfig.class };
+	}
+	
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setInitParameter(THROW_EXCEPTION_IF_NO_HANDLER_FOUND, Boolean.TRUE.toString());
 	}
 	
 	@Override
