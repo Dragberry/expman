@@ -12,7 +12,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		if (modelAndView != null) {
-			modelAndView.getModel().put("loggedCustomer", ExpmanSecurityContext.getCustomerName());
+			modelAndView.addObject("loggedCustomer", ExpmanSecurityContext.getCustomerName());
 		}
 	}
 }

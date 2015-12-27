@@ -4,9 +4,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorator="template/template">
+<head>
+	<title th:text="#{messages.homePage}">Home page</title>
+</head>
 <body>
-	<div layout:fragment="content">
-	 Hello !
-	</div>
+	<div layout:fragment="content">Hello !</div>
 </body>
+
 </html>

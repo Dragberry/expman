@@ -9,12 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +29,6 @@ import net.dragberry.expman.business.TransactionTypeService;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.model.TransactionCreateModel;
-import net.dragberry.expman.web.security.CustomerDetails;
 import net.dragberry.expman.web.security.ExpmanSecurityContext;
 
 @Controller
