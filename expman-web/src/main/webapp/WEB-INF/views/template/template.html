@@ -2,28 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-  <head>
-    <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">#{messages.applicationTitle}</title>
-  	<link rel="stylesheet" type="text/css" media="all" th:href="@{/resources/css/bootstrap.min.css}" />
-  </head>
-  <body>
-    <div th:replace="template/header :: header">
-		Header
-    </div>
-    <div class="container">
-      <div layout:fragment="content">
-        <h1>Static content for prototyping purposes only</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-          Phasellus et placerat elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-          Phasellus et placerat elit.
-        </p>
-      </div>
-      <div th:replace="template/footer :: footer">&copy; 2014 The Static Templates</div>
-    </div>
-    <script th:src="@{/resources/js/jquery.min.js}"></script>
-    <script th:src="@{/resources/js/bootstrap.min.js}"></script>
-  </body>
+<head>
+<title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">#{messages.applicationTitle}</title>
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/resources/css/bootstrap.min.css}" />
+</head>
+<body>
+	<nav th:replace="template/header :: header">Header</nav>
+	<div class="container">
+		<div layout:fragment="content">
+			<h1>Static content for prototyping purposes only</h1>
+		</div>
+	</div>
+	<footer th:replace="template/footer :: footer">&copy; 2015 The Expense Manager</footer>
+	<script th:src="@{/resources/js/jquery.min.js}"></script>
+	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+</body>
 </html>

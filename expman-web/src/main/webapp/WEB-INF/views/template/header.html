@@ -6,37 +6,41 @@
 <head>
 </head>
 <body>
-	<div th:fragment="header">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				 <a class="navbar-brand" th:href="@{/}">Home</a>
-		
+	<nav th:fragment="header" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+		    	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        	<span class="sr-only">Toggle navigation</span>
+		        	<span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+				<a class="navbar-brand" th:href="@{/}">Home</a>
 			</div>
-		</nav>
-		<h1 th:text="#{messages.welcome(${loggedCustomer})}">Welcome to Expense Manager, user</h1>
-		<div>
-			<div sec:authorize="isAuthenticated()">
-				<a th:href="@{/logout}" th:text="#{messages.logout}">Logout</a>
-			</div>
-			<div sec:authorize="!isAuthenticated()">
-				<form th:action="@{/login}" method="post">
-			      <label for="username" th:text="#{messages.customerName}">Customer name</label>:
-			      <input type="text" id="username" name="username" /> <br />
-			      <label for="password" th:text="#{messages.password}">Password</label>:
-			      <input type="password" id="password" name="password" /> <br />
-			      <input type="submit" th:value="#{messages.login}" />
-			    </form>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a th:href="@{/transaction/list}" th:text="#{messages.transactionList}">Transaction list</a></li>
+					<li><a th:href="@{/transaction/create}" th:text="#{messages.createTransaction}">Create transaction</a></li>
+					<li><a th:href="@{/counter-party/create}" th:text="#{messages.createCounterParty}">Create counter party</a></li>
+					<li><a th:href="@{/transaction-type/create}" th:text="#{messages.createTransactionType}">Create tranasction type</a></li>
+					<li><a th:href="@{/customer/administration}" th:text="#{messages.customerAdmin}">Customer admin</a></li>
+				</ul>
+				<ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/logout}" th:text="#{messages.logout}">Logout</a></li>
+				</ul>
+				<form th:action="@{/login}" method="post"
+					sec:authorize="!isAuthenticated()" class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+			        	<input type="text" id="username" name="username" class="form-control" placeholder="#{messages.customerName}"></input>
+			        </div>
+			        <div class="form-group">
+			        	<input type="password" id="password" name="password" class="form-control" placeholder="#{messages.password}"></input>
+			        </div>
+			        <button type="submit" class="btn btn-default" th:text="#{messages.login}">Login</button>
+				</form>
+				<p sec:authorize="isAuthenticated()" class="navbar-text navbar-right" th:text="#{messages.welcome(${loggedCustomer})}">You are logged as</p>
 			</div>
 		</div>
-		<ul>
-			<li><a th:href="@{/customer}">Customer Page</a></li>
-			<li><a th:href="@{/admin}">Administration Page</a></li>
-			<li><a th:href="@{/registration}">Registration</a></li>
-			<li><a th:href="@{/transaction/create}">Create transaction</a></li>
-			<li><a th:href="@{/transaction/list}">List transaction</a></li>
-			<li><a th:href="@{/transaction-type/create}">Create transaction type</a></li>
-			<li><a th:href="@{/counter-party/create}">Create counter party</a></li>
-		</ul>
-	</div>
+	</nav>
 </body>
 </html>
