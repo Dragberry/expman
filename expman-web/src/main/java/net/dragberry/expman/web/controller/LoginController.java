@@ -9,8 +9,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import net.dragberry.expman.web.common.Constants;
 
 @Controller
@@ -28,11 +26,6 @@ public class LoginController implements Serializable {
 			LOG.info("Error while logout action", e);
 		}
 		return Constants.View.HOME_REDIRECT;
-	}
-	
-	@RequestMapping(value = Constants.Path.LOGIN, method = RequestMethod.GET)
-	public String login() {
-		return Constants.View.LOGIN;
 	}
 	
 }

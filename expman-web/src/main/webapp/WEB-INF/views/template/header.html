@@ -6,7 +6,7 @@
 <head>
 </head>
 <body>
-	<nav th:fragment="header" class="navbar navbar-default navbar-fixed-top">
+	<nav th:fragment="header" class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
 		    	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -15,15 +15,24 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 		      	</button>
-				<a class="navbar-brand" th:href="@{/}">Home</a>
+				<a class="navbar-brand" th:href="@{/}" th:text="#{messages.home}">Home</a>
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a th:href="@{/transaction/list}" th:text="#{messages.transactionList}">Transaction list</a></li>
-					<li><a th:href="@{/transaction/create}" th:text="#{messages.createTransaction}">Create transaction</a></li>
-					<li><a th:href="@{/counter-party/create}" th:text="#{messages.createCounterParty}">Create counter party</a></li>
-					<li><a th:href="@{/transaction-type/create}" th:text="#{messages.createTransactionType}">Create tranasction type</a></li>
-					<li><a th:href="@{/customer/administration}" th:text="#{messages.customerAdmin}">Customer admin</a></li>
+					<li class="dropdown">
+						<a href="#" th:text="#{messages.menu.transaction}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Transaction<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+				            <li><a th:href="@{/transaction/list}" th:text="#{messages.menu.transactionList}">Transaction list</a></li>
+				            <li><a th:href="@{/transaction/create}" th:text="#{messages.menu.transactionCreate}">Create transaction</a></li>
+				    	</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" th:text="#{messages.menu.customerAdmin}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customer admin<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+				            <li><a th:href="@{/counter-party/create}" th:text="#{messages.menu.counterPartyCreate}">Create counter party</a></li>
+				            <li><a th:href="@{/transaction-type/create}" th:text="#{messages.menu.tranasctionTypeCreate}">Create tranasction type</a></li>
+				    	</ul>
+					</li>
 				</ul>
 				<ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
 					<li><a th:href="@{/logout}" th:text="#{messages.logout}">Logout</a></li>

@@ -7,6 +7,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -23,6 +25,8 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import net.dragberry.expman.web.controller.Controllers;
 import net.dragberry.expman.web.controller.error.ExceptionHandlers;
+import net.dragberry.expman.web.menu.MainMenu;
+import net.dragberry.expman.web.menu.MenuInterceptor;
 import net.dragberry.expman.web.security.SecurityInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -34,11 +38,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(securityInterceptor());
+		registry.addInterceptor(menuInterceptor());
+	}
+	
+	@Bean
+	@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public MainMenu mainMenu() {
+		return new MainMenu();
 	}
 	
 	@Bean
 	public SecurityInterceptor securityInterceptor() {
 		return new SecurityInterceptor();
+	}
+	
+	@Bean
+	public MenuInterceptor menuInterceptor() {
+		return new MenuInterceptor();
 	}
 
 	@Bean
