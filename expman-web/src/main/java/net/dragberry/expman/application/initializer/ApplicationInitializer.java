@@ -42,7 +42,6 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
-		
 		servletContext.addListener(new HttpSessionListener() {
 			
 			@Override
