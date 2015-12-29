@@ -23,14 +23,14 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import net.dragberry.expman.web.controller.Controllers;
 import net.dragberry.expman.web.controller.error.ExceptionHandlers;
-import net.dragberry.expman.web.menu.MainMenu;
+import net.dragberry.expman.web.menu.MainMenuBean;
 import net.dragberry.expman.web.menu.MenuInterceptor;
 import net.dragberry.expman.web.security.SecurityInterceptor;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { Controllers.class, ExceptionHandlers.class, MainMenu.class })
+@ComponentScan(basePackageClasses = { Controllers.class, ExceptionHandlers.class, MainMenuBean.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Override

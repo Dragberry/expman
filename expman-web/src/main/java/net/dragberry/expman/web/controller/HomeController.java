@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.dragberry.expman.web.common.Constants;
-import net.dragberry.expman.web.security.ExpmanSecurityContext;
 
 @Controller
 public class HomeController implements Serializable {
@@ -19,7 +18,6 @@ public class HomeController implements Serializable {
 	@RequestMapping(value = Constants.Path.HOME)
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView(Constants.View.HOME);
-		modelAndView.addObject("customerName", ExpmanSecurityContext.getCustomerName());
 		return modelAndView;
 	}
 

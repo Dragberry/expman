@@ -14,21 +14,18 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import net.dragberry.expman.business.CustomerService;
 import net.dragberry.expman.util.RoleProvider;
 import net.dragberry.expman.web.common.Constants;
-import net.dragberry.expman.web.menu.MainMenu;
+import net.dragberry.expman.web.menu.MainMenuBean;
 import net.dragberry.expman.web.security.CustomerSecurityService;
-import net.dragberry.expman.web.security.SuccessAuthenticationHandler;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = { SuccessAuthenticationHandler.class, MainMenu.class})
+@ComponentScan(basePackageClasses = { MainMenuBean.class})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String UTF_8 = "UTF-8";
 	private static final String SHA_256_ALGORITHM = "SHA-256";
 	@Autowired
 	private CustomerService customerService;
-	@Autowired
-	private SuccessAuthenticationHandler successAuthenticationHandler;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -44,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(Constants.Path.REGISTRATION).not().authenticated()
 			.anyRequest().permitAll()
 		.and()
-			.formLogin().loginPage(Constants.Path.LOGIN).successHandler(successAuthenticationHandler)
+			.formLogin().loginPage(Constants.Path.LOGIN)
 		.and()
 			.exceptionHandling().accessDeniedPage(Constants.Path.ACCESS_DENIED)
 		.and()

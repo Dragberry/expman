@@ -7,16 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import net.dragberry.expman.web.security.ExpmanSecurityContext;
+
 public class MenuInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
-	private MainMenu mainMenu;
+	private MainMenuBean mainMenuBean;
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		super.postHandle(request, response, handler, modelAndView);
-		modelAndView.addObject("mainMenu", mainMenu);
+		mainMenuBean.initialize(ExpmanSecurityContext.getCustomerKey());
+		modelAndView.addObject("mainMenu", mainMenuBean);
 	}
 
 }

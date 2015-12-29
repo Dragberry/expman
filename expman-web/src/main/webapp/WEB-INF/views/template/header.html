@@ -40,10 +40,10 @@
 				<form th:action="@{/login}" method="post"
 					sec:authorize="!isAuthenticated()" class="navbar-form navbar-right" role="search">
 					<div class="form-group">
-			        	<input type="text" id="username" name="username" class="form-control" placeholder="#{messages.customerName}"></input>
+			        	<input type="text" id="username" name="username" class="form-control" th:placeholder="#{messages.customerName}"></input>
 			        </div>
 			        <div class="form-group">
-			        	<input type="password" id="password" name="password" class="form-control" placeholder="#{messages.password}"></input>
+			        	<input type="password" id="password" name="password" class="form-control" th:placeholder="#{messages.password}"></input>
 			        </div>
 			        <button type="submit" class="btn btn-default" th:text="#{messages.login}">Login</button>
 				</form>
