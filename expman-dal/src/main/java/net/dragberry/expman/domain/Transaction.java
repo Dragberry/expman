@@ -48,6 +48,10 @@ public class Transaction implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COUNTER_PARTY_KEY", referencedColumnName = "COUNTER_PARTY_KEY")
 	private CounterParty counterParty;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ACCOUNT_KEY", referencedColumnName = "ACCOUNT_KEY")
+	private Account account;
 
 	public Long getTransactionKey() {
 		return transactionKey;

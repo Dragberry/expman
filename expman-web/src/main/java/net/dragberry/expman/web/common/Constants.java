@@ -17,6 +17,8 @@ public interface Constants {
 		String TRANSACTION_TYPE_CREATE = "/transaction-type/create";
 		// counter-party
 		String COUNTER_PARTY_CREATE = "/counter-party/create";
+		// account
+		String ACCOUNT_LIST = "/account/list";
 	}
 	
 	static public interface View {
@@ -36,6 +38,8 @@ public interface Constants {
 		String TRANSACTION_TYPE_CREATE = "transaction-type/create-transaction-type";
 		// counter-party
 		String COUNTER_PARTY_CREATE = "counter-party/create-counter-party";
+		// account
+		String ACCOUNT_LIST = "account/list-account";
 		
 	}
 }

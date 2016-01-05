@@ -5,6 +5,19 @@
 		<Role>ANONYMOUS</Role>
 	</MenuItemXML>
 	
+	<MenuItemXML id="account" key="messages.menu.accounts" header="true">
+		<Role>ADMIN</Role>
+		<Role>CUSTOMER</Role>
+		<MenuItemXML id="account.create" key="messages.menu.accountCreate" action="/account/create">
+			<Role>ADMIN</Role>
+			<Role>CUSTOMER</Role>
+		</MenuItemXML>
+		<MenuItemXML id="account.list" key="messages.menu.accountList" action="/account/list">
+			<Role>ADMIN</Role>
+			<Role>CUSTOMER</Role>
+		</MenuItemXML>
+	</MenuItemXML>
+	
 	<MenuItemXML id="transactions" key="messages.menu.transaction" header="true">
 		<Role>ADMIN</Role>
 		<Role>CUSTOMER</Role>

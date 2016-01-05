@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="template/content-template">
+<head>
+	<title th:text="#{messages.account.accountList}">Account list</title>
+</head>
+<body>
+
+	<div layout:fragment="headerPanel">
+		<h4 th:text="#{messages.account.accountList}">Account list</h4>
+	</div>
+	
+	<div layout:fragment="leftMenu">
+		<span>Menu</span>
+	</div>
+	
+	<div layout:fragment="data">
+		<table class="table">
+			<tr>
+				<th th:text="#{messages.account.accountNumber}">Account number</th>
+				<th th:text="#{messages.account.accountCurrency}">Account currecny</th>
+				<th th:text="#{messages.account.accountType}">Account type</th>
+				<th th:text="#{messages.account.accountBalance}">Account balance</th>
+			</tr>
+				<tr th:each="account : ${accountList}">
+				<td th:text="${account.number}">id</td>
+				<td th:text="${account.currency}">type</td>
+				<td th:text="${account.type}">type name</td>
+				<td th:text="${account.balance}">amount</td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+</html>

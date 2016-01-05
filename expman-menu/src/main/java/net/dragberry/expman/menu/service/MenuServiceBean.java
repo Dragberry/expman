@@ -34,9 +34,12 @@ public class MenuServiceBean implements MenuService {
 		item.setDisabled(itemXML.isDisabled());
 		item.setHeader(itemXML.isHeader());
 		boolean isVisible = itemXML.isVisibled();
-		List<String> roles = itemXML.getRole();
-		for (String role : roles) {
-			isVisible &= customerRoles.contains(role);
+		if (isVisible) {
+			isVisible = false;
+			List<String> roles = itemXML.getRole();
+			for (String role : roles) {
+				isVisible |= customerRoles.contains(role);
+			}
 		}
 		item.setVisibled(isVisible);
 		for (MenuItemXML subItemXML : itemXML.getMenuItemXML()) {

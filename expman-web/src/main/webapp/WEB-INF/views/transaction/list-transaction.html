@@ -3,14 +3,22 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	layout:decorator="template/template">
+	layout:decorator="template/content-template">
 <head>
 	<title th:text="#{messages.transactionList}">Transaction list</title>
 </head>
 <body>
-	<div layout:fragment="content">
-		<h3 th:text="#{messages.transactionList}">Transaction list</h3>
-		<table>
+	
+	<div layout:fragment="headerPanel">
+		<h4 th:text="#{messages.transactionList}">Transaction list</h4>
+	</div>
+	
+	<div layout:fragment="leftMenu">
+		<span>Menu</span>
+	</div>
+	
+	<div layout:fragment="data">
+		<table class="table">
 			<tr>
 				<th>Id</th>
 				<th>Type</th>
@@ -30,15 +38,6 @@
 				<td><a th:href="@{/transaction/delete/} + ${transaction.transactionKey}" th:text="Delete">Delete</a></td>
 			</tr>
 		</table>
-		<ul>
-			<li th:each="item : ${menuBean.mainMenu.items}" th:id="${item.id}">
-				<span th:text="#{${item.key}}"></span>
-				<ul th:each="subMenuItem : ${item.items}">
-					<li th:id="${subMenuItem.id}" th:text="#{${subMenuItem.key}}"></li>
-				</ul>
-			</li>
-		</ul>
-		
 	</div>
 </body>
 </html>
