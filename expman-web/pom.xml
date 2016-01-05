@@ -114,6 +114,11 @@
 			<groupId>net.dragberry.expman</groupId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<artifactId>expman-menu</artifactId>
+			<groupId>net.dragberry.expman</groupId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 

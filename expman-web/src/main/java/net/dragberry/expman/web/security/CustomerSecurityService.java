@@ -33,7 +33,7 @@ public class CustomerSecurityService implements UserDetailsService {
 			for (String role : customerTO.getRoles()) {
 				authorities.add(new SimpleGrantedAuthority(createSpringRole(role)));
 			}
-			return new CustomerDetails(customerTO.getCustomerKey(), customerTO.getCustomerName(), customerTO.getPassword(), authorities);
+			return new CustomerDetails(customerTO.getCustomerKey(), customerTO.getCustomerName(), customerTO.getPassword(), authorities, customerTO.getRoles());
 		}
 		throw new UsernameNotFoundException(MessageFormat.format("The customer '%s' is not found", customerName));
 	}

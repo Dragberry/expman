@@ -30,6 +30,15 @@
 				<td><a th:href="@{/transaction/delete/} + ${transaction.transactionKey}" th:text="Delete">Delete</a></td>
 			</tr>
 		</table>
+		<ul>
+			<li th:each="item : ${menuBean.mainMenu.items}" th:id="${item.id}">
+				<span th:text="#{${item.key}}"></span>
+				<ul th:each="subMenuItem : ${item.items}">
+					<li th:id="${subMenuItem.id}" th:text="#{${subMenuItem.key}}"></li>
+				</ul>
+			</li>
+		</ul>
+		
 	</div>
 </body>
 </html>
