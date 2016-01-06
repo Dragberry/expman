@@ -1,6 +1,7 @@
 package net.dragberry.expman.web.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,15 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.dragberry.expman.bean.AccountTO;
 import net.dragberry.expman.bean.CounterPartyTO;
 import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.bean.TransactionTO;
 import net.dragberry.expman.bean.TransactionTypeTO;
 import net.dragberry.expman.bean.ResultTO;
+import net.dragberry.expman.business.AccountService;
 import net.dragberry.expman.business.CounterPartyService;
 import net.dragberry.expman.business.CustomerService;
 import net.dragberry.expman.business.TransactionService;
 import net.dragberry.expman.business.TransactionTypeService;
+import net.dragberry.expman.query.AccountBalanceQuery;
+import net.dragberry.expman.query.AccountQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.model.TransactionCreateModel;
@@ -33,6 +38,8 @@ import net.dragberry.expman.web.security.ExpmanSecurityContext;
 
 @Controller
 public class TransactionController implements Serializable {
+
+	private static final String ACCOUNT_LIST = "accountList";
 
 	private static final String TRANSACTION = "transaction";
 
@@ -54,6 +61,8 @@ public class TransactionController implements Serializable {
 	private TransactionTypeService transactionTypeService;
 	@Autowired
 	private CounterPartyService counterPartyService;
+	@Autowired
+	private AccountService accountService;
 	
 	@RequestMapping(value = Constants.Path.TRANSACTION_DELETE)
 	public ModelAndView deleteTransaction(@PathVariable("transactionId") Long transactionId) {
@@ -84,6 +93,11 @@ public class TransactionController implements Serializable {
 		
 		List<CounterPartyTO> counterPartyList = counterPartyService.fetchCounterPartyList(loggedCutomerKey).getList();
 		modelAndView.addObject(COUNTER_PARTY_LIST, counterPartyList);
+		
+		AccountQuery accountQuery = new AccountQuery();
+		accountQuery.setCustomerKey(loggedCutomerKey);
+		List<AccountTO> accountList = accountService.fetchAccounts(accountQuery).getList();
+		modelAndView.addObject(ACCOUNT_LIST, accountList);
 		return modelAndView;
 	}
 	

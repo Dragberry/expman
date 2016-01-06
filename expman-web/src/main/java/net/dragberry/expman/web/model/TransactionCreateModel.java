@@ -22,6 +22,8 @@ public class TransactionCreateModel implements Model {
 	private Long counterPartyKey;
 	
 	private Long customerKey;
+	
+	private Long accountKey;
 
 	public Long getTransactionKey() {
 		return transactionKey;
@@ -87,8 +89,12 @@ public class TransactionCreateModel implements Model {
 		this.customerKey = customerKey;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Long getAccountKey() {
+		return accountKey;
+	}
+
+	public void setAccountKey(Long accountKey) {
+		this.accountKey = accountKey;
 	}
 
 }

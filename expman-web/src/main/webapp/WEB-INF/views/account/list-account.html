@@ -21,15 +21,15 @@
 		<table class="table">
 			<tr>
 				<th th:text="#{messages.account.accountNumber}">Account number</th>
-				<th th:text="#{messages.account.accountCurrency}">Account currecny</th>
+				<th th:text="#{messages.account.accountCurrency}">Account currency</th>
 				<th th:text="#{messages.account.accountType}">Account type</th>
 				<th th:text="#{messages.account.accountBalance}">Account balance</th>
 			</tr>
 				<tr th:each="account : ${accountList}">
-				<td th:text="${account.number}">id</td>
-				<td th:text="${account.currency}">type</td>
-				<td th:text="${account.type}">type name</td>
-				<td th:text="${account.balance}">amount</td>
+				<td th:text="${account.number}">number</td>
+				<td th:text="${account.currency}">currency</td>
+				<td th:text="${account.type}">type</td>
+				<td th:text="${account.balance}">balance</td>
 			</tr>
 		</table>
 	</div>
