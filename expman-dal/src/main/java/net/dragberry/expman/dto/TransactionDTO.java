@@ -1,37 +1,56 @@
-package net.dragberry.expman.bean;
+package net.dragberry.expman.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TransactionTO implements TransferObject {
+public class TransactionDTO implements Serializable {
 
-	private static final long serialVersionUID = -7659610163078899945L;
-
+	private static final long serialVersionUID = -859819118037899264L;
+	
 	private Long transactionKey;
-
+	
 	private Long customerKey;
-
+	
 	private Long accountKey;
-
+	
 	private String accountNumber;
-
+	
 	private Long counterPartyKey;
-
+	
 	private String counterPartyName;
-
+	
 	private Long transactionTypeKey;
-
+	
 	private String transactionType;
-
+	
 	private String transactionTypeName;
-
+	
 	private String description;
-
+	
 	private Date processingDate;
-
+	
 	private BigDecimal amount;
-
+	
 	private String currency;
+	
+	public TransactionDTO(Long transactionKey, Long customerKey, Long accountKey, String accountNumber,
+			Long counterPartyKey, String counterPartyName, Long transactionTypeKey, String transactionType,
+			String transactionTypeName, String description, Date processingDate, BigDecimal amount, String currency) {
+		this.transactionKey = transactionKey;
+		this.customerKey = customerKey;
+		this.accountKey = accountKey;
+		this.accountNumber = accountNumber;
+		this.counterPartyKey = counterPartyKey;
+		this.counterPartyName = counterPartyName;
+		this.transactionTypeKey = transactionTypeKey;
+		this.transactionType = transactionType;
+		this.transactionTypeName = transactionTypeName;
+		this.description = description;
+		this.processingDate = processingDate;
+		this.amount = amount;
+		this.currency = currency;
+	}
 
 	public Long getTransactionKey() {
 		return transactionKey;
@@ -79,14 +98,6 @@ public class TransactionTO implements TransferObject {
 
 	public void setCounterPartyName(String counterPartyName) {
 		this.counterPartyName = counterPartyName;
-	}
-
-	public Long getTransactionTypeKey() {
-		return transactionTypeKey;
-	}
-
-	public void setTransactionTypeKey(Long transactionTypeKey) {
-		this.transactionTypeKey = transactionTypeKey;
 	}
 
 	public String getTransactionType() {
@@ -137,4 +148,12 @@ public class TransactionTO implements TransferObject {
 		this.currency = currency;
 	}
 
+	public Long getTransactionTypeKey() {
+		return transactionTypeKey;
+	}
+
+	public void setTransactionTypeKey(Long transactionTypeKey) {
+		this.transactionTypeKey = transactionTypeKey;
+	}
+	
 }

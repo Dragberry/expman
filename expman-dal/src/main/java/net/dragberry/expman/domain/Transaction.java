@@ -116,4 +116,13 @@ public class Transaction implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	
 }

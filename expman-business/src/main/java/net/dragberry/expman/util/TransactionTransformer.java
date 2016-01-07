@@ -19,12 +19,12 @@ public class TransactionTransformer implements EntityTransformer<Transaction, Tr
 		transaction.setTransactionKey(bean.getTransactionKey());
 		transaction.setProcessingDate(bean.getProcessingDate());
 		transaction.setDescription(bean.getDescription());
-		Customer customer = Transformers.getCustomerTransformer().transform(bean.getCustomer());
-		transaction.setCustomer(customer);
-		TransactionType transactionType = Transformers.getTransactionTypeTransformer().transform(bean.getTransactionType());
-		transaction.setTransactionType(transactionType);
-		CounterParty cp = Transformers.getCounterPartyTransformer().transform(bean.getCounterParty());
-		transaction.setCounterParty(cp);
+//		Customer customer = Transformers.getCustomerTransformer().transform(bean.getCustomer());
+//		transaction.setCustomer(customer);
+//		TransactionType transactionType = Transformers.getTransactionTypeTransformer().transform(bean.getTransactionType());
+//		transaction.setTransactionType(transactionType);
+//		CounterParty cp = Transformers.getCounterPartyTransformer().transform(bean.getCounterParty());
+//		transaction.setCounterParty(cp);
 		return transaction;
 	}
 
@@ -37,11 +37,11 @@ public class TransactionTransformer implements EntityTransformer<Transaction, Tr
 		transactionTO.setProcessingDate(object.getProcessingDate());
 		transactionTO.setDescription(object.getDescription());
 		CustomerTO customerTO = Transformers.getCustomerTransformer().transform(object.getCustomer());
-		transactionTO.setCustomer(customerTO);
+//		transactionTO.setCustomer(customerTO);
 		TransactionTypeTO transactionTypeTO = Transformers.getTransactionTypeTransformer().transform(object.getTransactionType());
-		transactionTO.setTransactionType(transactionTypeTO);
+//		transactionTO.setTransactionType(transactionTypeTO);
 		CounterPartyTO cp = Transformers.getCounterPartyTransformer().transform(object.getCounterParty());
-		transactionTO.setCounterParty(cp);
+//		transactionTO.setCounterParty(cp);
 		return transactionTO;
 	}
 

@@ -5,12 +5,12 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorator="template/content-template">
 <head>
-	<title th:text="#{messages.transactionList}">Transaction list</title>
+	<title th:text="#{messages.transaction.transactionList}">Transaction list</title>
 </head>
 <body>
 	
 	<div layout:fragment="headerPanel">
-		<h4 th:text="#{messages.transactionList}">Transaction list</h4>
+		<h4 th:text="#{messages.transaction.transactionList}">Transaction list</h4>
 	</div>
 	
 	<div layout:fragment="leftMenu">
@@ -20,22 +20,24 @@
 	<div layout:fragment="data">
 		<table class="table">
 			<tr>
-				<th>Id</th>
-				<th>Type</th>
-				<th>Type Name</th>
-				<th>Amount</th>
-				<th>Currency</th>
-				<th>Description</th>
-				<th>Delete</th>
+				<th th:text="#{messages.transaction.processingDate}">Processing date</th>
+				<th th:text="#{messages.transaction.account}">Account number</th>
+				<th th:text="#{messages.transaction.transactionType}">Type</th>
+				<th th:text="#{messages.transaction.transactionTypeName}">Type Name</th>
+				<th th:text="#{messages.transaction.amount}">Amount</th>
+				<th th:text="#{messages.transaction.currency}">Currency</th>
+				<th th:text="#{messages.transaction.description}">Description</th>
+				<th th:text="#{messages.transaction.action}">Action</th>
 			</tr>
 			<tr th:each="transaction : ${transactionList}">
-				<td th:text="${transaction.transactionKey}">id</td>
-				<td th:text="${transaction.transactionType.type}">type</td>
-				<td th:text="${transaction.transactionType.name}">type name</td>
+				<td th:text="${#calendars.format(transaction.processingDate,'dd MMMM yyyy')}">Processing Date</td>
+				<td th:text="${transaction.accountNumber}">Account number</td>
+				<td th:text="#{messages.transaction.transactionType +${transaction.transactionType}}">type</td>
+				<td th:text="${transaction.transactionTypeName}">type name</td>
 				<td th:text="${transaction.amount}">amount</td>
 				<td th:text="${transaction.currency}">currency</td>
 				<td th:text="${transaction.description}">description</td>
-				<td><a th:href="@{/transaction/delete/} + ${transaction.transactionKey}" th:text="Delete">Delete</a></td>
+				<td><a th:href="@{/transaction/delete/} + ${transaction.transactionKey}" th:text="#{messages.transaction.delete}">Delete</a></td>
 			</tr>
 		</table>
 	</div>

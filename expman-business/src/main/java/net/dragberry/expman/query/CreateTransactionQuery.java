@@ -1,11 +1,13 @@
-package net.dragberry.expman.web.model;
+package net.dragberry.expman.query;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TransactionCreateModel implements Model {
+import net.dragberry.expman.bean.TransferObject;
 
-	private static final long serialVersionUID = -2580105980906008241L;
+public class CreateTransactionQuery implements TransferObject {
+
+	private static final long serialVersionUID = -1515663669490575594L;
 	
 	private Long transactionKey;
 	
@@ -17,11 +19,11 @@ public class TransactionCreateModel implements Model {
 	
 	private String description;
 	
-	private Long transactionTypeKey;
-	
 	private Long counterPartyKey;
 	
 	private Long customerKey;
+	
+	private Long transactionTypeKey;
 	
 	private Long accountKey;
 
@@ -65,14 +67,6 @@ public class TransactionCreateModel implements Model {
 		this.description = description;
 	}
 
-	public Long getTransactionTypeKey() {
-		return transactionTypeKey;
-	}
-
-	public void setTransactionTypeKey(Long transactionTypeKey) {
-		this.transactionTypeKey = transactionTypeKey;
-	}
-
 	public Long getCounterPartyKey() {
 		return counterPartyKey;
 	}
@@ -89,6 +83,14 @@ public class TransactionCreateModel implements Model {
 		this.customerKey = customerKey;
 	}
 
+	public Long getTransactionTypeKey() {
+		return transactionTypeKey;
+	}
+
+	public void setTransactionTypeKey(Long transactionTypeKey) {
+		this.transactionTypeKey = transactionTypeKey;
+	}
+
 	public Long getAccountKey() {
 		return accountKey;
 	}
@@ -96,5 +98,5 @@ public class TransactionCreateModel implements Model {
 	public void setAccountKey(Long accountKey) {
 		this.accountKey = accountKey;
 	}
-
+	
 }

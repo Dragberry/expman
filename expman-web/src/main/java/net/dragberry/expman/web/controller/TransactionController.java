@@ -1,7 +1,6 @@
 package net.dragberry.expman.web.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,24 +19,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.dragberry.expman.bean.AccountTO;
 import net.dragberry.expman.bean.CounterPartyTO;
-import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.bean.TransactionTO;
 import net.dragberry.expman.bean.TransactionTypeTO;
 import net.dragberry.expman.bean.ResultTO;
 import net.dragberry.expman.business.AccountService;
 import net.dragberry.expman.business.CounterPartyService;
-import net.dragberry.expman.business.CustomerService;
+import net.dragberry.expman.business.ReferenceService;
 import net.dragberry.expman.business.TransactionService;
 import net.dragberry.expman.business.TransactionTypeService;
-import net.dragberry.expman.query.AccountBalanceQuery;
 import net.dragberry.expman.query.AccountQuery;
+import net.dragberry.expman.query.CreateTransactionQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.web.common.Constants;
-import net.dragberry.expman.web.model.TransactionCreateModel;
 import net.dragberry.expman.web.security.ExpmanSecurityContext;
 
 @Controller
 public class TransactionController implements Serializable {
+
+	private static final String CURRENCY_LIST = "currencyList";
 
 	private static final String ACCOUNT_LIST = "accountList";
 
@@ -54,8 +53,6 @@ public class TransactionController implements Serializable {
 	private static final String TRANSACTION_LIST = "transactionList";
 
 	@Autowired
-	private CustomerService customerService;
-	@Autowired
 	private TransactionService transactionService;
 	@Autowired
 	private TransactionTypeService transactionTypeService;
@@ -63,6 +60,8 @@ public class TransactionController implements Serializable {
 	private CounterPartyService counterPartyService;
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private ReferenceService referenceService;
 	
 	@RequestMapping(value = Constants.Path.TRANSACTION_DELETE)
 	public ModelAndView deleteTransaction(@PathVariable("transactionId") Long transactionId) {
@@ -84,7 +83,7 @@ public class TransactionController implements Serializable {
 	@RequestMapping(value = Constants.Path.TRANSACTION_CREATE)
 	public ModelAndView createTransaction() {
 		ModelAndView modelAndView = new ModelAndView(Constants.View.TRANSACTION_CREATE);
-		modelAndView.addObject(TRANSACTION, new TransactionCreateModel());
+		modelAndView.addObject(TRANSACTION, new CreateTransactionQuery());
 		
 		Long loggedCutomerKey = ExpmanSecurityContext.getCustomerKey();
 		
@@ -94,6 +93,9 @@ public class TransactionController implements Serializable {
 		List<CounterPartyTO> counterPartyList = counterPartyService.fetchCounterPartyList(loggedCutomerKey).getList();
 		modelAndView.addObject(COUNTER_PARTY_LIST, counterPartyList);
 		
+		List<String> currencyList = referenceService.fecthCurrecnyList();
+		modelAndView.addObject(CURRENCY_LIST, currencyList);
+		
 		AccountQuery accountQuery = new AccountQuery();
 		accountQuery.setCustomerKey(loggedCutomerKey);
 		List<AccountTO> accountList = accountService.fetchAccounts(accountQuery).getList();
@@ -102,32 +104,13 @@ public class TransactionController implements Serializable {
 	}
 	
 	@RequestMapping(value = Constants.Path.TRANSACTION_CREATE, method = RequestMethod.POST)
-	public ModelAndView createTransaction(TransactionCreateModel transaction, HttpServletRequest request, BindingResult bindingResult) {
-		bindingResult.rejectValue("currency", "messages.error");
-		TransactionTO transactionTO = new TransactionTO();
-		transactionTO.setAmount(transaction.getAmount());
-		transactionTO.setCurrency(transaction.getCurrency());
-		transactionTO.setDescription(transaction.getDescription());
-		transactionTO.setProcessingDate(transaction.getProcessingDate());
-		
-		String principalName = request.getUserPrincipal().getName();
-		CustomerTO loggedCustomer = customerService.findByCustomerName(principalName).getObject();
-		transactionTO.setCustomer(loggedCustomer);
-		
-		TransactionTypeTO transactionTypeTO = transactionTypeService.findTransactionTypeByKey(transaction.getTransactionTypeKey()).getObject();
-		transactionTO.setTransactionType(transactionTypeTO);
-		
-		CounterPartyTO cpTO = counterPartyService.findCounterParty(transaction.getCounterPartyKey()).getObject();
-		transactionTO.setCounterParty(cpTO);
-		
-		ResultTO<TransactionTO> result = transactionService.createTransaction(transactionTO);
+	public ModelAndView createTransaction(CreateTransactionQuery transaction, HttpServletRequest request, BindingResult bindingResult) {
+		transaction.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
+		ResultTO<TransactionTO> result = transactionService.createTransaction(transaction);
 		if (!result.hasIssues()) {
 			ModelAndView modelAndView = new ModelAndView(Constants.View.TRANSACTION_CREATE);
-			modelAndView.addObject(TRANSACTION, new TransactionCreateModel());
+			modelAndView.addObject(TRANSACTION, new CreateTransactionQuery());
 			modelAndView.addAllObjects(bindingResult.getModel());
-			if (bindingResult.hasErrors()) {
-				loggedCustomer.equals(null);
-			}
 			Map<String, Object> map = bindingResult.getModel();
 			List<FieldError> errors = bindingResult.getFieldErrors();
 			return modelAndView;

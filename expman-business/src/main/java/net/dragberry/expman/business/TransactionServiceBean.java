@@ -11,9 +11,19 @@ import net.dragberry.expman.bean.TransactionTO;
 import net.dragberry.expman.bean.IssueTO;
 import net.dragberry.expman.bean.ResultListTO;
 import net.dragberry.expman.bean.ResultTO;
+import net.dragberry.expman.domain.Account;
+import net.dragberry.expman.domain.CounterParty;
+import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Transaction;
+import net.dragberry.expman.domain.TransactionType;
+import net.dragberry.expman.dto.TransactionDTO;
+import net.dragberry.expman.query.CreateTransactionQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
+import net.dragberry.expman.repository.AccountRepo;
+import net.dragberry.expman.repository.CounterPartyRepo;
+import net.dragberry.expman.repository.CustomerRepo;
 import net.dragberry.expman.repository.TransactionRepo;
+import net.dragberry.expman.repository.TransactionTypeRepo;
 import net.dragberry.expman.util.IssueFactory;
 import net.dragberry.expman.util.ResultFactory;
 import net.dragberry.expman.util.Transformers;
@@ -24,23 +34,62 @@ public class TransactionServiceBean implements TransactionService {
 
 	@Autowired
 	private TransactionRepo transactionRepo;
+	@Autowired
+	private CustomerRepo customerRepo;
+	@Autowired
+	private TransactionTypeRepo transactionTypeRepo;
+	@Autowired
+	private CounterPartyRepo counterPartyRepo;
+	@Autowired
+	private AccountRepo accountRepo;
 
 	@Override
-	public ResultTO<TransactionTO> createTransaction(TransactionTO transactionTO) {
-		Transaction transaction = Transformers.getTransactionTransformer().transform(transactionTO);
-		transaction = transactionRepo.save(transaction);
-		TransactionTO createdTransactionTO = Transformers.getTransactionTransformer().transform(transaction);
+	public ResultTO<TransactionTO> createTransaction(CreateTransactionQuery query) {
+		Transaction tr = new Transaction();
+		tr.setTransactionKey(query.getTransactionKey());
+		tr.setAmount(query.getAmount());
+		tr.setDescription(query.getDescription());
+		tr.setCurrency(query.getCurrency());
+		tr.setProcessingDate(query.getProcessingDate());
+		
+		Customer customer = customerRepo.findOne(query.getCustomerKey());
+		tr.setCustomer(customer);
+		
+		TransactionType type = transactionTypeRepo.findOne(query.getTransactionTypeKey());
+		tr.setTransactionType(type);
+		
+		CounterParty cp = counterPartyRepo.findOne(query.getCounterPartyKey());
+		tr.setCounterParty(cp);
+		
+		Account account = accountRepo.findOne(query.getAccountKey());
+		tr.setAccount(account);
+		
+		tr = transactionRepo.save(tr);
+		TransactionTO createdTransactionTO = Transformers.getTransactionTransformer().transform(tr);
 		return ResultFactory.createResult(createdTransactionTO);
 	}
 
 	@Override
 	public ResultListTO<TransactionTO> fetchTransactions() {
-		List<Transaction> list = transactionRepo.findAll();
-		List<Object> list2 = transactionRepo.fetchTransactionList();
+		Customer c = customerRepo.findOne(3L);
+		List<TransactionDTO> list = transactionRepo.fetchTransactionList(c);
 		List<TransactionTO> listTO = new ArrayList<>();
-		for (Transaction transaction : list) {
-			TransactionTO transactionTO = Transformers.getTransactionTransformer().transform(transaction);
-			listTO.add(transactionTO);
+		for (TransactionDTO tr : list) {
+			TransactionTO to = new TransactionTO();
+			to.setAccountKey(tr.getAccountKey());
+			to.setAccountNumber(tr.getAccountNumber());
+			to.setAmount(tr.getAmount());
+			to.setCounterPartyKey(tr.getCounterPartyKey());
+			to.setCounterPartyName(tr.getCounterPartyName());
+			to.setCurrency(tr.getCurrency());
+			to.setCustomerKey(tr.getCustomerKey());
+			to.setDescription(tr.getDescription());
+			to.setProcessingDate(tr.getProcessingDate());
+			to.setTransactionKey(tr.getTransactionKey());
+			to.setTransactionType(tr.getTransactionType());
+			to.setTransactionTypeKey(tr.getTransactionTypeKey());
+			to.setTransactionTypeName(tr.getTransactionTypeName());
+			listTO.add(to);
 		}
 		return ResultFactory.createResultList(listTO);
 	}
