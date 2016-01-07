@@ -82,7 +82,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-	    messageSource.setBasenames("classpath:messages");
+	    messageSource.setBasenames("classpath:messages", "classpath:BusinessMessages");
 	    messageSource.setUseCodeAsDefaultMessage(false);
 	    messageSource.setDefaultEncoding("UTF-8");
 	    messageSource.setCacheSeconds(0);

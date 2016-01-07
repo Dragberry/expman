@@ -3,6 +3,7 @@ package net.dragberry.expman.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Transaction;
 import net.dragberry.expman.domain.TransactionType;
 import net.dragberry.expman.dto.TransactionDTO;
+import net.dragberry.expman.messages.BusinessMessageCodes;
 import net.dragberry.expman.query.CreateTransactionQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.repository.AccountRepo;
@@ -45,11 +47,23 @@ public class TransactionServiceBean implements TransactionService {
 
 	@Override
 	public ResultTO<TransactionTO> createTransaction(CreateTransactionQuery query) {
+		List<IssueTO> issues = new ArrayList<>();
 		Transaction tr = new Transaction();
 		tr.setTransactionKey(query.getTransactionKey());
+		if (query.getAmount() == null) {
+			issues.add(IssueFactory.createIssue(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_MANDATORY,  BusinessMessageCodes.DOMAIN));
+		} else if (query.getAmount().signum() == -1) {
+			issues.add(IssueFactory.createIssue(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_INCORRECT,  BusinessMessageCodes.DOMAIN));
+		}
 		tr.setAmount(query.getAmount());
+		
+		if (StringUtils.isBlank(query.getDescription())) {
+			issues.add(IssueFactory.createIssue(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_MANDATORY,  BusinessMessageCodes.DOMAIN));
+		} else if (query.getDescription().length() > 255) {
+			issues.add(IssueFactory.createIssue(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_TOO_LARGE,  BusinessMessageCodes.DOMAIN));
+		}
 		tr.setDescription(query.getDescription());
-		tr.setCurrency(query.getCurrency());
+		
 		tr.setProcessingDate(query.getProcessingDate());
 		
 		Customer customer = customerRepo.findOne(query.getCustomerKey());
@@ -64,9 +78,16 @@ public class TransactionServiceBean implements TransactionService {
 		Account account = accountRepo.findOne(query.getAccountKey());
 		tr.setAccount(account);
 		
-		tr = transactionRepo.save(tr);
+		if (!account.getCurrency().equals(query.getCurrency())) {
+			issues.add(IssueFactory.createIssue(BusinessMessageCodes.CreateTransaction.CURRENCY_IS_NOT_MATCH_WITH_ACCOUNT_CURRENCY,  BusinessMessageCodes.DOMAIN));
+		}
+		tr.setCurrency(query.getCurrency());
+		
+		if (issues.isEmpty()) {
+			tr = transactionRepo.save(tr);
+		}
 		TransactionTO createdTransactionTO = Transformers.getTransactionTransformer().transform(tr);
-		return ResultFactory.createResult(createdTransactionTO);
+		return ResultFactory.createResult(createdTransactionTO, issues);
 	}
 
 	@Override
