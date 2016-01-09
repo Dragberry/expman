@@ -19,6 +19,11 @@ public interface Constants {
 		String COUNTER_PARTY_CREATE = "/counter-party/create";
 		// account
 		String ACCOUNT_LIST = "/account/list";
+		// admin
+		String ADMIN = "/admin";
+		String EXPORT = ADMIN + "/export";
+		String DO_EXPORT = ADMIN + "/do-export";
+		
 	}
 	
 	static public interface View {
@@ -40,6 +45,8 @@ public interface Constants {
 		String COUNTER_PARTY_CREATE = "counter-party/create-counter-party";
 		// account
 		String ACCOUNT_LIST = "account/list-account";
+		// admin
+		String EXPORT = "admin/export";
 		
 	}
 }

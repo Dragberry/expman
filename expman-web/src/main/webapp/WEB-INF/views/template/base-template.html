@@ -6,6 +6,8 @@
 <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">#{messages.applicationTitle}</title>
 <link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/resources/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/resources/css/sticky-footer.css}" />
 </head>
 <body>
 	<div class="container">
@@ -15,10 +17,10 @@
 		<div layout:fragment="content">
 			
 		</div>
-		<th:block layout:fragment="footer">
-		
-		</th:block>
 	</div>
+	<th:block layout:fragment="footer">
+		
+	</th:block>
 	<script th:src="@{/resources/js/jquery.min.js}"></script>
 	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
 </body>

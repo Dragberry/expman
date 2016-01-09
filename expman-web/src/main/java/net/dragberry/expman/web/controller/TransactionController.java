@@ -28,6 +28,7 @@ import net.dragberry.expman.business.AccountService;
 import net.dragberry.expman.business.CounterPartyService;
 import net.dragberry.expman.business.ReferenceService;
 import net.dragberry.expman.business.TransactionService;
+import net.dragberry.expman.business.TransactionService.Type;
 import net.dragberry.expman.business.TransactionTypeService;
 import net.dragberry.expman.messages.BusinessMessageCodes;
 import net.dragberry.expman.query.AccountQuery;
@@ -56,8 +57,10 @@ public class TransactionController implements Serializable {
 	
 	private static final String TRANSACTION_LIST = "transactionList";
 	
-	private static final Map<String, String> errorMap = new HashMap<>();
+	private static final String TYPE_LIST = "typeList";
 	
+	private static final Map<String, String> errorMap = new HashMap<>();
+
 	static {
 		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_INCORRECT, CreateTransactionQuery.AMOUNT_FIELD);
 		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_MANDATORY, CreateTransactionQuery.AMOUNT_FIELD);
@@ -127,6 +130,9 @@ public class TransactionController implements Serializable {
 		
 		List<String> currencyList = referenceService.fecthCurrecnyList();
 		modelAndView.addObject(CURRENCY_LIST, currencyList);
+		
+		Type[] typeList = Type.values();
+		modelAndView.addObject(TYPE_LIST, typeList);
 		
 		AccountQuery accountQuery = new AccountQuery();
 		accountQuery.setCustomerKey(loggedCutomerKey);

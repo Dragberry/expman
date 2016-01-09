@@ -21,6 +21,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
+import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.controller.Controllers;
 import net.dragberry.expman.web.controller.error.ExceptionHandlers;
 import net.dragberry.expman.web.menu.MainMenuBean;
@@ -36,7 +37,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(securityInterceptor());
-		registry.addInterceptor(menuInterceptor());
+		registry.addInterceptor(menuInterceptor()).excludePathPatterns(Constants.Path.DO_EXPORT);
 	}
 	
 	@Bean

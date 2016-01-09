@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class TransactionTO implements TransferObject {
-
+	
 	private static final long serialVersionUID = -7659610163078899945L;
 
 	private Long transactionKey;

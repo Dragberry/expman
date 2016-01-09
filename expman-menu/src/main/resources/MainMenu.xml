@@ -54,4 +54,8 @@
 		</MenuItemXML>
 	</MenuItemXML>
 	
+	<MenuItemXML id="export" key="messages.menu.export" action="/admin/export">
+		<Role>ADMIN</Role>
+	</MenuItemXML>
+	
 </MainMenuXML>

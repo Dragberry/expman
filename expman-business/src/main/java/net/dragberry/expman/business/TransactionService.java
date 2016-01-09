@@ -8,10 +8,14 @@ import net.dragberry.expman.bean.ResultTO;
 
 public interface TransactionService {
 	
+	public static enum Type {
+		C, D
+	}
+	
 	ResultTO<TransactionTO> createTransaction(CreateTransactionQuery query);
 
 	ResultListTO<TransactionTO> fetchTransactions();
 	
 	ResultTO<TransactionTO> deleteTransaction(DeleteTransactionQuery query);
-
+	
 }
