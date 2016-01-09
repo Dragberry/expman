@@ -46,23 +46,21 @@ public class CustomerServiceBean implements CustomerService {
 	public ResultTO<CustomerTO> createCustomer(CustomerCreateQuery customerQuery) {
 		List<IssueTO> issueLog = new ArrayList<>();
 		if (StringUtils.isBlank(customerQuery.getEmail())) {
-			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_EMAIL_IS_ABSENT, BusinessMessageCodes.DOMAIN));
+			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CreateCustomer.EMAIL_IS_MANDATORY, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer's e-mail is absent");
-		}
-		if (customerRepo.ifCustomerEmailExist(customerQuery.getEmail())) {
-			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_EMAIL_IS_EXIST, BusinessMessageCodes.DOMAIN));
+		} else if (customerRepo.ifCustomerEmailExist(customerQuery.getEmail())) {
+			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CreateCustomer.EMAIL_IS_NOT_UNIQUE, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer's e-mail has already present");
 		}
 		if (StringUtils.isBlank(customerQuery.getCustomerName())) {
-			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_NAME_IS_ABSENT, BusinessMessageCodes.DOMAIN));
+			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CreateCustomer.CUSTOMER_NAME_IS_MANDATORY, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer name is absent");
-		}
-		if (customerRepo.ifCustomerNameExist(customerQuery.getCustomerName())) {
-			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_NAME_IS_EXIST, BusinessMessageCodes.DOMAIN));
+		} else if (customerRepo.ifCustomerNameExist(customerQuery.getCustomerName())) {
+			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CreateCustomer.CUSTOMER_NAME_IS_NOT_UNIQUE, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Customer name has already present");
 		}
 		if (!StringUtils.equals(customerQuery.getPassword(), customerQuery.getPasswordRepeated())) {
-			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CUSTOMER_PASSWORD_DO_NOT_MATCH, BusinessMessageCodes.DOMAIN));
+			issueLog.add(IssueFactory.createIssue(BusinessMessageCodes.CreateCustomer.PASSWORD_DOES_NOT_MATCH, BusinessMessageCodes.DOMAIN));
 			LOG.warn("Password is not matching");
 		}
 		Customer customer = new Customer();

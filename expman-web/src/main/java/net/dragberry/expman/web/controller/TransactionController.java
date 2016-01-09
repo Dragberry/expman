@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.dragberry.expman.bean.AccountTO;
 import net.dragberry.expman.bean.CounterPartyTO;
-import net.dragberry.expman.bean.IssueTO;
 import net.dragberry.expman.bean.TransactionTO;
 import net.dragberry.expman.bean.TransactionTypeTO;
 import net.dragberry.expman.bean.ResultTO;
@@ -36,6 +34,7 @@ import net.dragberry.expman.query.AccountQuery;
 import net.dragberry.expman.query.CreateTransactionQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.web.common.Constants;
+import net.dragberry.expman.web.controller.error.IssueResolver;
 import net.dragberry.expman.web.security.ExpmanSecurityContext;
 
 @Controller
@@ -60,11 +59,11 @@ public class TransactionController implements Serializable {
 	private static final Map<String, String> errorMap = new HashMap<>();
 	
 	static {
-		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_INCORRECT, "amount");
-		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_MANDATORY, "amount");
-		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_MANDATORY, "description");
-		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_TOO_LARGE, "description");
-		errorMap.put(BusinessMessageCodes.CreateTransaction.CURRENCY_IS_NOT_MATCH_WITH_ACCOUNT_CURRENCY, "currency");
+		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_INCORRECT, CreateTransactionQuery.AMOUNT_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_MANDATORY, CreateTransactionQuery.AMOUNT_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_MANDATORY, CreateTransactionQuery.DESCRIPTION_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_TOO_LARGE, CreateTransactionQuery.DESCRIPTION_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.CURRENCY_IS_NOT_MATCH_WITH_ACCOUNT_CURRENCY, CreateTransactionQuery.CURRENCY_FIELD);
 	}
 
 	@Autowired
@@ -83,7 +82,7 @@ public class TransactionController implements Serializable {
 		DeleteTransactionQuery query = new DeleteTransactionQuery();
 		query.setTransactionKey(transactionId);
 		query.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
-		ResultTO<TransactionTO> trTO = transactionService.deleteTransaction(query);
+		transactionService.deleteTransaction(query);
 		return new ModelAndView("redirect:/transaction/list");
 	}
 	
@@ -107,13 +106,8 @@ public class TransactionController implements Serializable {
 		ResultTO<TransactionTO> result = transactionService.createTransaction(transaction);
 		if (result.hasIssues()) {
 			ModelAndView modelAndView = prepareCreateTransactionScreen(transaction);
-			for (IssueTO issue : result.getIssueLog()) {
-				String field = errorMap.get(issue.getIssueCode());
-				if (field != null) {
-					bindingResult.rejectValue(field, issue.getIssueCode());
-				}
-			}
-			modelAndView.addAllObjects(bindingResult.getModel());
+			Map<String, Object> errorModel = IssueResolver.resolve(result.getIssueLog(), errorMap, bindingResult);
+			modelAndView.addAllObjects(errorModel);
 			return modelAndView;
 		} else {
 			return new ModelAndView(Constants.View.HOME);

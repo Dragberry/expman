@@ -9,6 +9,10 @@ import net.dragberry.expman.bean.TransferObject;
 public class CustomerCreateQuery implements TransferObject {
 	
 	private static final long serialVersionUID = 3019584916612756293L;
+	
+	public static String CUSTOMER_NAME_FIELD = "customerName";
+	public static String PASSWORD_FIELD = "password";
+	public static String EMAIL_FIELD = "email";
 
 	private Long customerKey;
 	

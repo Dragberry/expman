@@ -9,6 +9,10 @@ public class CreateTransactionQuery implements TransferObject {
 
 	private static final long serialVersionUID = -1515663669490575594L;
 	
+	public static String AMOUNT_FIELD = "amount";
+	public static String CURRENCY_FIELD = "currency";
+	public static String DESCRIPTION_FIELD = "description";
+	
 	private Long transactionKey;
 	
 	private BigDecimal amount;

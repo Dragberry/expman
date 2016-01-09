@@ -4,13 +4,19 @@ public interface BusinessMessageCodes {
 	
 	String DOMAIN = "BusinessMessages";
 	
-	String CUSTOMER_EMAIL_IS_ABSENT = "000001";
-	String CUSTOMER_EMAIL_IS_EXIST = "000002";
-	String CUSTOMER_NAME_IS_ABSENT = "000003";
-	String CUSTOMER_NAME_IS_EXIST = "000004";
-	String CUSTOMER_PASSWORD_DO_NOT_MATCH = "000005";
+	interface CreateCustomer {
+		String EMAIL_IS_MANDATORY = "000001";
+		String EMAIL_IS_NOT_UNIQUE = "000002";
+		String EMAIL_IS_INVALID = "000003";
+		
+		String CUSTOMER_NAME_IS_MANDATORY = "000004";
+		String CUSTOMER_NAME_IS_NOT_UNIQUE = "000005";
+		
+		String PASSWORD_DOES_NOT_MATCH = "000006";
+		String PASSWORD_HAS_INVALID_LENGTH = "000007";
+	}
 	
-	static interface CreateTransaction {
+	interface CreateTransaction {
 		
 		String DESCRIPTION_IS_MANDATORY = "000051";
 		String DESCRIPTION_IS_TOO_LARGE = "000052";

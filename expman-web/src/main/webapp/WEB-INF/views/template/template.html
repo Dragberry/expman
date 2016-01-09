@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-<title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">#{messages.applicationTitle}</title>
-<link rel="stylesheet" type="text/css" media="all"
-	th:href="@{/resources/css/bootstrap.min.css}" />
-</head>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template/base-template">
 <body>
 	<div class="container">
-		<nav th:replace="template/header :: nav">Header</nav>
-		<div layout:fragment="content">
-			<h1>Static content for prototyping purposes only</h1>
+		<div layout:fragment="header">
+			<nav th:replace="template/header :: nav">Header</nav>
 		</div>
-		<footer th:replace="template/footer :: footer">&copy; 2015 The Expense Manager</footer>
+		<div layout:fragment="content">
+			
+		</div>
+		<div layout:fragment="footer">
+			<footer th:replace="template/footer :: footer">&copy; 2015 The Expense Manager</footer>
+		</div>
 	</div>
 	<script th:src="@{/resources/js/jquery.min.js}"></script>
 	<script th:src="@{/resources/js/bootstrap.min.js}"></script>

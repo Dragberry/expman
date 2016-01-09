@@ -2,11 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="error/error-page-template">
 <head>
+	<title th:text="#{messages.errorPage.404}">404</title>
 </head>
 <body>
-	<h2>Oops! The requested page not found!</h2>
-	<a th:href="@{/}">Home</a>
+	<span layout:fragment="heading-text" th:text="#{messages.errorPage.404}"></span>
 </body>
 </html>

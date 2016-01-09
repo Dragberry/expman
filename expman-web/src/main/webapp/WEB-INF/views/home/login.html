@@ -1,17 +1,49 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Login page</title>
-  </head>
-  <body>
-    <h1>Login page</h1>
-    <p th:if="${loginError}">Wrong user or password</p>
-    <form th:action="@{/login}" method="post">
-      <label for="username">Customer name</label>:
-      <input type="text" id="username" name="username" /> <br />
-      <label for="password">Password</label>:
-      <input type="password" id="password" name="password" /> <br />
-      <input type="submit" value="Log in" />
-    </form>
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="template/template">
+<head>
+	<title th:text="#{messages.login.loginForm}">Login form</title>
+</head>
+<body>
+	<div layout:fragment="content" class="content">
+		<div class="row">
+	    	<div class="col-md-6 col-md-offset-3">
+		    	<form class="form-signin" th:action="@{/login}" method="post">
+			        <h4 class="form-signin-heading" th:text="#{messages.login.please}">Please sign in</h4>
+			        <div>
+			        	<hr />
+			        </div>
+			        <label for="username" 
+			        	class="sr-only" 
+			        	th:text="#{messages.login.username}">Username</label>
+			        <input type="text" 
+			        	id="username" 
+			        	name="username"
+			        	class="form-control" 
+			        	th:placeholder="#{messages.login.username}"></input>
+			        <div>
+			        	<br />
+			        </div>
+			        <label for="password" 
+			        	class="sr-only" 
+			        	th:text="#{messages.login.password}">Password</label>
+			        <input type="password" 
+			        	id="password" 
+			        	name="password"
+			        	class="form-control" 
+			        	th:placeholder="#{messages.login.password}"></input>
+			        <div>
+			        	<hr />
+			        </div>
+			        <button class="btn btn-lg btn-primary btn-block" 
+			        	type="submit" 
+			        	th:text="#{messages.login.signin}">Sign in</button>
+			      </form>
+	    	</div>
+	   	</div>
+   </div>
+</body>
 </html>
