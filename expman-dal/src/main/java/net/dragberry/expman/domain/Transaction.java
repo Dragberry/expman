@@ -41,6 +41,9 @@ public class Transaction implements Serializable {
 	@Column(name = "DESCRIPTION")
 	private String description;
 	
+	@Column(name = "TYPE")
+	private String type;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TRANSACTION_TYPE_KEY", referencedColumnName = "TRANSACTION_TYPE_KEY")
 	private TransactionType transactionType;
@@ -123,6 +126,14 @@ public class Transaction implements Serializable {
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

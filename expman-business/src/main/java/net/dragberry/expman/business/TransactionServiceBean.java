@@ -83,6 +83,8 @@ public class TransactionServiceBean implements TransactionService {
 		}
 		tr.setCurrency(query.getCurrency());
 		
+		tr.setType(query.getType());
+		
 		if (issues.isEmpty()) {
 			tr = transactionRepo.save(tr);
 		}

@@ -12,7 +12,7 @@ public class TransactionTypeTransformer implements EntityTransformer<Transaction
 		TransactionType transactionType = new TransactionType();
 		transactionType.setTransactionTypeKey(bean.getTransactionTypeKey());
 		transactionType.setName(bean.getName());
-		transactionType.setType(bean.getType());
+//		transactionType.setType(bean.getType());
 		Customer customer = Transformers.getCustomerTransformer().transform(bean.getCustomer());
 		transactionType.setCustomer(customer);
 		return transactionType;
@@ -23,7 +23,7 @@ public class TransactionTypeTransformer implements EntityTransformer<Transaction
 		TransactionTypeTO transactionTypeTO = new TransactionTypeTO();
 		transactionTypeTO.setTransactionTypeKey(object.getTransactionTypeKey());;
 		transactionTypeTO.setName(object.getName());
-		transactionTypeTO.setType(object.getType());
+//		transactionTypeTO.setType(object.getType());
 		CustomerTO customerTO = Transformers.getCustomerTransformer().transform(object.getCustomer());
 		transactionTypeTO.setCustomer(customerTO);
 		return transactionTypeTO;

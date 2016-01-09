@@ -12,6 +12,7 @@ public class CreateTransactionQuery implements TransferObject {
 	public static String AMOUNT_FIELD = "amount";
 	public static String CURRENCY_FIELD = "currency";
 	public static String DESCRIPTION_FIELD = "description";
+	public static String TYPE_FIELD = "type";
 	
 	private Long transactionKey;
 	
@@ -30,6 +31,8 @@ public class CreateTransactionQuery implements TransferObject {
 	private Long transactionTypeKey;
 	
 	private Long accountKey;
+	
+	private String type;
 
 	public Long getTransactionKey() {
 		return transactionKey;
@@ -101,6 +104,14 @@ public class CreateTransactionQuery implements TransferObject {
 
 	public void setAccountKey(Long accountKey) {
 		this.accountKey = accountKey;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }
