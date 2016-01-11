@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ import net.dragberry.expman.domain.TransactionType;
 import net.dragberry.expman.dto.TransactionDTO;
 import net.dragberry.expman.messages.BusinessMessageCodes;
 import net.dragberry.expman.query.TransactionCreateQuery;
+import net.dragberry.expman.query.TransactionListQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.repository.AccountRepo;
 import net.dragberry.expman.repository.CounterPartyRepo;
@@ -93,9 +96,10 @@ public class TransactionServiceBean implements TransactionService {
 	}
 
 	@Override
-	public ResultListTO<TransactionTO> fetchTransactions() {
-		Customer c = customerRepo.findOne(3L);
-		List<TransactionDTO> list = transactionRepo.fetchTransactionList(c);
+	public ResultListTO<TransactionTO> fetchTransactions(TransactionListQuery query) {
+		Customer c = customerRepo.findOne(query.getCustomerKey());
+		PageRequest pageRequest = new PageRequest(query.getPageNumber(), query.getPageSize());
+		Page<TransactionDTO> list = transactionRepo.fetchTransactionList(c, pageRequest);
 		List<TransactionTO> listTO = new ArrayList<>();
 		for (TransactionDTO tr : list) {
 			TransactionTO to = new TransactionTO();

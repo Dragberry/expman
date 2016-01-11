@@ -2,6 +2,7 @@ package net.dragberry.expman.business;
 
 import net.dragberry.expman.bean.TransactionTO;
 import net.dragberry.expman.query.TransactionCreateQuery;
+import net.dragberry.expman.query.TransactionListQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.bean.ResultListTO;
 import net.dragberry.expman.bean.ResultTO;
@@ -14,7 +15,7 @@ public interface TransactionService {
 	
 	ResultTO<TransactionTO> createTransaction(TransactionCreateQuery query);
 
-	ResultListTO<TransactionTO> fetchTransactions();
+	ResultListTO<TransactionTO> fetchTransactions(TransactionListQuery query);
 	
 	ResultTO<TransactionTO> deleteTransaction(DeleteTransactionQuery query);
 	

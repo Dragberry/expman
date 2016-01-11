@@ -28,11 +28,12 @@ import net.dragberry.expman.web.controller.error.ExceptionHandlers;
 import net.dragberry.expman.web.menu.MainMenuBean;
 import net.dragberry.expman.web.menu.MenuInterceptor;
 import net.dragberry.expman.web.security.SecurityInterceptor;
+import net.dragberry.expman.web.session.SessionBeans;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { Controllers.class, ExceptionHandlers.class, MainMenuBean.class })
+@ComponentScan(basePackageClasses = { Controllers.class, SessionBeans.class, ExceptionHandlers.class, MainMenuBean.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override

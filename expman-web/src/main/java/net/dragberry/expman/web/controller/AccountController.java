@@ -14,26 +14,31 @@ import net.dragberry.expman.business.AccountService;
 import net.dragberry.expman.query.AccountBalanceQuery;
 import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.security.ExpmanSecurityContext;
+import net.dragberry.expman.web.session.AccountSession;
 
 @Controller
 public class AccountController implements Serializable {
 
+	private static final String ACCOUNT_LIST = "accountList";
+
 	private static final long serialVersionUID = 8887853545591915247L;
 	
+	@Autowired
+	private AccountSession accountSession;
 	@Autowired
 	private AccountService accountService;
 	
 	@RequestMapping(value = Constants.Path.ACCOUNT_LIST)
 	public ModelAndView accountList() {
 		ModelAndView modelAndView = new ModelAndView(Constants.View.ACCOUNT_LIST);
-		AccountBalanceQuery query = new AccountBalanceQuery();
-		query.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
-		ResultListTO<AccountBalanceTO> accountBalanceList = accountService.fetchAccountBalances(query);
-		if (!accountBalanceList.hasIssues()) {
-			modelAndView.addObject("accountList", accountBalanceList.getList());
-		} else {
-			modelAndView.addObject("accountList", new ArrayList<AccountBalanceTO>());
+		if (!accountSession.isInitialized()) {
+			AccountBalanceQuery query = new AccountBalanceQuery();
+			query.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
+			ResultListTO<AccountBalanceTO> accountBalanceList = accountService.fetchAccountBalances(query);
+			accountSession.setAccountBalanceList(accountBalanceList.getList());
+			accountSession.setInitialized(true);
 		}
+		modelAndView.addObject(ACCOUNT_LIST, accountSession.getAccountBalanceList());
 		return modelAndView;
 	}
 

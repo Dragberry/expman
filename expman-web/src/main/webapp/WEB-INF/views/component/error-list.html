@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+<body>
+	<div th:fragment="error-list" class="col-md-12 alert alert-danger"
+		th:if="${#fields.hasErrors('*')}">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong th:text="#{messages.alert.checkInputData}">Check input data!</strong>
+		<ul>
+			<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+		</ul>
+	</div>
+</body>
+</html>

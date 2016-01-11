@@ -33,10 +33,12 @@ import net.dragberry.expman.business.TransactionTypeService;
 import net.dragberry.expman.messages.BusinessMessageCodes;
 import net.dragberry.expman.query.AccountQuery;
 import net.dragberry.expman.query.TransactionCreateQuery;
+import net.dragberry.expman.query.TransactionListQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.controller.error.IssueResolver;
 import net.dragberry.expman.web.security.ExpmanSecurityContext;
+import net.dragberry.expman.web.session.TransactionListSession;
 
 @Controller
 public class TransactionController implements Serializable {
@@ -80,6 +82,9 @@ public class TransactionController implements Serializable {
 	@Autowired
 	private ReferenceService referenceService;
 	
+	@Autowired
+	private TransactionListSession transactionListSession;
+	
 	@RequestMapping(value = Constants.Path.TRANSACTION_DELETE)
 	public ModelAndView deleteTransaction(@PathVariable("transactionId") Long transactionId) {
 		DeleteTransactionQuery query = new DeleteTransactionQuery();
@@ -91,7 +96,12 @@ public class TransactionController implements Serializable {
 	
 	@RequestMapping(value = Constants.Path.TRANSACTION_LIST)
 	public ModelAndView listTransaction() {
-		List<TransactionTO> transactionList = transactionService.fetchTransactions().getList();
+		if (!transactionListSession.isInitialized()) {
+			
+		}
+		TransactionListQuery query = new TransactionListQuery();
+		query.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
+		List<TransactionTO> transactionList = transactionService.fetchTransactions(query).getList();
 		ModelAndView modelAndView = new ModelAndView(Constants.View.TRANSACTION_LIST);
 		modelAndView.addObject(TRANSACTION_LIST, transactionList);
 		return modelAndView;
