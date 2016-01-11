@@ -1,6 +1,7 @@
 package net.dragberry.expman.business;
 
 import net.dragberry.expman.bean.TransactionTypeTO;
+import net.dragberry.expman.query.TransactionTypeCreateQuery;
 import net.dragberry.expman.bean.ResultListTO;
 import net.dragberry.expman.bean.ResultTO;
 
@@ -10,5 +11,6 @@ public interface TransactionTypeService {
 
 	ResultListTO<TransactionTypeTO> findTransactionTypeListForCustomer(Long customerKey);
 
-	ResultTO<TransactionTypeTO> createTransactionType(TransactionTypeTO transactionTypeTO);
+	ResultTO<TransactionTypeTO> createTransactionType(TransactionTypeCreateQuery query);
+	
 }

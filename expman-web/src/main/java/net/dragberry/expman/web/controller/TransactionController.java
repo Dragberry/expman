@@ -32,7 +32,7 @@ import net.dragberry.expman.business.TransactionService.Type;
 import net.dragberry.expman.business.TransactionTypeService;
 import net.dragberry.expman.messages.BusinessMessageCodes;
 import net.dragberry.expman.query.AccountQuery;
-import net.dragberry.expman.query.CreateTransactionQuery;
+import net.dragberry.expman.query.TransactionCreateQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.web.common.Constants;
 import net.dragberry.expman.web.controller.error.IssueResolver;
@@ -62,11 +62,11 @@ public class TransactionController implements Serializable {
 	private static final Map<String, String> errorMap = new HashMap<>();
 
 	static {
-		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_INCORRECT, CreateTransactionQuery.AMOUNT_FIELD);
-		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_MANDATORY, CreateTransactionQuery.AMOUNT_FIELD);
-		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_MANDATORY, CreateTransactionQuery.DESCRIPTION_FIELD);
-		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_TOO_LARGE, CreateTransactionQuery.DESCRIPTION_FIELD);
-		errorMap.put(BusinessMessageCodes.CreateTransaction.CURRENCY_IS_NOT_MATCH_WITH_ACCOUNT_CURRENCY, CreateTransactionQuery.CURRENCY_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_INCORRECT, TransactionCreateQuery.AMOUNT_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.AMOUNT_IS_MANDATORY, TransactionCreateQuery.AMOUNT_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_MANDATORY, TransactionCreateQuery.DESCRIPTION_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.DESCRIPTION_IS_TOO_LARGE, TransactionCreateQuery.DESCRIPTION_FIELD);
+		errorMap.put(BusinessMessageCodes.CreateTransaction.CURRENCY_IS_NOT_MATCH_WITH_ACCOUNT_CURRENCY, TransactionCreateQuery.CURRENCY_FIELD);
 	}
 
 	@Autowired
@@ -99,12 +99,12 @@ public class TransactionController implements Serializable {
 	
 	@RequestMapping(value = Constants.Path.TRANSACTION_CREATE)
 	public ModelAndView createTransaction() {
-		ModelAndView modelAndView = prepareCreateTransactionScreen(new CreateTransactionQuery());
+		ModelAndView modelAndView = prepareCreateTransactionScreen(new TransactionCreateQuery());
 		return modelAndView;
 	}
 
 	@RequestMapping(value = Constants.Path.TRANSACTION_CREATE, method = RequestMethod.POST)
-	public ModelAndView createTransaction(@ModelAttribute(TRANSACTION)@Valid CreateTransactionQuery transaction, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView createTransaction(@ModelAttribute(TRANSACTION)@Valid TransactionCreateQuery transaction, BindingResult bindingResult, HttpServletRequest request) {
 		transaction.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
 		ResultTO<TransactionTO> result = transactionService.createTransaction(transaction);
 		if (result.hasIssues()) {
@@ -117,7 +117,7 @@ public class TransactionController implements Serializable {
 		}
 	}
 	
-	private ModelAndView prepareCreateTransactionScreen(CreateTransactionQuery transaction) {
+	private ModelAndView prepareCreateTransactionScreen(TransactionCreateQuery transaction) {
 		ModelAndView modelAndView = new ModelAndView(Constants.View.TRANSACTION_CREATE);
 		modelAndView.addObject(TRANSACTION, transaction);
 		Long loggedCutomerKey = ExpmanSecurityContext.getCustomerKey();

@@ -12,6 +12,7 @@ import net.dragberry.expman.bean.ResultListTO;
 import net.dragberry.expman.bean.ResultTO;
 import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.TransactionType;
+import net.dragberry.expman.query.TransactionTypeCreateQuery;
 import net.dragberry.expman.repository.CustomerRepo;
 import net.dragberry.expman.repository.TransactionTypeRepo;
 import net.dragberry.expman.util.ResultFactory;
@@ -46,10 +47,21 @@ public class TransactionTypeServiceBean implements TransactionTypeService {
 	}
 
 	@Override
-	public ResultTO<TransactionTypeTO> createTransactionType(TransactionTypeTO transactionTypeTO) {
-		TransactionType transactionType = Transformers.getTransactionTypeTransformer().transform(transactionTypeTO);
-		transactionType = transactionTypeRepo.save(transactionType);
-		TransactionTypeTO newTransactionTypeTO = Transformers.getTransactionTypeTransformer().transform(transactionType);
+	public ResultTO<TransactionTypeTO> createTransactionType(TransactionTypeCreateQuery query) {
+		TransactionType tt = new TransactionType();
+		tt.setName(query.getName());
+		Long customerKey = query.getCustomerKey();
+		Customer customer = customerRepo.findOne(customerKey);
+		tt.setCustomer(customer);
+		if (query.getParentKey() != null) {
+			TransactionType parent = transactionTypeRepo.findOne(query.getParentKey());
+			tt.setParentType(parent);
+			tt.setLevel(parent.getLevel() + 1);
+		} else {
+			tt.setLevel(0);
+		}
+		tt = transactionTypeRepo.save(tt);
+		TransactionTypeTO newTransactionTypeTO = Transformers.getTransactionTypeTransformer().transform(tt);
 		return ResultFactory.createResult(newTransactionTypeTO);
 	}
 

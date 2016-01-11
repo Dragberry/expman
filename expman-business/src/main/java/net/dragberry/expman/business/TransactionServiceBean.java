@@ -19,7 +19,7 @@ import net.dragberry.expman.domain.Transaction;
 import net.dragberry.expman.domain.TransactionType;
 import net.dragberry.expman.dto.TransactionDTO;
 import net.dragberry.expman.messages.BusinessMessageCodes;
-import net.dragberry.expman.query.CreateTransactionQuery;
+import net.dragberry.expman.query.TransactionCreateQuery;
 import net.dragberry.expman.query.DeleteTransactionQuery;
 import net.dragberry.expman.repository.AccountRepo;
 import net.dragberry.expman.repository.CounterPartyRepo;
@@ -46,7 +46,7 @@ public class TransactionServiceBean implements TransactionService {
 	private AccountRepo accountRepo;
 
 	@Override
-	public ResultTO<TransactionTO> createTransaction(CreateTransactionQuery query) {
+	public ResultTO<TransactionTO> createTransaction(TransactionCreateQuery query) {
 		List<IssueTO> issues = new ArrayList<>();
 		Transaction tr = new Transaction();
 		tr.setTransactionKey(query.getTransactionKey());

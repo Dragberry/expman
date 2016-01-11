@@ -1,8 +1,6 @@
 package net.dragberry.expman.util;
 
-import net.dragberry.expman.bean.CustomerTO;
 import net.dragberry.expman.bean.TransactionTypeTO;
-import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.TransactionType;
 
 public class TransactionTypeTransformer implements EntityTransformer<TransactionType, TransactionTypeTO> {
@@ -13,8 +11,8 @@ public class TransactionTypeTransformer implements EntityTransformer<Transaction
 		transactionType.setTransactionTypeKey(bean.getTransactionTypeKey());
 		transactionType.setName(bean.getName());
 //		transactionType.setType(bean.getType());
-		Customer customer = Transformers.getCustomerTransformer().transform(bean.getCustomer());
-		transactionType.setCustomer(customer);
+//		Customer customer = Transformers.getCustomerTransformer().transform(bean.getCustomer());
+//		transactionType.setCustomer(customer);
 		return transactionType;
 	}
 
@@ -24,8 +22,8 @@ public class TransactionTypeTransformer implements EntityTransformer<Transaction
 		transactionTypeTO.setTransactionTypeKey(object.getTransactionTypeKey());;
 		transactionTypeTO.setName(object.getName());
 //		transactionTypeTO.setType(object.getType());
-		CustomerTO customerTO = Transformers.getCustomerTransformer().transform(object.getCustomer());
-		transactionTypeTO.setCustomer(customerTO);
+//		CustomerTO customerTO = Transformers.getCustomerTransformer().transform(object.getCustomer());
+//		transactionTypeTO.setCustomer(customerTO);
 		return transactionTypeTO;
 	}
 

@@ -8,10 +8,6 @@ public class TransactionTypeTO implements TransferObject {
 	
 	private String name;
 	
-	private String type;
-	
-	private CustomerTO customer;
-
 	public Long getTransactionTypeKey() {
 		return transactionTypeKey;
 	}
@@ -28,20 +24,4 @@ public class TransactionTypeTO implements TransferObject {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public CustomerTO getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(CustomerTO customer) {
-		this.customer = customer;
-	}
-	
 }

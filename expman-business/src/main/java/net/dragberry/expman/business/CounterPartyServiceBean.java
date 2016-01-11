@@ -12,6 +12,7 @@ import net.dragberry.expman.bean.ResultListTO;
 import net.dragberry.expman.bean.ResultTO;
 import net.dragberry.expman.domain.CounterParty;
 import net.dragberry.expman.domain.Customer;
+import net.dragberry.expman.query.CounterPartyCreateQuery;
 import net.dragberry.expman.repository.CounterPartyRepo;
 import net.dragberry.expman.repository.CustomerRepo;
 import net.dragberry.expman.util.ResultFactory;
@@ -27,8 +28,12 @@ public class CounterPartyServiceBean implements CounterPartyService {
 	private CustomerRepo customerRepo;
 
 	@Override
-	public ResultTO<CounterPartyTO> createCounterParty(CounterPartyTO counterPartyTO) {
-		CounterParty cp = Transformers.getCounterPartyTransformer().transform(counterPartyTO);
+	public ResultTO<CounterPartyTO> createCounterParty(CounterPartyCreateQuery query) {
+		CounterParty cp = new CounterParty();
+		cp.setName(query.getName());
+		cp.setPhysical(query.getPhysical());
+		Customer customer = customerRepo.findOne(query.getCustomerKey());
+		cp.setCustomer(customer);
 		cp = counterPartyRepo.save(cp);
 		CounterPartyTO cpTO = Transformers.getCounterPartyTransformer().transform(cp);
 		return ResultFactory.createResult(cpTO);

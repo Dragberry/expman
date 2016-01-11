@@ -5,7 +5,7 @@ import java.util.Date;
 
 import net.dragberry.expman.bean.TransferObject;
 
-public class CreateTransactionQuery implements TransferObject {
+public class TransactionCreateQuery implements TransferObject {
 
 	private static final long serialVersionUID = -1515663669490575594L;
 	
