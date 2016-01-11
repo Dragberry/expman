@@ -12,4 +12,6 @@ import net.dragberry.expman.domain.Customer;
 public interface CounterPartyRepo extends JpaRepository<CounterParty, Long> {
 	
 	List<CounterParty> findByCustomer(Customer customer);
+	
+	CounterParty findByName(String name);
 }

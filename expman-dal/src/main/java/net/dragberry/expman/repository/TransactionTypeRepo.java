@@ -10,4 +10,6 @@ import net.dragberry.expman.domain.TransactionType;
 public interface TransactionTypeRepo extends JpaRepository<TransactionType, Long> {
 
 	List<TransactionType> findByCustomer(Customer customer);
+	
+	TransactionType findByName(String name);
 }

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -33,21 +34,28 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableWebMvc
 @ComponentScan(basePackageClasses = { Controllers.class, ExceptionHandlers.class, MainMenuBean.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(securityInterceptor());
 		registry.addInterceptor(menuInterceptor()).excludePathPatterns(Constants.Path.DO_EXPORT);
 	}
-	
+
 	@Bean
 	public SecurityInterceptor securityInterceptor() {
 		return new SecurityInterceptor();
 	}
-	
+
 	@Bean
 	public MenuInterceptor menuInterceptor() {
 		return new MenuInterceptor();
+	}
+
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(1000000);
+		return resolver;
 	}
 
 	@Bean
@@ -57,7 +65,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		thymeleafViewResolver.setCharacterEncoding("UTF-8");
 		return thymeleafViewResolver;
 	}
-	
+
 	@Bean
 	public SpringTemplateEngine templateEngine(TemplateResolver templateResolver) {
 		SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
@@ -69,7 +77,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		springTemplateEngine.setAdditionalDialects(dialects);
 		return springTemplateEngine;
 	}
-	
+
 	@Bean
 	public TemplateResolver templateResolver() {
 		TemplateResolver templateResolver = new ServletContextTemplateResolver();
@@ -79,24 +87,24 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		templateResolver.setCharacterEncoding("UTF-8");
 		return templateResolver;
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-	    messageSource.setBasenames("classpath:messages", "classpath:BusinessMessages");
-	    messageSource.setUseCodeAsDefaultMessage(false);
-	    messageSource.setDefaultEncoding("UTF-8");
-	    messageSource.setCacheSeconds(0);
-	    return messageSource;
+		messageSource.setBasenames("classpath:messages", "classpath:BusinessMessages");
+		messageSource.setUseCodeAsDefaultMessage(false);
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setCacheSeconds(0);
+		return messageSource;
 	}
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-//		configurer.enable();
+		// configurer.enable();
 	}
 
 	@Override
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/theme/");
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/theme/");
 	}
 }

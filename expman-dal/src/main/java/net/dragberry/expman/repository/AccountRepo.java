@@ -17,6 +17,8 @@ public interface AccountRepo extends JpaRepository<Account, Long> {
 			+ " AND T.ACCOUNT_KEY = ?1";
 
 	List<Account> findByCustomer(Customer customer);
+	
+	Account findByNumber(String number);
 
 	@Query(value = ACCOUNT_BALANCE_QUERY, nativeQuery = true)
 	BigDecimal calculateAccountBalance(Long accountKey);

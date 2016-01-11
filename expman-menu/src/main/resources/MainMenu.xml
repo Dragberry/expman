@@ -54,8 +54,15 @@
 		</MenuItemXML>
 	</MenuItemXML>
 	
-	<MenuItemXML id="export" key="messages.menu.export" action="/admin/export">
+	<MenuItemXML id="data.transfer" key="messages.menu.dataTransfer" action="/admin" header="true">
 		<Role>ADMIN</Role>
+		
+		<MenuItemXML id="export" key="messages.menu.export" action="/admin/export">
+			<Role>ADMIN</Role>
+		</MenuItemXML>
+		<MenuItemXML id="import" key="messages.menu.import" action="/admin/import">
+			<Role>ADMIN</Role>
+		</MenuItemXML>
 	</MenuItemXML>
 	
 </MainMenuXML>

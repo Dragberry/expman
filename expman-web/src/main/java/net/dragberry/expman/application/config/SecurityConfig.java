@@ -35,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter,CsrfFilter.class);
 		http
 		.authorizeRequests()
-			.antMatchers(Constants.Path.ADMIN + "/**").hasRole(RoleProvider.ROLE_ADMIN)
-			.antMatchers("/customer").hasRole(RoleProvider.CUSTOMER)
+//			.antMatchers(Constants.Path.ADMIN + "/**").hasRole(RoleProvider.ROLE_ADMIN)
 			.antMatchers(Constants.Path.TRANSACTION_CREATE).hasRole(RoleProvider.CUSTOMER)
 			.antMatchers(Constants.Path.REGISTRATION).not().authenticated()
 			.anyRequest().permitAll()

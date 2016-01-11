@@ -23,6 +23,8 @@ public interface Constants {
 		String ADMIN = "/admin";
 		String EXPORT = ADMIN + "/export";
 		String DO_EXPORT = ADMIN + "/do-export";
+		String IMPORT = ADMIN + "/import";
+		String DO_IMPORT = ADMIN + "/do-import";
 		
 	}
 	
@@ -47,6 +49,7 @@ public interface Constants {
 		String ACCOUNT_LIST = "account/list-account";
 		// admin
 		String EXPORT = "admin/export";
+		String IMPORT = "admin/import";
 		
 	}
 }

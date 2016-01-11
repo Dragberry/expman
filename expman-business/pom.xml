@@ -9,6 +9,10 @@
 		<version>1.0.0</version>
 	</parent>
 
+	<properties>
+		<poi.version>3.13</poi.version>
+	</properties>
+
 	<artifactId>expman-business</artifactId>
 	<name>Expense Manager Business Services</name>
 	<packaging>jar</packaging>
@@ -26,5 +30,12 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
+		<!--  POI -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		
 	</dependencies>
 </project>
