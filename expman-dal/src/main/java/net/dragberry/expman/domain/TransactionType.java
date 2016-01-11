@@ -32,6 +32,9 @@ public class TransactionType implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "PARENT_KEY", referencedColumnName = "TRANSACTION_TYPE_KEY")
 	private TransactionType parentType;
+	
+	@Column(name = "LEVEL", columnDefinition="TINYINT")
+	private Integer level;
 
 	public Long getTransactionTypeKey() {
 		return transactionTypeKey;
@@ -64,4 +67,13 @@ public class TransactionType implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+	
 }

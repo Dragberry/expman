@@ -25,6 +25,9 @@ public class CounterParty implements Serializable {
 	@Column(name = "NAME")
 	private String name;
 	
+	@Column(name = "physical")
+	private Boolean physical;
+	
 	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_KEY", referencedColumnName = "CUSTOMER_KEY")
 	private Customer customer;
@@ -51,6 +54,14 @@ public class CounterParty implements Serializable {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public Boolean getPhysical() {
+		return physical;
+	}
+
+	public void setPhysical(Boolean physical) {
+		this.physical = physical;
 	}
 	
 }

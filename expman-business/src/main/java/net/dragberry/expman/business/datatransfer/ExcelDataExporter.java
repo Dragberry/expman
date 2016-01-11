@@ -89,10 +89,12 @@ public class ExcelDataExporter implements DataExporter {
 				cell.setCellValue(entity.getCustomer().getCustomerName());
 				cell = row.createCell(3);
 				cell.setCellValue(entity.getCustomer().getCustomerKey());
+				cell = row.createCell(4);
+				cell.setCellValue(entity.getLevel());
 				if (entity.getParentType() != null) {
-					cell = row.createCell(4);
-					cell.setCellValue(entity.getParentType().getName());
 					cell = row.createCell(5);
+					cell.setCellValue(entity.getParentType().getName());
+					cell = row.createCell(6);
 					cell.setCellValue(entity.getParentType().getTransactionTypeKey());
 				}
 				return row;

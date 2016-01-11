@@ -5,9 +5,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Iterator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -62,6 +64,17 @@ public class ExcelDataImporter implements DataImporter {
 			processSheet(TransactionType.class, wb, (row) -> {
 				TransactionType type = new TransactionType();
 				type.setName(row.getCell(1).getStringCellValue());
+				Cell parentTypeCell = row.getCell(5);
+				Integer level = 0;
+				if (parentTypeCell != null) {
+					TransactionType parent = transactionTypeRepo.findByName(StringUtils.trimToEmpty(parentTypeCell.getStringCellValue()));
+					if (parent != null) {
+						level = parent.getLevel() + 1;
+					}
+					type.setParentType(parent);
+				}
+				type.setLevel(level);
+				
 				String customerName = row.getCell(2).getStringCellValue();
 				Customer customer = customerRepo.findByCustomerName(customerName);
 				type.setCustomer(customer);
@@ -71,6 +84,7 @@ public class ExcelDataImporter implements DataImporter {
 			processSheet(CounterParty.class, wb, (row) -> {
 				CounterParty cp = new CounterParty();
 				cp.setName(row.getCell(1).getStringCellValue());
+				cp.setPhysical(row.getCell(4).getBooleanCellValue());
 				String customerName = row.getCell(2).getStringCellValue();
 				Customer customer = customerRepo.findByCustomerName(customerName);
 				cp.setCustomer(customer);
