@@ -6,7 +6,7 @@ public abstract class PageableListQuery implements TransferObject {
 
 	private static final long serialVersionUID = -695515671313179039L;
 	
-	private int pageNumber = 0;
+	private int pageNumber = 1;
 	
 	private int pageSize = 20;
 

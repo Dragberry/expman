@@ -14,7 +14,7 @@ public class ResultListTO<T extends TransferObject> extends AbstractResultTO<T> 
 	
 	private int pageSize;
 	
-	private int total;
+	private int totalPages;
 	
 	private List<T> list = new ArrayList<>();
 	
@@ -46,12 +46,12 @@ public class ResultListTO<T extends TransferObject> extends AbstractResultTO<T> 
 		this.pageSize = pageSize;
 	}
 
-	public int getTotal() {
-		return total;
+	public int getTotalPages() {
+		return totalPages;
 	}
 
-	public void setTotal(int total) {
-		this.total = total;
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
 	}
 
 }

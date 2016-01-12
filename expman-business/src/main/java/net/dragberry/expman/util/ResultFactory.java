@@ -27,13 +27,20 @@ public final class ResultFactory {
 	}
 	
 	public static <T extends TransferObject> ResultListTO<T> createResultList(List<T> resultList) {
-		return createResultList(resultList, null);
+		return createResultList(resultList, null, 1, Integer.MAX_VALUE, 1);
 	}
 	
-	public static <T extends TransferObject> ResultListTO<T> createResultList(List<T> resultList, Collection<IssueTO> issueLog) {
+	public static <T extends TransferObject> ResultListTO<T> createResultList(List<T> resultList, int pageNumber, int pageSize, int totalPages) {
+		return createResultList(resultList, null, pageNumber, pageSize, totalPages);
+	}
+	
+	public static <T extends TransferObject> ResultListTO<T> createResultList(List<T> resultList, Collection<IssueTO> issueLog, int pageNumber, int pageSize, int totalPages) {
 		ResultListTO<T> result = new ResultListTO<>();
 		result.addList(resultList);
 		addIssues(result, issueLog);
+		result.setPageNumber(pageNumber + 1);
+		result.setPageSize(pageSize);
+		result.setTotalPages(totalPages);
 		return result;
 	}
 	

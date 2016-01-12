@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+<body>
+	<nav th:fragment="paginator">
+		<ul class="pagination">
+			<li th:class="${paginator.firstPage} ? 'disabled'">
+				<a th:href="@{transaction/list/page/} + 1" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li th:class="${paginator.currentPage == page} ? 'active'"
+				th:each="page : ${paginator.pageNumberList}">
+				<a th:if="${paginator.currentPage != page}"
+					th:href="@{transaction/list/page/} + ${page}" th:text="${page}">
+					(current page) 
+				</a> 
+				<span th:if="${paginator.currentPage == page}" th:text="${page}">(page)</span>
+			</li>
+			<li>
+				<a th:href="@{transaction/list/page/} + ${paginator.totalPages}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</body>
+</html>

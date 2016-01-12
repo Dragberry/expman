@@ -98,10 +98,10 @@ public class TransactionServiceBean implements TransactionService {
 	@Override
 	public ResultListTO<TransactionTO> fetchTransactions(TransactionListQuery query) {
 		Customer c = customerRepo.findOne(query.getCustomerKey());
-		PageRequest pageRequest = new PageRequest(query.getPageNumber(), query.getPageSize());
-		Page<TransactionDTO> list = transactionRepo.fetchTransactionList(c, pageRequest);
+		PageRequest pageRequest = new PageRequest(query.getPageNumber() - 1, query.getPageSize());
+		Page<TransactionDTO> page = transactionRepo.fetchTransactionList(c, pageRequest);
 		List<TransactionTO> listTO = new ArrayList<>();
-		for (TransactionDTO tr : list) {
+		for (TransactionDTO tr : page) {
 			TransactionTO to = new TransactionTO();
 			to.setAccountKey(tr.getAccountKey());
 			to.setAccountNumber(tr.getAccountNumber());
@@ -118,7 +118,7 @@ public class TransactionServiceBean implements TransactionService {
 			to.setTransactionTypeName(tr.getTransactionTypeName());
 			listTO.add(to);
 		}
-		return ResultFactory.createResultList(listTO);
+		return ResultFactory.createResultList(listTO, page.getNumber(), page.getSize(), page.getTotalPages());
 	}
 
 	@Override

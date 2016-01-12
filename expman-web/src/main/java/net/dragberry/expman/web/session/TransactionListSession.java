@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 
 import net.dragberry.expman.bean.TransactionTO;
+import net.dragberry.expman.web.component.paginator.Paginator;
 
 @Controller
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -18,8 +19,10 @@ public class TransactionListSession implements Serializable {
 	
 	private List<TransactionTO> transactionList = new ArrayList<>();
 	
+	private Paginator paginator;
+	
 	private boolean initialized;
-
+	
 	public List<TransactionTO> getTransactionList() {
 		return transactionList;
 	}
@@ -35,5 +38,16 @@ public class TransactionListSession implements Serializable {
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;
 	}
-	
+
+	public Paginator getPaginator() {
+		if (paginator == null) {
+			paginator = new Paginator();
+		}
+		return paginator;
+	}
+
+	public void setPaginator(Paginator paginator) {
+		this.paginator = paginator;
+	}
+
 }

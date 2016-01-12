@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.dragberry.expman.bean.AccountTO;
 import net.dragberry.expman.bean.CounterPartyTO;
+import net.dragberry.expman.bean.ResultListTO;
 import net.dragberry.expman.bean.TransactionTO;
 import net.dragberry.expman.bean.TransactionTypeTO;
 import net.dragberry.expman.bean.ResultTO;
@@ -59,6 +60,8 @@ public class TransactionController implements Serializable {
 	
 	private static final String TRANSACTION_LIST = "transactionList";
 	
+	private static final String TRANSACTION_LIST_SESSION = "transactionListSession";
+	
 	private static final String TYPE_LIST = "typeList";
 	
 	private static final Map<String, String> errorMap = new HashMap<>();
@@ -96,14 +99,16 @@ public class TransactionController implements Serializable {
 	
 	@RequestMapping(value = Constants.Path.TRANSACTION_LIST)
 	public ModelAndView listTransaction() {
-		if (!transactionListSession.isInitialized()) {
-			
-		}
 		TransactionListQuery query = new TransactionListQuery();
 		query.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
-		List<TransactionTO> transactionList = transactionService.fetchTransactions(query).getList();
+		ResultListTO<TransactionTO> result = transactionService.fetchTransactions(query);
+		transactionListSession.setTransactionList(result.getList());
+		transactionListSession.getPaginator().setCurrentPage(1);
+		transactionListSession.getPaginator().setPageSize(result.getPageSize());
+		transactionListSession.getPaginator().setTotalPages(26);
+		transactionListSession.setInitialized(true);
 		ModelAndView modelAndView = new ModelAndView(Constants.View.TRANSACTION_LIST);
-		modelAndView.addObject(TRANSACTION_LIST, transactionList);
+		modelAndView.addObject(TRANSACTION_LIST_SESSION, transactionListSession);
 		return modelAndView;
 	}
 	
