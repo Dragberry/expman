@@ -22,7 +22,7 @@ public class Paginator implements Serializable {
 		int displayPageNumbers = totalPages <= NUMBER_OF_DISPLAYED_PAGES ? totalPages : NUMBER_OF_DISPLAYED_PAGES; 
 		List<Integer> list = new ArrayList<>(displayPageNumbers);
 		int firstNumber = currentPage - NUMBER_OF_DISPLAYED_PAGES/2 < 0 ? 1 : currentPage - NUMBER_OF_DISPLAYED_PAGES/2;
-		for (int index = firstNumber; index < firstNumber + NUMBER_OF_DISPLAYED_PAGES; index++) {
+		for (int index = firstNumber; index < firstNumber + displayPageNumbers; index++) {
 			list.add(index);
 		}
 		return list;
