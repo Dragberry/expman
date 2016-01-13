@@ -58,8 +58,6 @@ public class TransactionController implements Serializable {
 
 	private static final Logger LOG = LogManager.getLogger(TransactionController.class.getName());
 	
-	private static final String TRANSACTION_LIST = "transactionList";
-	
 	private static final String TRANSACTION_LIST_SESSION = "transactionListSession";
 	
 	private static final String TYPE_LIST = "typeList";

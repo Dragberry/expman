@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -98,7 +100,7 @@ public class TransactionServiceBean implements TransactionService {
 	@Override
 	public ResultListTO<TransactionTO> fetchTransactions(TransactionListQuery query) {
 		Customer c = customerRepo.findOne(query.getCustomerKey());
-		PageRequest pageRequest = new PageRequest(query.getPageNumber() - 1, query.getPageSize());
+		PageRequest pageRequest = new PageRequest(query.getPageNumber() - 1, query.getPageSize(), new Sort(Direction.DESC, "processingDate"));
 		Page<TransactionDTO> page = transactionRepo.fetchTransactionList(c, pageRequest);
 		List<TransactionTO> listTO = new ArrayList<>();
 		for (TransactionDTO tr : page) {

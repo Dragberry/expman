@@ -10,6 +10,9 @@
 	th:href="@{/resources/css/sticky-footer.css}" />
 </head>
 <body>
+	<th:block layout:fragment="script">
+	
+	</th:block>
 	<div class="container">
 		<th:block layout:fragment="header">
 			
@@ -22,6 +25,7 @@
 		
 	</th:block>
 	<script th:src="@{/resources/js/jquery.min.js}"></script>
+	<script th:src="@{/resources/js/jquery.form.min.js}"></script>
 	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
 </body>
 </html>
