@@ -25,6 +25,10 @@ public class Transaction implements Serializable {
 	@Column(name = "TRANSACTION_KEY")
 	private Long transactionKey;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "INSTRUCTION_KEY", referencedColumnName = "INSTRUCTION_KEY")
+	private Instruction instruction;
+	
 	@ManyToOne
 	@JoinColumn(name = "CUSTOMER_KEY", referencedColumnName = "CUSTOMER_KEY")
 	private Customer customer;
@@ -134,6 +138,14 @@ public class Transaction implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Instruction getInstruction() {
+		return instruction;
+	}
+
+	public void setInstruction(Instruction instruction) {
+		this.instruction = instruction;
 	}
 	
 }
