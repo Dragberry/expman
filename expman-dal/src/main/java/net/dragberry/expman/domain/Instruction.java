@@ -31,7 +31,7 @@ public class Instruction implements Serializable {
 	@OneToMany(mappedBy = "instruction", fetch = FetchType.LAZY)
 	private List<Transaction> transactions;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CUSTOMER_KEY", referencedColumnName = "CUSTOMER_KEY")
 	private Customer customer;
 

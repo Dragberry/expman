@@ -9,7 +9,7 @@ public class TransactionTO implements TransferObject {
 
 	private Long transactionKey;
 
-	private Long customerKey;
+	private Long instructionKey;
 
 	private Long accountKey;
 
@@ -41,12 +41,12 @@ public class TransactionTO implements TransferObject {
 		this.transactionKey = transactionKey;
 	}
 
-	public Long getCustomerKey() {
-		return customerKey;
+	public Long getInstructionKey() {
+		return instructionKey;
 	}
 
-	public void setCustomerKey(Long customerKey) {
-		this.customerKey = customerKey;
+	public void setInstructionKey(Long instructionKey) {
+		this.instructionKey = instructionKey;
 	}
 
 	public Long getAccountKey() {

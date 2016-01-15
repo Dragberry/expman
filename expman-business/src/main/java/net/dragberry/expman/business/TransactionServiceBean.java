@@ -71,9 +71,6 @@ public class TransactionServiceBean implements TransactionService {
 		
 		tr.setProcessingDate(query.getProcessingDate());
 		
-		Customer customer = customerRepo.findOne(query.getCustomerKey());
-		tr.setCustomer(customer);
-		
 		TransactionType type = transactionTypeRepo.findOne(query.getTransactionTypeKey());
 		tr.setTransactionType(type);
 		
@@ -111,7 +108,6 @@ public class TransactionServiceBean implements TransactionService {
 			to.setCounterPartyKey(tr.getCounterPartyKey());
 			to.setCounterPartyName(tr.getCounterPartyName());
 			to.setCurrency(tr.getCurrency());
-			to.setCustomerKey(tr.getCustomerKey());
 			to.setDescription(tr.getDescription());
 			to.setProcessingDate(tr.getProcessingDate());
 			to.setTransactionKey(tr.getTransactionKey());
@@ -133,10 +129,6 @@ public class TransactionServiceBean implements TransactionService {
 			issues.add(issue);
 		} else {
 			transactionTO = Transformers.getTransactionTransformer().transform(transactionToDelete);
-		}
-		if (transactionToDelete.getCustomer().getCustomerKey() != query.getCustomerKey()) {
-			IssueTO issue = IssueFactory.createIssue("000101", "Transaction");
-			issues.add(issue);
 		}
 		if (issues.isEmpty()) {
 			transactionRepo.delete(query.getTransactionKey());

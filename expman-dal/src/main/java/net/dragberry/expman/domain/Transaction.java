@@ -29,10 +29,6 @@ public class Transaction implements Serializable {
 	@JoinColumn(name = "INSTRUCTION_KEY", referencedColumnName = "INSTRUCTION_KEY")
 	private Instruction instruction;
 	
-	@ManyToOne
-	@JoinColumn(name = "CUSTOMER_KEY", referencedColumnName = "CUSTOMER_KEY")
-	private Customer customer;
-	
 	@Column(name = "AMOUNT")
 	private BigDecimal amount;
 	
@@ -66,14 +62,6 @@ public class Transaction implements Serializable {
 
 	public void setTransactionKey(Long transactionKey) {
 		this.transactionKey = transactionKey;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 
 	public BigDecimal getAmount() {

@@ -7,14 +7,15 @@ public final class IssueFactory {
 	private IssueFactory() {
 	}
 	
-	public static IssueTO createIssue(String issueCode) {
-		return createIssue(issueCode, null);
+	public static IssueTO createIssue(String issueCode, String... params) {
+		return createIssue(issueCode, null, params);
 	}
 	
-	public static IssueTO createIssue(String issueCode, String domain) {
+	public static IssueTO createIssue(String issueCode, String domain, String[] params) {
 		IssueTO issueTO = new IssueTO();
 		issueTO.setIssueCode(issueCode);
 		issueTO.setDomain(domain);
+		issueTO.setParams(params);
 		return issueTO;
 	}
 }

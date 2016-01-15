@@ -7,6 +7,8 @@ public class IssueTO implements TransferObject {
 	private String issueCode;
 	
 	private String domain;
+	
+	private String[] params;
 
 	public String getIssueCode() {
 		return issueCode;
@@ -22,6 +24,14 @@ public class IssueTO implements TransferObject {
 
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	public String[] getParams() {
+		return params;
+	}
+
+	public void setParams(String[] params) {
+		this.params = params;
 	}
 	
 }

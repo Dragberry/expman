@@ -26,7 +26,7 @@ public class TransactionCreateQuery implements TransferObject {
 	
 	private Long counterPartyKey;
 	
-	private Long customerKey;
+	private Long instructionKey;
 	
 	private Long transactionTypeKey;
 	
@@ -82,12 +82,12 @@ public class TransactionCreateQuery implements TransferObject {
 		this.counterPartyKey = counterPartyKey;
 	}
 
-	public Long getCustomerKey() {
-		return customerKey;
+	public Long getInstructionKey() {
+		return instructionKey;
 	}
 
-	public void setCustomerKey(Long customerKey) {
-		this.customerKey = customerKey;
+	public void setInstructionKey(Long instructionKey) {
+		this.instructionKey = instructionKey;
 	}
 
 	public Long getTransactionTypeKey() {
