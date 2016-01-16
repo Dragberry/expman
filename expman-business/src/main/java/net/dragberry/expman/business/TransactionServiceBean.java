@@ -74,9 +74,6 @@ public class TransactionServiceBean implements TransactionService {
 		TransactionType type = transactionTypeRepo.findOne(query.getTransactionTypeKey());
 		tr.setTransactionType(type);
 		
-		CounterParty cp = counterPartyRepo.findOne(query.getCounterPartyKey());
-		tr.setCounterParty(cp);
-		
 		Account account = accountRepo.findOne(query.getAccountKey());
 		tr.setAccount(account);
 		

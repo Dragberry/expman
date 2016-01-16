@@ -13,6 +13,8 @@ import net.dragberry.expman.domain.Account;
 import net.dragberry.expman.domain.CounterParty;
 import net.dragberry.expman.domain.Customer;
 import net.dragberry.expman.domain.Instruction;
+import net.dragberry.expman.domain.InstructionClassification;
+import net.dragberry.expman.domain.InstructionStatus;
 import net.dragberry.expman.domain.Transaction;
 import net.dragberry.expman.domain.TransactionType;
 import net.dragberry.expman.messages.BusinessMessageCodes;
@@ -49,9 +51,14 @@ public class InstructionServiceBean implements InstructionService {
 	public ResultTO<InstructionTO> createInstruction(InstructionCreateQuery query) {
 		Instruction ins = new Instruction();
 		List<IssueTO> issues = new ArrayList<>();
-		ins.setClassification(query.getClassification());
+		ins.setClassification(InstructionClassification.valueOf(query.getClassification()));
+		
 		Customer customer = customerRepo.findOne(query.getCustomerKey());
 		ins.setCustomer(customer);
+		
+		CounterParty cp = counterPartyRepo.findOne(query.getCounterPartyKey());
+		ins.setCounterParty(cp);
+		
 		ins = instructionRepo.save(ins);
 		
 		List<Transaction> trList = new ArrayList<>();
@@ -66,12 +73,13 @@ public class InstructionServiceBean implements InstructionService {
 		}
 		ins.setTransactions(trList);
 		if (issues.isEmpty()) {
+			ins.setStatus(InstructionStatus.SUCCESS);
 			ins = instructionRepo.save(ins);
 		}
 		
 		InstructionTO insTO = new InstructionTO();
 		insTO.setInstructionKey(ins.getInstructionKey());
-		insTO.setClassification(ins.getClassification());
+		insTO.setClassification(ins.getClassification().name());
 		for (Transaction transaction : trList) {
 			insTO.addTransaction(Transformers.getTransactionTransformer().transform(transaction));
 		}
@@ -101,9 +109,6 @@ public class InstructionServiceBean implements InstructionService {
 		
 		TransactionType type = transactionTypeRepo.findOne(query.getTransactionTypeKey());
 		tr.setTransactionType(type);
-		
-		CounterParty cp = counterPartyRepo.findOne(query.getCounterPartyKey());
-		tr.setCounterParty(cp);
 		
 		Account account = accountRepo.findOne(query.getAccountKey());
 		tr.setAccount(account);

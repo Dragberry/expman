@@ -12,6 +12,8 @@ public class InstructionCreateQuery implements TransferObject {
 	private Long customerKey;
 	
 	private String classification;
+	
+	private Long counterPartyKey;
 
 	private List<TransactionCreateQuery> transactionList = new ArrayList<>();
 	
@@ -37,6 +39,14 @@ public class InstructionCreateQuery implements TransferObject {
 
 	public void setTransactionList(List<TransactionCreateQuery> transactionList) {
 		this.transactionList = transactionList;
+	}
+
+	public Long getCounterPartyKey() {
+		return counterPartyKey;
+	}
+
+	public void setCounterPartyKey(Long counterPartyKey) {
+		this.counterPartyKey = counterPartyKey;
 	}
 	
 }

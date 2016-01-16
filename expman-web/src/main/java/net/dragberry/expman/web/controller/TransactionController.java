@@ -118,7 +118,7 @@ public class TransactionController implements Serializable {
 
 	@RequestMapping(value = Constants.Path.TRANSACTION_CREATE, method = RequestMethod.POST)
 	public ModelAndView createTransaction(@ModelAttribute(TRANSACTION)@Valid TransactionCreateQuery transaction, BindingResult bindingResult, HttpServletRequest request) {
-		transaction.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
+//		transaction.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
 		ResultTO<TransactionTO> result = transactionService.createTransaction(transaction);
 		if (result.hasIssues()) {
 			ModelAndView modelAndView = prepareCreateTransactionScreen(transaction);

@@ -3,7 +3,9 @@ package net.dragberry.expman.business.datatransfer;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -19,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.dragberry.expman.domain.Account;
 import net.dragberry.expman.domain.Customer;
+import net.dragberry.expman.domain.Instruction;
+import net.dragberry.expman.domain.InstructionClassification;
+import net.dragberry.expman.domain.InstructionStatus;
 import net.dragberry.expman.domain.Transaction;
 import net.dragberry.expman.domain.TransactionType;
 import net.dragberry.expman.domain.Account.AccountType;
@@ -26,6 +31,7 @@ import net.dragberry.expman.domain.CounterParty;
 import net.dragberry.expman.repository.AccountRepo;
 import net.dragberry.expman.repository.CounterPartyRepo;
 import net.dragberry.expman.repository.CustomerRepo;
+import net.dragberry.expman.repository.InstructionRepo;
 import net.dragberry.expman.repository.TransactionRepo;
 import net.dragberry.expman.repository.TransactionTypeRepo;
 
@@ -46,6 +52,8 @@ public class ExcelDataImporter implements DataImporter {
 	private CounterPartyRepo counterPartyRepo;
 	@Autowired
 	private TransactionRepo transactionRepo;
+	@Autowired
+	private InstructionRepo instructionRepo;
 
 	@Override
 	public void doImport(InputStream is) throws Exception {
@@ -91,8 +99,30 @@ public class ExcelDataImporter implements DataImporter {
 				return counterPartyRepo.save(cp);
 			});
 			
+			Map<Long, Instruction> insMap = new HashMap<>();
 			processSheet(Transaction.class, wb, (row) -> {
+				Long insIndex = Long.valueOf((long) row.getCell(14).getNumericCellValue());
+				Instruction ins = insMap.get(insIndex);
+				if (ins == null) {
+					ins = new Instruction();
+					insMap.put(insIndex, ins);
+				}
+				
+				CounterParty cp = counterPartyRepo.findByName(row.getCell(8).getStringCellValue());
+				ins.setCounterParty(cp);
+				
+				Customer customer = customerRepo.findByCustomerName(row.getCell(12).getStringCellValue());
+				ins.setCustomer(customer);
+				
+				ins.setStatus(InstructionStatus.PROCESSING);
+				
+				InstructionClassification classification = InstructionClassification.valueOf(row.getCell(15).getStringCellValue());
+				ins.setClassification(classification);
+				ins = instructionRepo.save(ins);
+				
 				Transaction tr = new Transaction();
+				tr.setInstruction(ins);
+				
 				Account account = accountRepo.findByNumber(row.getCell(1).getStringCellValue());
 				tr.setAccount(account);
 				BigDecimal amount = new BigDecimal(row.getCell(3).getStringCellValue());
@@ -102,14 +132,11 @@ public class ExcelDataImporter implements DataImporter {
 				tr.setType(row.getCell(6).getStringCellValue());
 				tr.setDescription(row.getCell(7).getStringCellValue());
 				
-				CounterParty cp = counterPartyRepo.findByName(row.getCell(8).getStringCellValue());
-				tr.setCounterParty(cp);
 				
 				TransactionType tt = transactionTypeRepo.findByName(row.getCell(10).getStringCellValue());
 				tr.setTransactionType(tt);
 				
-				Customer customer = customerRepo.findByCustomerName(row.getCell(12).getStringCellValue());
-				tr.setCustomer(customer);
+				
 				return transactionRepo.save(tr);
 			});
 		}

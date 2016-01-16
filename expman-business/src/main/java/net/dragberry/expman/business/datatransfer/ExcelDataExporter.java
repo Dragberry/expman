@@ -138,17 +138,23 @@ public class ExcelDataExporter implements DataExporter {
 				cell = row.createCell(7);
 				cell.setCellValue(entity.getDescription());
 				cell = row.createCell(8);
-				cell.setCellValue(entity.getCounterParty().getName());
+				cell.setCellValue(entity.getInstruction().getCounterParty().getName());
 				cell = row.createCell(9);
-				cell.setCellValue(entity.getCounterParty().getCounterPartyKey());
+				cell.setCellValue(entity.getInstruction().getCounterParty().getCounterPartyKey());
 				cell = row.createCell(10);
 				cell.setCellValue(entity.getTransactionType().getName());
 				cell = row.createCell(11);
 				cell.setCellValue(entity.getTransactionType().getTransactionTypeKey());
 				cell = row.createCell(12);
-				cell.setCellValue(entity.getCustomer().getCustomerName());
+				cell.setCellValue(entity.getInstruction().getCustomer().getCustomerName());
 				cell = row.createCell(13);
-				cell.setCellValue(entity.getCustomer().getCustomerKey());
+				cell.setCellValue(entity.getInstruction().getCustomer().getCustomerKey());
+				cell = row.createCell(14);
+				cell.setCellValue(entity.getInstruction().getInstructionKey());
+				cell = row.createCell(15);
+				cell.setCellValue(entity.getInstruction().getClassification().toString());
+				cell = row.createCell(16);
+				cell.setCellValue(entity.getInstruction().getStatus().toString());
 
 				return row;
 			});

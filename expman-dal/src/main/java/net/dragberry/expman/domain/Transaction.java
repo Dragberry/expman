@@ -49,10 +49,6 @@ public class Transaction implements Serializable {
 	private TransactionType transactionType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COUNTER_PARTY_KEY", referencedColumnName = "COUNTER_PARTY_KEY")
-	private CounterParty counterParty;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_KEY", referencedColumnName = "ACCOUNT_KEY")
 	private Account account;
 
@@ -94,14 +90,6 @@ public class Transaction implements Serializable {
 
 	public void setTransactionType(TransactionType transactionType) {
 		this.transactionType = transactionType;
-	}
-
-	public CounterParty getCounterParty() {
-		return counterParty;
-	}
-
-	public void setCounterParty(CounterParty counterParty) {
-		this.counterParty = counterParty;
 	}
 
 	public String getDescription() {
