@@ -13,6 +13,8 @@ public interface Constants {
 		String TRANSACTION_CREATE = "/transaction/create";
 		String TRANSACTION_LIST = "/transaction/list";
 		String TRANSACTION_DELETE = "/transaction/delete/{transactionId}";
+		// instruction
+		String INSTRUCTION_CREATE = "/instruction/create";
 		// transaction-type
 		String TRANSACTION_TYPE_CREATE = "/transaction-type/create";
 		// counter-party
@@ -40,6 +42,8 @@ public interface Constants {
 		// transaction
 		String TRANSACTION_CREATE = "transaction/create-transaction";
 		String TRANSACTION_LIST = "transaction/list-transaction";
+		// instruction
+		String INSTRUCTION_CREATE = "instruction/create-instruction";
 		// transaction-type
 		String TRANSACTION_TYPE_CREATE = "transaction-type/create-transaction-type";
 		// counter-party
