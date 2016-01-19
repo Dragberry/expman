@@ -5,17 +5,33 @@
 <head>
 </head>
 <body>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			function changePage(page){
+		    	$("#pageForm").ajaxForm({
+		    		data: {
+		                page: page
+		            },
+		       	success : function(data) { 
+		        	alert("Page  selected!");
+		        },
+		        dataType : "text"
+		       }).submit();
+		    }
+		/*]]>*/
+	</script>
 	<nav th:fragment="paginator">
 		<ul class="pagination">
 			<li th:class="${paginator.firstPage} ? 'disabled'">
-				<a th:href="@{transaction/list/page/} + 1" aria-label="Previous">
+				<a th:href="@{#httpServletRequest.requestURI} + 1" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
 			<li th:class="${paginator.currentPage == page} ? 'active'"
 				th:each="page : ${paginator.pageNumberList}">
 				<a th:if="${paginator.currentPage != page}"
-					th:href="@{transaction/list/page/} + ${page}" th:text="${page}">
+					th:href="@{transaction/list/page/} + ${page}" 
+					th:text="${page}">
 					(current page) 
 				</a> 
 				<span th:if="${paginator.currentPage == page}" th:text="${page}">(page)</span>

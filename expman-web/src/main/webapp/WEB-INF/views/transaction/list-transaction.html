@@ -15,7 +15,8 @@
 	
 	<div layout:fragment="data">
 		<form th:action="@{/transaction/list}" method="post">
-			<nav layout:fragment="paginator" th:replace="component/paginator :: paginator(paginator=${transactionListSession.paginator})">Paginator</nav>
+			<nav layout:fragment="paginator" 
+				th:replace="component/paginator :: paginator(paginator=${transactionListSession.paginator})">Paginator</nav>
 			<table class="table">
 				<tr>
 					<th th:text="#{messages.transaction.processingDate}">Processing date</th>
@@ -38,7 +39,8 @@
 					<td><a th:href="@{/transaction/delete/} + ${transaction.transactionKey}" th:text="#{messages.transaction.delete}">Delete</a></td>
 				</tr>
 			</table>
-			<nav layout:fragment="paginator" th:replace="component/paginator :: paginator(paginator=${transactionListSession.paginator})">Paginator</nav>
+			<nav layout:fragment="paginator" 
+				th:replace="component/paginator :: paginator(paginator=${transactionListSession.paginator})">Paginator</nav>
 		</form>
 	</div>
 </body>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import net.dragberry.expman.bean.InstructionTO;
 import net.dragberry.expman.bean.IssueTO;
@@ -30,6 +31,7 @@ import net.dragberry.expman.util.IssueFactory;
 import net.dragberry.expman.util.ResultFactory;
 import net.dragberry.expman.util.Transformers;
 
+@Service
 public class InstructionServiceBean implements InstructionService {
 
 	private static final long serialVersionUID = -359203895555274904L;

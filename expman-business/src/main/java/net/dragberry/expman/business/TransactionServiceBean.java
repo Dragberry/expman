@@ -95,25 +95,25 @@ public class TransactionServiceBean implements TransactionService {
 	public ResultListTO<TransactionTO> fetchTransactions(TransactionListQuery query) {
 		Customer c = customerRepo.findOne(query.getCustomerKey());
 		PageRequest pageRequest = new PageRequest(query.getPageNumber() - 1, query.getPageSize(), new Sort(Direction.DESC, "processingDate"));
-		Page<TransactionDTO> page = transactionRepo.fetchTransactionList(c, pageRequest);
+//		Page<TransactionDTO> page = transactionRepo.fetchTransactionList(c, pageRequest);
 		List<TransactionTO> listTO = new ArrayList<>();
-		for (TransactionDTO tr : page) {
-			TransactionTO to = new TransactionTO();
-			to.setAccountKey(tr.getAccountKey());
-			to.setAccountNumber(tr.getAccountNumber());
-			to.setAmount(tr.getAmount());
-			to.setCounterPartyKey(tr.getCounterPartyKey());
-			to.setCounterPartyName(tr.getCounterPartyName());
-			to.setCurrency(tr.getCurrency());
-			to.setDescription(tr.getDescription());
-			to.setProcessingDate(tr.getProcessingDate());
-			to.setTransactionKey(tr.getTransactionKey());
-			to.setTransactionType(tr.getTransactionType());
-			to.setTransactionTypeKey(tr.getTransactionTypeKey());
-			to.setTransactionTypeName(tr.getTransactionTypeName());
-			listTO.add(to);
-		}
-		return ResultFactory.createResultList(listTO, page.getNumber(), page.getSize(), page.getTotalPages());
+//		for (TransactionDTO tr : page) {
+//			TransactionTO to = new TransactionTO();
+//			to.setAccountKey(tr.getAccountKey());
+//			to.setAccountNumber(tr.getAccountNumber());
+//			to.setAmount(tr.getAmount());
+//			to.setCounterPartyKey(tr.getCounterPartyKey());
+//			to.setCounterPartyName(tr.getCounterPartyName());
+//			to.setCurrency(tr.getCurrency());
+//			to.setDescription(tr.getDescription());
+//			to.setProcessingDate(tr.getProcessingDate());
+//			to.setTransactionKey(tr.getTransactionKey());
+//			to.setTransactionType(tr.getTransactionType());
+//			to.setTransactionTypeKey(tr.getTransactionTypeKey());
+//			to.setTransactionTypeName(tr.getTransactionTypeName());
+//			listTO.add(to);
+//		}
+		return ResultFactory.createResultList(listTO);
 	}
 
 	@Override
