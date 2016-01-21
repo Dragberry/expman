@@ -14,7 +14,7 @@
 	</div>
 	
 	<div layout:fragment="data">
-		<form th:action="@{/transaction/list}" method="post">
+		<form th:id="pageForm" th:action="@{/transaction/list}" method="post">
 			<nav layout:fragment="paginator" 
 				th:replace="component/paginator :: paginator(paginator=${transactionListSession.paginator})">Paginator</nav>
 			<table class="table">
