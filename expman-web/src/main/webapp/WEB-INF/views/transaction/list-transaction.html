@@ -13,6 +13,8 @@
 		<h4 th:text="#{messages.transaction.transactionList}">Transaction list</h4>
 	</div>
 	
+	<div table:id="tableid"></div>
+	
 	<div layout:fragment="data">
 		<form th:id="pageForm" th:action="@{/transaction/list}" method="post">
 			<nav layout:fragment="paginator" 

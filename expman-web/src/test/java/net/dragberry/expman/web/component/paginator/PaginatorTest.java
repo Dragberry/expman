@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class PaginatorTest {
 	
-	private Paginator paginator = new Paginator();
+	private PaginatorImpl paginator = new PaginatorImpl();
 
 	@Test
 	public void testGetPageNumberListSmall() {

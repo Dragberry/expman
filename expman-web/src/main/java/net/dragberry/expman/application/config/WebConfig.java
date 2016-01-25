@@ -23,6 +23,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 import net.dragberry.expman.web.common.Constants;
+import net.dragberry.expman.web.component.paginator.DataTableDialect;
 import net.dragberry.expman.web.controller.Controllers;
 import net.dragberry.expman.web.controller.error.ExceptionHandlers;
 import net.dragberry.expman.web.menu.MainMenuBean;
@@ -75,6 +76,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		Set<IDialect> dialects = new HashSet<>();
 		dialects.add(new SpringSecurityDialect());
 		dialects.add(new LayoutDialect());
+		dialects.add(new DataTableDialect());
 		springTemplateEngine.setAdditionalDialects(dialects);
 		return springTemplateEngine;
 	}
