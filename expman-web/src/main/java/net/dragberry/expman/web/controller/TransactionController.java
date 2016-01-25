@@ -1,6 +1,7 @@
 package net.dragberry.expman.web.controller;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.dragberry.expman.bean.AccountTO;
@@ -95,13 +99,19 @@ public class TransactionController implements Serializable {
 		return new ModelAndView("redirect:/transaction/list");
 	}
 	
+//	@ResponseBody
+//	@RequestMapping(value = Constants.Path.TRANSACTION_LIST, method = RequestMethod.GET)
+//	public List<String> requestTransactionPage() {
+//		return Arrays.asList("One", "Two");
+//	}
+	
 	@RequestMapping(value = Constants.Path.TRANSACTION_LIST)
-	public ModelAndView listTransaction() {
+	public ModelAndView listTransaction(@RequestParam(value = "page", required = false) Integer page) {
 		TransactionListQuery query = new TransactionListQuery();
 		query.setCustomerKey(ExpmanSecurityContext.getCustomerKey());
 		ResultListTO<TransactionTO> result = transactionService.fetchTransactions(query);
 		transactionListSession.setTransactionList(result.getList());
-		transactionListSession.getPaginator().setCurrentPage(1);
+		transactionListSession.getPaginator().setCurrentPage(page == null ? 0 : page);
 		transactionListSession.getPaginator().setPageSize(result.getPageSize());
 		transactionListSession.getPaginator().setTotalPages(26);
 		transactionListSession.setInitialized(true);

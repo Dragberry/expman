@@ -41,7 +41,9 @@ public class Paginator implements Serializable {
 	}
 
 	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
+		if (this.currentPage == 0 && currentPage != 0) {
+			this.currentPage = currentPage;
+		}
 	}
 
 	public int getPageSize() {

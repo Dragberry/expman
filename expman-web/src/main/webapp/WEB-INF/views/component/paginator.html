@@ -8,17 +8,20 @@
 	<nav th:fragment="paginator">
 		<script th:inline="javascript">
 			/*<![CDATA[*/
-				function changePage(page){
-			    	$("#pageForm").ajaxForm({
-			    		data: {
-			                page: page
-			            },
-			       	success : function(data) { 
-			        	alert("Page  selected!");
-			        },
-			        dataType : "text"
-			       }).submit();
-			    }
+				function changePage(page){		
+					$.ajax({
+					    type : "GET",
+					    data : {
+						    "page" : page
+						},
+						success : function(data) { 
+				        	alert("Page  selected!");
+				        },
+				        error : function(data) {
+				        	alert("Error!");
+				        }
+					});
+				}
 			/*]]>*/
 		</script>
 		<ul class="pagination">
